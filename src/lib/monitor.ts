@@ -13,7 +13,7 @@
 // Usa este modulo de forma responsable: respeta los robots.txt y los terminos de uso de
 // cada sitio, y no lo configures para hacer consultas con demasiada frecuencia.
 
-import { MUNICIPALITIES, type Municipality } from "@/data/municipalities";
+import { MUNICIPALITIES, bookingLink, type Municipality } from "@/data/municipalities";
 
 export type Availability = "disponible" | "sin-cupos" | "desconocido" | "error";
 
@@ -95,9 +95,20 @@ export async function checkMunicipality(m: Municipality): Promise<CheckResult> {
   const base: Omit<CheckResult, "availability" | "message"> = {
     municipalityId: m.id,
     comuna: m.comuna,
-    url: m.agendaUrl,
+    url: bookingLink(m),
     checkedAt,
   };
+
+  // Sin pagina directa verificada no es posible revisar automaticamente: se deriva a
+  // la busqueda oficial para que la persona la revise manualmente.
+  if (!m.agendaUrl) {
+    return {
+      ...base,
+      availability: "desconocido",
+      message:
+        "Esta comuna no tiene una pagina de agenda directa verificada. Revisa la disponibilidad manualmente desde el enlace.",
+    };
+  }
 
   const html = await fetchPage(m.agendaUrl);
   if (html == null) {
@@ -127,7 +138,8 @@ export async function checkMunicipality(m: Municipality): Promise<CheckResult> {
 export async function checkAll(ids?: string[]): Promise<CheckResult[]> {
   const targets = ids?.length
     ? MUNICIPALITIES.filter((m) => ids.includes(m.id))
-    : MUNICIPALITIES;
+    : // Por defecto (ej. el cron) solo se revisan las comunas con pagina directa verificada.
+      MUNICIPALITIES.filter((m) => m.agendaUrl);
   // Chequeos en paralelo pero acotados.
   return Promise.all(targets.map(checkMunicipality));
 }

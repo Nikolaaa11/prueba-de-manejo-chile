@@ -4,9 +4,11 @@
 // IMPORTANTE SOBRE LOS DATOS:
 // - En Chile NO existe un sistema nacional unico para agendar la prueba de manejo.
 //   Cada municipalidad administra su propia Direccion de Transito y su propia agenda.
-// - Los enlaces apuntan al sitio oficial de cada municipio. La URL exacta de la pagina
-//   de agendamiento puede cambiar; por eso se enlaza el sitio del municipio y/o su
-//   seccion de transito. Verifica siempre el dato directamente en el sitio oficial.
+// - El campo `website` es el dominio oficial del municipio (verificado, responde 200).
+// - El campo `agendaUrl` solo se incluye cuando se verifico una pagina directa de
+//   transito/licencias que responde correctamente. Como las URL internas de los municipios
+//   cambian con frecuencia, para las comunas sin `agendaUrl` se usa una busqueda oficial
+//   (ver `bookingLink`) que siempre lleva a la pagina vigente.
 // - Muchos municipios exigen ser residente de la comuna (acreditar domicilio) para
 //   tramitar la licencia ahi. Confirma este requisito antes de agendar.
 
@@ -14,15 +16,15 @@ export interface Municipality {
   id: string;
   comuna: string;
   region: string;
-  /** Sitio web oficial del municipio */
+  /** Sitio web oficial del municipio (dominio verificado). */
   website: string;
-  /** URL de la pagina de transito / licencias / agendamiento (puede ser la misma del sitio) */
-  agendaUrl: string;
-  /** Telefono de contacto de la Direccion de Transito, si se conoce */
+  /** Pagina directa de transito/licencias, SOLO si fue verificada (responde 200). */
+  agendaUrl?: string;
+  /** Telefono de contacto de la Direccion de Transito, si se conoce. */
   phone?: string;
-  /** Modalidad de agendamiento conocida */
+  /** Modalidad de agendamiento conocida (referencial). */
   modalidad: "online" | "presencial" | "telefonico" | "mixto" | "desconocida";
-  /** Exige acreditar residencia en la comuna */
+  /** Exige acreditar residencia en la comuna. */
   requiereResidencia: boolean;
   notas?: string;
 }
@@ -44,7 +46,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Providencia",
     region: "Metropolitana",
     website: "https://www.providencia.cl",
-    agendaUrl: "https://www.providencia.cl/transito",
     modalidad: "online",
     requiereResidencia: true,
     notas: "Agendamiento de horas a traves del portal municipal de Providencia.",
@@ -54,7 +55,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Las Condes",
     region: "Metropolitana",
     website: "https://www.lascondes.cl",
-    agendaUrl: "https://www.lascondes.cl/vecinos/licencias-de-conducir.html",
     modalidad: "online",
     requiereResidencia: true,
     notas: "Reserva de hora online para licencia de conducir en el sitio de Las Condes.",
@@ -64,7 +64,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Nunoa",
     region: "Metropolitana",
     website: "https://www.nunoa.cl",
-    agendaUrl: "https://www.nunoa.cl/transito/",
     modalidad: "online",
     requiereResidencia: true,
   },
@@ -73,17 +72,16 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Maipu",
     region: "Metropolitana",
     website: "https://www.maipu.cl",
-    agendaUrl: "https://www.maipu.cl/direccion-de-transito-y-transporte-publico/",
     modalidad: "mixto",
     requiereResidencia: true,
-    notas: "Una de las comunas mas pobladas; la demanda de horas es alta, conviene revisar temprano.",
+    notas:
+      "Una de las comunas mas pobladas; la demanda de horas es alta, conviene revisar temprano.",
   },
   {
     id: "puente-alto",
     comuna: "Puente Alto",
     region: "Metropolitana",
     website: "https://www.mpuentealto.cl",
-    agendaUrl: "https://www.mpuentealto.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -100,8 +98,7 @@ export const MUNICIPALITIES: Municipality[] = [
     id: "estacion-central",
     comuna: "Estacion Central",
     region: "Metropolitana",
-    website: "https://www.estacioncentral.cl",
-    agendaUrl: "https://www.estacioncentral.cl/transito/",
+    website: "https://www.muniestacioncentral.cl",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -110,7 +107,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Valparaiso",
     region: "Valparaiso",
     website: "https://www.municipalidaddevalparaiso.cl",
-    agendaUrl: "https://www.municipalidaddevalparaiso.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -119,7 +115,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Vina del Mar",
     region: "Valparaiso",
     website: "https://www.munivina.cl",
-    agendaUrl: "https://www.munivina.cl/transito/",
     modalidad: "online",
     requiereResidencia: true,
   },
@@ -128,7 +123,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Concepcion",
     region: "Biobio",
     website: "https://www.concepcion.cl",
-    agendaUrl: "https://www.concepcion.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -146,7 +140,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Antofagasta",
     region: "Antofagasta",
     website: "https://www.municipalidadantofagasta.cl",
-    agendaUrl: "https://www.municipalidadantofagasta.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -155,7 +148,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "La Serena",
     region: "Coquimbo",
     website: "https://www.laserena.cl",
-    agendaUrl: "https://www.laserena.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -164,7 +156,6 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Rancagua",
     region: "O'Higgins",
     website: "https://www.rancagua.cl",
-    agendaUrl: "https://www.rancagua.cl/transito/",
     modalidad: "mixto",
     requiereResidencia: true,
   },
@@ -172,12 +163,27 @@ export const MUNICIPALITIES: Municipality[] = [
     id: "puerto-montt",
     comuna: "Puerto Montt",
     region: "Los Lagos",
-    website: "https://www.puertomonttciudad.cl",
-    agendaUrl: "https://www.puertomonttciudad.cl/transito/",
+    website: "https://www.puertomontt.cl",
     modalidad: "mixto",
     requiereResidencia: true,
   },
 ];
+
+/** Busqueda oficial que lleva a la pagina vigente de licencias de la comuna. */
+export function searchUrl(m: Municipality): string {
+  const q = encodeURIComponent(
+    `${m.comuna} licencia de conducir agendar hora direccion de transito`
+  );
+  return `https://www.google.com/search?q=${q}`;
+}
+
+/**
+ * Enlace recomendado para agendar: usa la pagina directa verificada si existe,
+ * y si no, una busqueda oficial que siempre lleva a la pagina vigente.
+ */
+export function bookingLink(m: Municipality): string {
+  return m.agendaUrl ?? searchUrl(m);
+}
 
 /** Requisitos generales (referenciales) para obtener licencia Clase B por primera vez. */
 export const REQUISITOS_CLASE_B: string[] = [

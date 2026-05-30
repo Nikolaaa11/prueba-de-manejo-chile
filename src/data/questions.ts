@@ -689,11 +689,612 @@ export const QUESTIONS: Question[] = [
       "La bocina debe usarse solo para advertir peligros y evitar accidentes, no para apresurar o molestar a otros usuarios de la via.",
     reference: "Ley 18.290, art. 82",
   },
+  {
+    id: 46,
+    category: "senales",
+    question:
+      "Una senal circular de fondo blanco con borde rojo y una linea horizontal blanca al centro significa:",
+    options: ["Prohibido adelantar", "Prohibido el ingreso (no entrar)", "Via de un solo sentido", "Ceda el paso"],
+    answer: 1,
+    explanation:
+      "Es la senal reglamentaria 'No entrar': prohibe el ingreso de vehiculos a esa via o sentido de circulacion.",
+    reference: "Manual de Senalizacion de Transito (senales reglamentarias)",
+  },
+  {
+    id: 47,
+    category: "senales",
+    question: "Una linea de eje segmentada (discontinua) en la calzada indica que:",
+    options: [
+      "Esta prohibido adelantar",
+      "Se permite adelantar y cruzarla cuando es seguro hacerlo",
+      "Es el limite de la berma",
+      "Es una zona de detencion prohibida",
+    ],
+    answer: 1,
+    explanation:
+      "La linea segmentada permite el adelantamiento y el cruce siempre que haya visibilidad y sea seguro; la linea continua lo prohibe.",
+    reference: "Manual de Senalizacion de Transito (demarcaciones)",
+  },
+  {
+    id: 48,
+    category: "normas",
+    question:
+      "Al cruzarse con un vehiculo que viene en sentido contrario de noche, usted debe:",
+    options: [
+      "Mantener las luces altas para ver mejor",
+      "Cambiar a luces bajas para no encandilar al otro conductor",
+      "Apagar todas las luces",
+      "Encender las luces de emergencia",
+    ],
+    answer: 1,
+    explanation:
+      "Al cruzarse con otro vehiculo de frente (o seguir a uno de cerca) se deben usar las luces bajas para no encandilar y evitar accidentes.",
+    reference: "Ley 18.290, art. 96 y 97",
+  },
+  {
+    id: 49,
+    category: "seguridad",
+    question: "Las luces intermitentes de emergencia (balizas) se deben usar para:",
+    options: [
+      "Estacionar en un lugar prohibido por un momento",
+      "Indicar que el vehiculo esta detenido por emergencia o representa un peligro",
+      "Avisar que vas con prisa",
+      "Circular mas rapido en autopista",
+    ],
+    answer: 1,
+    explanation:
+      "Las luces de emergencia advierten que el vehiculo esta detenido o constituye un peligro; no autorizan a estacionar donde esta prohibido.",
+    reference: "Ley 18.290, art. 98",
+  },
+  {
+    id: 50,
+    category: "seguridad",
+    question:
+      "Si su vehiculo queda detenido en una carretera por una falla, lo correcto es:",
+    options: [
+      "Quedarse dentro del auto sin senalizar",
+      "Encender las balizas y colocar los triangulos o dispositivos de seguridad a una distancia prudente",
+      "Empujarlo solo hasta el centro de la pista",
+      "Esperar de noche sin luces para ahorrar bateria",
+    ],
+    answer: 1,
+    explanation:
+      "Ante una detencion de emergencia se deben encender las balizas y ubicar los triangulos reflectantes a una distancia prudente para advertir a los demas conductores.",
+    reference: "Ley 18.290, art. 99",
+  },
+  {
+    id: 51,
+    category: "velocidad",
+    question:
+      "Respecto de los vehiculos livianos, los buses y camiones generalmente tienen limites de velocidad:",
+    options: ["Mayores", "Iguales", "Menores", "Sin limite en carretera"],
+    answer: 2,
+    explanation:
+      "Por su mayor peso y distancia de frenado, los vehiculos pesados y de transporte de pasajeros tienen limites de velocidad menores que los livianos.",
+    reference: "Ley 18.290, art. 146 y 147",
+  },
+  {
+    id: 52,
+    category: "documentos",
+    question:
+      "Para postular a una licencia profesional (Clase A), por regla general se exige:",
+    options: [
+      "Ser mayor de 16 anos",
+      "Ser mayor de 20 anos y haber tenido previamente licencia Clase B por cierto tiempo",
+      "Solo aprobar el examen teorico",
+      "No se exige experiencia previa",
+    ],
+    answer: 1,
+    explanation:
+      "Las licencias profesionales Clase A exigen mayor edad (sobre 20 anos) y haber sido titular de licencia Clase B durante un periodo previo, ademas de cursos y examenes especificos.",
+    reference: "Ley 18.290, art. 13 y 14",
+  },
+  {
+    id: 53,
+    category: "documentos",
+    question: "La licencia de conducir no profesional (Clase B) debe ser controlada (renovada):",
+    options: ["Cada ano", "Cada 6 anos", "Cada 10 anos", "Nunca, es permanente"],
+    answer: 1,
+    explanation:
+      "La licencia no profesional se somete a un control cada 6 anos, donde se repiten examenes (medico, etc.) para confirmar la aptitud para conducir.",
+    reference: "Ley 18.290, art. 19",
+  },
+  {
+    id: 54,
+    category: "normas",
+    question:
+      "Si usted se ve involucrado en un accidente de transito con personas lesionadas, debe:",
+    options: [
+      "Retirarse del lugar para evitar problemas",
+      "Detenerse, prestar o procurar auxilio y dar aviso a la autoridad",
+      "Mover de inmediato a los heridos sin precaucion",
+      "Continuar la marcha si el dano es menor",
+    ],
+    answer: 1,
+    explanation:
+      "Ante un accidente con lesionados se debe detener, prestar o procurar la ayuda posible y avisar a la autoridad. Darse a la fuga es un delito.",
+    reference: "Ley 18.290, art. 168 y 176",
+  },
+  {
+    id: 55,
+    category: "documentos",
+    question: "Conducir un vehiculo sin haber obtenido nunca licencia de conducir es:",
+    options: [
+      "Una falta sin importancia",
+      "Una infraccion grave/gravisima que puede implicar multa y retiro del vehiculo",
+      "Permitido si vas acompanado",
+      "Permitido en calles sin transito",
+    ],
+    answer: 1,
+    explanation:
+      "Conducir sin licencia es una infraccion seria; puede acarrear multa, citacion al juzgado y retiro del vehiculo de circulacion.",
+    reference: "Ley 18.290, art. 196 y 200",
+  },
+  {
+    id: 56,
+    category: "seguridad",
+    question: "El uso del cinturon de seguridad en una mujer embarazada:",
+    options: [
+      "Esta prohibido",
+      "Es obligatorio, ubicando la banda inferior bajo el abdomen, sobre las caderas",
+      "Es opcional",
+      "Solo se usa la banda superior",
+    ],
+    answer: 1,
+    explanation:
+      "La embarazada debe usar cinturon; la banda inferior va por debajo del abdomen, ajustada sobre las caderas, y la diagonal entre los senos, hacia el costado del abdomen.",
+    reference: "Recomendaciones de seguridad (CONASET)",
+  },
+  {
+    id: 57,
+    category: "normas",
+    question: "Cuando un semaforo muestra una flecha verde hacia la izquierda, significa que:",
+    options: [
+      "Esta prohibido virar a la izquierda",
+      "Se autoriza virar a la izquierda con preferencia en ese momento",
+      "Solo pueden pasar los peatones",
+      "Debes detenerte obligatoriamente",
+    ],
+    answer: 1,
+    explanation:
+      "La flecha verde autoriza el movimiento en esa direccion (en este caso, virar a la izquierda) con preferencia mientras este encendida.",
+    reference: "Manual de Senalizacion (semaforos)",
+  },
+  {
+    id: 58,
+    category: "normas",
+    question: "En Chile, virar a la derecha cuando el semaforo esta en rojo:",
+    options: [
+      "Esta siempre permitido tras detenerse",
+      "Esta prohibido, salvo que una senal lo autorice expresamente",
+      "Esta permitido solo de noche",
+      "Esta permitido si no vienen peatones",
+    ],
+    answer: 1,
+    explanation:
+      "A diferencia de otros paises, en Chile no se permite virar con luz roja salvo que exista una senal especifica que lo autorice.",
+    reference: "Ley 18.290, art. 104",
+  },
+  {
+    id: 59,
+    category: "normas",
+    question: "El viraje en 'U' (cambio de sentido) esta prohibido:",
+    options: [
+      "En cualquier calle ancha",
+      "En curvas, puentes, tuneles, cruces y donde haya linea continua o lo prohiba la senalizacion",
+      "Solo en autopistas",
+      "Nunca esta prohibido",
+    ],
+    answer: 1,
+    explanation:
+      "El viraje en U esta prohibido donde compromete la seguridad o la visibilidad: curvas, cimas, puentes, tuneles, intersecciones y donde haya linea continua o senal que lo impida.",
+    reference: "Ley 18.290, art. 138",
+  },
+  {
+    id: 60,
+    category: "preferencia",
+    question: "Frente a un vehiculo que circula sobre rieles (tren o tranvia), usted debe:",
+    options: [
+      "Cruzar rapido antes que pase",
+      "Cederle siempre el paso, pues no puede maniobrar para esquivar",
+      "Tocar la bocina para que se detenga",
+      "Avanzar en paralelo",
+    ],
+    answer: 1,
+    explanation:
+      "Los vehiculos que circulan sobre rieles tienen preferencia porque no pueden desviarse ni frenar con facilidad; siempre se les cede el paso.",
+    reference: "Ley 18.290, art. 137",
+  },
+  {
+    id: 61,
+    category: "velocidad",
+    question:
+      "En condiciones de neblina densa, tunel o baja visibilidad, lo recomendable es:",
+    options: [
+      "Aumentar la velocidad para salir pronto",
+      "Reducir la velocidad, encender las luces y aumentar la distancia de seguimiento",
+      "Usar las luces altas",
+      "Apagar las luces para ver mejor",
+    ],
+    answer: 1,
+    explanation:
+      "Con neblina o baja visibilidad se reduce la velocidad, se encienden luces bajas (y antiniebla si se tienen) y se aumenta la distancia con el vehiculo de adelante. Las luces altas empeoran la vision con neblina.",
+    reference: "Conduccion defensiva (CONASET)",
+  },
+  {
+    id: 62,
+    category: "seguridad",
+    question: "Las luces antiniebla se deben utilizar:",
+    options: [
+      "Siempre, junto con las luces altas",
+      "Solo en condiciones de baja visibilidad (niebla, lluvia intensa, polvo)",
+      "Para circular mas rapido de noche",
+      "Como reemplazo de las luces bajas siempre",
+    ],
+    answer: 1,
+    explanation:
+      "Las luces antiniebla son un apoyo para condiciones de baja visibilidad; usarlas sin necesidad puede encandilar a otros conductores.",
+    reference: "Ley 18.290, art. 96",
+  },
+  {
+    id: 63,
+    category: "normas",
+    question:
+      "Si transporta carga que sobresale por la parte trasera del vehiculo, debe:",
+    options: [
+      "No es necesario senalizarla",
+      "Senalizarla (banderola roja de dia y luz o reflectante de noche) y respetar los limites permitidos",
+      "Conducir mas rapido para llegar pronto",
+      "Llevarla solo en la noche",
+    ],
+    answer: 1,
+    explanation:
+      "La carga que sobresale debe ir debidamente senalizada con una banderola roja de dia y luz/elemento reflectante de noche, sin exceder lo permitido.",
+    reference: "Ley 18.290, art. 71",
+  },
+  {
+    id: 64,
+    category: "documentos",
+    question: "Conducir un vehiculo sin portar la licencia de conducir:",
+    options: [
+      "No tiene sancion si la tienes vigente en casa",
+      "Es una infraccion: la licencia debe portarse siempre mientras se conduce",
+      "Esta permitido los fines de semana",
+      "Solo se exige en carretera",
+    ],
+    answer: 1,
+    explanation:
+      "La licencia de conducir debe portarse siempre al conducir; no llevarla constituye una infraccion aunque la licencia este vigente.",
+    reference: "Ley 18.290, art. 5",
+  },
+  {
+    id: 65,
+    category: "seguridad",
+    question: "El airbag (bolsa de aire) del vehiculo:",
+    options: [
+      "Reemplaza al cinturon de seguridad",
+      "Complementa al cinturon, pero no lo reemplaza; sin cinturon puede causar lesiones",
+      "Se debe desactivar siempre",
+      "Solo sirve en choques traseros",
+    ],
+    answer: 1,
+    explanation:
+      "El airbag es un complemento del cinturon de seguridad. Sin cinturon, su despliegue puede provocar lesiones; ambos sistemas funcionan en conjunto.",
+    reference: "Seguridad pasiva (CONASET)",
+  },
+  {
+    id: 66,
+    category: "normas",
+    question: "La diferencia entre 'detencion' y 'estacionamiento' es que:",
+    options: [
+      "Son lo mismo",
+      "La detencion es una parada breve para subir/bajar pasajeros o carga; el estacionamiento es dejar el vehiculo inmovil por mas tiempo",
+      "La detencion solo ocurre en semaforos",
+      "El estacionamiento siempre es gratis",
+    ],
+    answer: 1,
+    explanation:
+      "La detencion es una parada momentanea (por ejemplo para que baje un pasajero); el estacionamiento implica dejar el vehiculo inmovilizado por un periodo mayor.",
+    reference: "Ley 18.290, art. 2 (definiciones)",
+  },
+  {
+    id: 67,
+    category: "normas",
+    question: "Una pista demarcada como 'solo bus' o de uso exclusivo:",
+    options: [
+      "Puede ser usada por cualquier vehiculo",
+      "Solo puede ser utilizada por los vehiculos autorizados (buses), salvo las excepciones senalizadas",
+      "Es para estacionar",
+      "Es para ciclistas",
+    ],
+    answer: 1,
+    explanation:
+      "Las pistas exclusivas (solo bus) estan reservadas a los vehiculos autorizados; circular por ellas indebidamente es una infraccion.",
+    reference: "Ley 18.290 y ordenanzas locales",
+  },
+  {
+    id: 68,
+    category: "preferencia",
+    question: "Al incorporarse desde una via secundaria a una via principal o de mayor flujo, usted debe:",
+    options: [
+      "Ingresar sin detenerse",
+      "Ceder el paso a los vehiculos que circulan por la via principal",
+      "Tocar la bocina y avanzar",
+      "Tener siempre la preferencia",
+    ],
+    answer: 1,
+    explanation:
+      "Quien se incorpora desde una via secundaria debe ceder el paso a los vehiculos que ya circulan por la via principal.",
+    reference: "Ley 18.290, art. 137 y senalizacion",
+  },
+  {
+    id: 69,
+    category: "seguridad",
+    question: "A mayor velocidad, la distancia necesaria para detener el vehiculo:",
+    options: [
+      "Disminuye",
+      "Aumenta de forma considerable",
+      "Se mantiene igual",
+      "No depende de la velocidad",
+    ],
+    answer: 1,
+    explanation:
+      "La distancia de frenado aumenta fuertemente con la velocidad (la energia crece con el cuadrado de la velocidad), por eso a mayor rapidez se necesita mucho mas espacio para detenerse.",
+    reference: "Fisica de la conduccion (CONASET)",
+  },
+  {
+    id: 70,
+    category: "seguridad",
+    question: "Si siente sueno o fatiga mientras conduce en carretera, lo correcto es:",
+    options: [
+      "Seguir conduciendo y tomar cafe sin detenerse",
+      "Detenerse en un lugar seguro y descansar antes de continuar",
+      "Aumentar la velocidad para llegar antes",
+      "Abrir la ventana y continuar muchas horas",
+    ],
+    answer: 1,
+    explanation:
+      "La fatiga y la somnolencia reducen los reflejos y la atencion como el alcohol. Ante los primeros sintomas hay que detenerse en un lugar seguro y descansar.",
+    reference: "Conduccion segura (CONASET)",
+  },
+  {
+    id: 71,
+    category: "alcohol",
+    question: "Ademas del alcohol, conducir bajo el efecto de drogas o ciertos medicamentos:",
+    options: [
+      "No esta regulado",
+      "Esta prohibido y sancionado, pues alteran la capacidad de conducir",
+      "Esta permitido con receta",
+      "Solo afecta de noche",
+    ],
+    answer: 1,
+    explanation:
+      "Esta prohibido conducir bajo la influencia de sustancias estupefacientes o psicotropicas, y se debe tener precaucion con medicamentos que provoquen somnolencia.",
+    reference: "Ley 18.290, art. 110 y 115 A",
+  },
+  {
+    id: 72,
+    category: "senales",
+    question: "Una senal preventiva con dos ninos caminando (figuras) advierte:",
+    options: [
+      "Prohibido el paso de ninos",
+      "Proximidad de una escuela o zona de ninos: reduzca la velocidad y extreme precaucion",
+      "Zona de juegos prohibida",
+      "Fin de zona escolar",
+    ],
+    answer: 1,
+    explanation:
+      "Es una senal preventiva que advierte la cercania de una escuela o zona con presencia de ninos; se debe reducir la velocidad y conducir con maxima precaucion.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 73,
+    category: "normas",
+    question: "Frente a un transporte escolar detenido mientras suben o bajan ninos, usted debe:",
+    options: [
+      "Adelantarlo a alta velocidad",
+      "Disminuir la velocidad y extremar la precaucion, pues pueden cruzar ninos",
+      "Tocar la bocina para que avance",
+      "Ignorarlo si vas por otra pista",
+    ],
+    answer: 1,
+    explanation:
+      "Cerca de un transporte escolar detenido pueden aparecer ninos cruzando inesperadamente; hay que reducir la velocidad y conducir con maxima precaucion.",
+    reference: "Conduccion segura (CONASET)",
+  },
+  {
+    id: 74,
+    category: "senales",
+    question: "Un resalto o lomo de toro (badén) en la via tiene como objetivo:",
+    options: [
+      "Adornar la calle",
+      "Obligar a reducir la velocidad en sectores de riesgo (cerca de colegios, pasos peatonales, etc.)",
+      "Marcar el fin de la via",
+      "Indicar estacionamiento",
+    ],
+    answer: 1,
+    explanation:
+      "Los resaltos reductores de velocidad obligan a aminorar la marcha en sectores sensibles; deben estar debidamente senalizados.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 75,
+    category: "normas",
+    question: "Conducir en sentido contrario al transito establecido en una via:",
+    options: [
+      "Esta permitido si no viene nadie",
+      "Esta prohibido y constituye una infraccion grave por el alto riesgo de colision frontal",
+      "Esta permitido de noche",
+      "Solo se sanciona en autopista",
+    ],
+    answer: 1,
+    explanation:
+      "Circular en contra del sentido del transito es una infraccion grave por el riesgo de colision frontal; siempre debe respetarse el sentido senalizado.",
+    reference: "Ley 18.290, art. 119 y 200",
+  },
+  {
+    id: 76,
+    category: "seguridad",
+    question: "El estado de los neumaticos (presion y dibujo/labrado) influye en:",
+    options: [
+      "Solo en el consumo de combustible",
+      "La adherencia, la frenada y la estabilidad del vehiculo, afectando la seguridad",
+      "Nada importante",
+      "Solo en la comodidad",
+    ],
+    answer: 1,
+    explanation:
+      "Neumaticos en mal estado o con presion incorrecta reducen la adherencia y alargan la frenada, especialmente con pavimento mojado, aumentando el riesgo.",
+    reference: "Seguridad activa (CONASET)",
+  },
+  {
+    id: 77,
+    category: "preferencia",
+    question: "Cuando un peaton con discapacidad o un adulto mayor cruza lentamente la calzada, usted debe:",
+    options: [
+      "Apurarlo con la bocina",
+      "Esperar con paciencia y cederle el paso hasta que termine de cruzar",
+      "Avanzar rodeandolo",
+      "Pasar primero si alcanzas",
+    ],
+    answer: 1,
+    explanation:
+      "Se debe dar preferencia y esperar a que las personas con movilidad reducida, adultos mayores o ninos terminen de cruzar con seguridad.",
+    reference: "Ley 18.290, art. 168",
+  },
+  {
+    id: 78,
+    category: "normas",
+    question: "Antes de retroceder (dar marcha atras) con el vehiculo, el conductor debe:",
+    options: [
+      "Hacerlo rapido sin mirar",
+      "Asegurarse de que la maniobra no representa peligro, mirando hacia atras y verificando que no haya personas ni obstaculos",
+      "Confiar solo en los sensores",
+      "Tocar la bocina y avanzar",
+    ],
+    answer: 1,
+    explanation:
+      "La marcha atras solo se realiza cuando es segura: hay que verificar que no haya peatones (especialmente ninos), vehiculos ni obstaculos detras.",
+    reference: "Ley 18.290, art. 139",
+  },
+  {
+    id: 79,
+    category: "velocidad",
+    question:
+      "Cuando la senalizacion indica una velocidad maxima menor que el limite general de la via, usted debe:",
+    options: [
+      "Mantener el limite general porque es ley",
+      "Respetar la velocidad indicada por la senal, que prima sobre el limite general",
+      "Promediar ambas velocidades",
+      "Ignorar la senal si no hay fiscalizacion",
+    ],
+    answer: 1,
+    explanation:
+      "La senalizacion especifica de un tramo prima sobre el limite general: si una senal indica una velocidad menor, esa es la que se debe respetar.",
+    reference: "Ley 18.290, art. 148",
+  },
+  {
+    id: 80,
+    category: "senales",
+    question: "Ante la senal 'PARE', el conductor debe detenerse:",
+    options: [
+      "Solo si viene otro vehiculo",
+      "Totalmente, siempre, antes de la linea de detencion, aunque no venga nadie",
+      "Solo disminuir la velocidad",
+      "Solo de noche",
+    ],
+    answer: 1,
+    explanation:
+      "La senal 'PARE' obliga a una detencion total antes de la linea de detencion en todos los casos, incluso si no se aproximan otros vehiculos.",
+    reference: "Ley 18.290, art. 135",
+  },
+  {
+    id: 81,
+    category: "documentos",
+    question: "El permiso de circulacion de un vehiculo es:",
+    options: [
+      "Un seguro contra accidentes",
+      "Un pago anual obligatorio que autoriza al vehiculo a circular por las vias publicas",
+      "La licencia del conductor",
+      "El certificado de revision tecnica",
+    ],
+    answer: 1,
+    explanation:
+      "El permiso de circulacion es un tributo anual que habilita al vehiculo para transitar; es distinto de la revision tecnica, del SOAP y de la licencia de conducir.",
+    reference: "Ley de Rentas Municipales / Ley 18.290",
+  },
+  {
+    id: 82,
+    category: "preferencia",
+    question: "En un cruce ferroviario con barreras bajadas o luces encendidas, usted debe:",
+    options: [
+      "Rodear las barreras si no ve el tren",
+      "Detenerse y esperar; nunca cruzar con las barreras bajas o las luces activas",
+      "Cruzar rapido",
+      "Tocar la bocina y pasar",
+    ],
+    answer: 1,
+    explanation:
+      "Jamas se debe cruzar un paso ferroviario con las barreras bajas o las senales activas; hay que detenerse y esperar a que se autorice el cruce.",
+    reference: "Ley 18.290, art. 143",
+  },
+  {
+    id: 83,
+    category: "normas",
+    question: "El uso de luces direccionales (intermitentes de viraje) sirve para:",
+    options: [
+      "Decorar el vehiculo",
+      "Anunciar con anticipacion a los demas la intencion de virar o cambiar de pista",
+      "Indicar que vas con apuro",
+      "Reemplazar a los espejos",
+    ],
+    answer: 1,
+    explanation:
+      "Las luces direccionales comunican con anticipacion la intencion de virar o cambiar de pista, permitiendo que otros usuarios reaccionen a tiempo.",
+    reference: "Ley 18.290, art. 124",
+  },
+  {
+    id: 84,
+    category: "seguridad",
+    question: "Si debe bajar de su vehiculo detenido en la berma de una carretera de noche, conviene:",
+    options: [
+      "Vestir ropa oscura",
+      "Usar elementos reflectantes o ropa clara y mantenerse alejado de la pista de circulacion",
+      "Caminar por el centro de la pista",
+      "Apagar todas las luces del auto",
+    ],
+    answer: 1,
+    explanation:
+      "Para ser visible y seguro, conviene usar elementos reflectantes o ropa clara, mantener las balizas encendidas y alejarse de la pista por la que circulan los vehiculos.",
+    reference: "Conduccion segura (CONASET)",
+  },
+  {
+    id: 85,
+    category: "normas",
+    question: "La berma (acotamiento) de una carretera esta destinada principalmente a:",
+    options: [
+      "Adelantar por la derecha",
+      "Detenciones de emergencia, no para circular ni adelantar",
+      "Estacionar libremente",
+      "Circular cuando hay congestion",
+    ],
+    answer: 1,
+    explanation:
+      "La berma sirve para detenciones de emergencia. Circular o adelantar por ella esta prohibido y es muy peligroso.",
+    reference: "Ley 18.290, art. 119 y 128",
+  },
 ];
 
-/** Devuelve `count` preguntas aleatorias (mezcladas) usando una semilla simple. */
-export function pickRandom(count: number, seed = Date.now()): Question[] {
-  const arr = [...QUESTIONS];
+/**
+ * Devuelve `count` preguntas aleatorias (mezcladas) usando una semilla simple.
+ * Opcionalmente se puede acotar a un subconjunto de preguntas mediante `pool`.
+ */
+export function pickRandom(
+  count: number,
+  seed: number = Date.now(),
+  pool: Question[] = QUESTIONS
+): Question[] {
+  const arr = [...pool];
   let s = seed % 2147483647;
   if (s <= 0) s += 2147483646;
   const rng = () => (s = (s * 16807) % 2147483647) / 2147483647;

@@ -87,16 +87,26 @@ export default function MonitorPage() {
             <button
               key={m.id}
               onClick={() => toggle(m.id)}
+              title={
+                m.agendaUrl
+                  ? "Monitoreo directo de la pagina de agenda"
+                  : "Sin pagina directa: se deriva a busqueda manual"
+              }
               className={`rounded-full border px-3 py-1 text-sm transition ${
                 selected.includes(m.id)
                   ? "border-brand bg-brand text-white"
                   : "border-black/15 bg-white hover:border-brand/50"
               }`}
             >
+              {m.agendaUrl && <span className="mr-1 text-green-500">●</span>}
               {m.comuna}
             </button>
           ))}
         </div>
+        <p className="mt-2 text-xs text-gray-400">
+          <span className="text-green-500">●</span> = monitoreo directo disponible. El resto
+          se deriva a busqueda manual.
+        </p>
         <button
           onClick={run}
           disabled={loading}

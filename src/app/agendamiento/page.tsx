@@ -5,6 +5,7 @@ import {
   MUNICIPALITIES,
   REQUISITOS_CLASE_B,
   DOCUMENTOS,
+  bookingLink,
   type Municipality,
 } from "@/data/municipalities";
 
@@ -104,23 +105,31 @@ export default function AgendamientoPage() {
               <p className="mt-2 text-sm text-gray-600">📞 {m.phone}</p>
             )}
 
-            <div className="mt-auto flex flex-wrap gap-2 pt-4">
-              <a
-                href={m.agendaUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
-              >
-                Ir a agendar →
-              </a>
-              <a
-                href={m.website}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-lg border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/5"
-              >
-                Sitio del municipio
-              </a>
+            <div className="mt-auto pt-4">
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href={bookingLink(m)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
+                >
+                  {m.agendaUrl ? "Ir a agendar →" : "Buscar pagina oficial →"}
+                </a>
+                <a
+                  href={m.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-lg border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/5"
+                >
+                  Sitio del municipio
+                </a>
+              </div>
+              {!m.agendaUrl && (
+                <p className="mt-2 text-xs text-gray-400">
+                  Sin enlace directo verificado: el boton abre una busqueda oficial que
+                  lleva a la pagina vigente de la comuna.
+                </p>
+              )}
             </div>
           </div>
         ))}
