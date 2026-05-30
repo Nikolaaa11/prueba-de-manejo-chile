@@ -9,8 +9,13 @@ Plataforma web (Next.js) para **estudiar el examen teórico de licencia de condu
 | Módulo | Descripción |
 | --- | --- |
 | **Test teórico** (`/test`) | 95 preguntas Clase B con explicaciones y referencia legal. Modo *práctica* (feedback inmediato + filtro por tema) y modo *examen* (20 preguntas al azar, **temporizador real** y resultado al final). Tus **estadísticas** (mejor puntaje, intentos) se guardan en el navegador. |
-| **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, enlaces directos confirmados (y búsqueda oficial de respaldo), modalidad, requisitos y documentos. Buscador por comuna/región. |
+| **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, **ordenado por posibilidad de conseguir cupo**, con badge de demanda, horario de liberación de cupos y cuenta regresiva, filtros, enlaces directos confirmados (y búsqueda oficial de respaldo). |
+| **Calendario** (`/calendario`) | Cuándo libera cupos cada comuna (datos reales de fuentes oficiales): próximas liberaciones con cuenta regresiva, grilla mensual y **exportación a `.ics`** para poner recordatorios con alarma en tu teléfono (Google/Apple Calendar). También avisos del navegador. |
 | **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada leyendo las páginas municipales (solo comunas con página directa verificada), con patrón de adaptadores. Incluye cron de Vercel y notificaciones opcionales por webhook. |
+
+### Sobre los horarios de liberación de cupos
+
+Los horarios de cuándo cada comuna abre nuevas horas (ej. Las Condes los sábados 10:00, La Reina el día 15 a las 18:00, Pudahuel/Colina los lunes, Quilicura el primer día hábil del mes) se obtuvieron de los **sitios oficiales de cada municipio** (el campo `source` en [`src/data/municipalities.ts`](./src/data/municipalities.ts) enlaza la fuente). **No hay un dato oficial nacional sobre esto** y los municipios pueden cambiarlo sin aviso: el calendario es una guía de *cuándo conviene entrar a revisar*, no una garantía. Por eso la alerta más confiable es el `.ics` (recordatorio recurrente en tu calendario), complementado con el monitor que revisa empíricamente.
 
 ## La verdad sobre "conseguir hora rápido"
 
