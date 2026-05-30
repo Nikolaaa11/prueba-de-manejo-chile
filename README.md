@@ -8,7 +8,7 @@ Plataforma web (Next.js) para **estudiar el examen teórico de licencia de condu
 
 | Módulo | Descripción |
 | --- | --- |
-| **Test teórico** (`/test`) | 95 preguntas Clase B con explicaciones y referencia legal. Modo *práctica* (feedback inmediato + filtro por tema) y modo *examen* (20 preguntas al azar, **temporizador real** y resultado al final). Tus **estadísticas** (mejor puntaje, intentos) se guardan en el navegador. |
+| **Test teórico** (`/test`) | 95 preguntas Clase B con explicaciones, referencia legal e **imágenes de señales** (SVG propios). Modos: *práctica* (feedback inmediato + filtro por tema), *examen* (20 al azar, **temporizador**), *preguntas frecuentes* (22 claves) y **repasa tus errores** (personalizado: registra tus aciertos/fallos por pregunta en el navegador y te muestra las que más fallas). Estadísticas guardadas localmente. |
 | **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, **ordenado por posibilidad de conseguir cupo**, con badge de demanda, horario de liberación de cupos y cuenta regresiva, filtros, enlaces directos confirmados (y búsqueda oficial de respaldo). |
 | **Calendario** (`/calendario`) | Cuándo libera cupos cada comuna (datos reales de fuentes oficiales): próximas liberaciones con cuenta regresiva, grilla mensual y **exportación a `.ics`** para poner recordatorios con alarma en tu teléfono (Google/Apple Calendar). También avisos del navegador. |
 | **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada leyendo las páginas municipales (solo comunas con página directa verificada), con patrón de adaptadores. Incluye cron de Vercel y notificaciones opcionales por webhook. |
