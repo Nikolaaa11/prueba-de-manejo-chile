@@ -5,15 +5,23 @@ import {
   QUESTIONS,
   CATEGORY_LABELS,
   pickRandom,
+  frequentQuestions,
   type Question,
   type Category,
 } from "@/data/questions";
+import { Sign } from "@/components/Signs";
+import {
+  loadQStats,
+  recordResults,
+  worstQuestions,
+  errorRate,
+  type QStatsMap,
+} from "@/lib/qstats";
 
-type Mode = "menu" | "practica" | "examen" | "resultado";
+type Mode = "menu" | "practica" | "examen" | "frecuentes" | "errores" | "resultado";
 
-// Configuracion del examen referencial: ~20 preguntas, se aprueba con un alto porcentaje.
 const EXAM_SIZE = Math.min(20, QUESTIONS.length);
-const PASS_RATIO = 0.7; // 70% para aprobar (referencial)
+const PASS_RATIO = 0.7;
 const STORAGE_KEY = "licencia-chile-stats-v1";
 
 interface Stats {
@@ -23,7 +31,6 @@ interface Stats {
   totalCorrect: number;
   totalAnswered: number;
 }
-
 const EMPTY_STATS: Stats = {
   examsTaken: 0,
   bestPercent: 0,
@@ -41,7 +48,6 @@ function loadStats(): Stats {
     return EMPTY_STATS;
   }
 }
-
 function saveStats(s: Stats) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
@@ -49,12 +55,14 @@ function saveStats(s: Stats) {
     /* ignore */
   }
 }
-
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
+
+const isPracticeLike = (m: Mode) =>
+  m === "practica" || m === "frecuentes" || m === "errores";
 
 export default function TestPage() {
   const [mode, setMode] = useState<Mode>("menu");
@@ -64,16 +72,19 @@ export default function TestPage() {
   const [revealed, setRevealed] = useState<Record<number, boolean>>({});
   const [practiceCategory, setPracticeCategory] = useState<Category | "all">("all");
 
-  // Temporizador (segundos transcurridos) para el modo examen.
   const [elapsed, setElapsed] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Estadisticas persistidas.
   const [stats, setStats] = useState<Stats>(EMPTY_STATS);
+  const [qstats, setQStats] = useState<QStatsMap>({});
   const savedRef = useRef(false);
-  useEffect(() => setStats(loadStats()), []);
+  const recordedRef = useRef<Set<number>>(new Set());
 
-  // Control del temporizador segun el modo.
+  useEffect(() => {
+    setStats(loadStats());
+    setQStats(loadQStats());
+  }, []);
+
   useEffect(() => {
     if (mode === "examen") {
       timerRef.current = setInterval(() => setElapsed((e) => e + 1), 1000);
@@ -83,30 +94,46 @@ export default function TestPage() {
     };
   }, [mode]);
 
-  const start = (m: "practica" | "examen") => {
-    let pool = QUESTIONS;
-    if (m === "practica" && practiceCategory !== "all") {
-      pool = QUESTIONS.filter((q) => q.category === practiceCategory);
+  const worst = useMemo(() => worstQuestions(QUESTIONS, qstats), [qstats]);
+
+  const start = (m: Mode) => {
+    let qs: Question[] = [];
+    if (m === "examen") qs = pickRandom(EXAM_SIZE);
+    else if (m === "frecuentes") {
+      const fq = frequentQuestions();
+      qs = pickRandom(fq.length, undefined, fq);
+    } else if (m === "errores") qs = worst.map((w) => w.question);
+    else {
+      const pool =
+        practiceCategory !== "all"
+          ? QUESTIONS.filter((q) => q.category === practiceCategory)
+          : QUESTIONS;
+      qs = pickRandom(pool.length, undefined, pool);
     }
-    const qs =
-      m === "examen"
-        ? pickRandom(EXAM_SIZE)
-        : pickRandom(pool.length, undefined, pool);
+    if (qs.length === 0) return;
     setQuestions(qs);
     setIndex(0);
     setAnswers({});
     setRevealed({});
     setElapsed(0);
     savedRef.current = false;
+    recordedRef.current = new Set();
     setMode(m);
   };
 
   const current = questions[index];
 
   const choose = (qid: number, optionIdx: number) => {
-    if (mode === "practica" && revealed[qid]) return;
+    if (isPracticeLike(mode) && revealed[qid]) return;
     setAnswers((a) => ({ ...a, [qid]: optionIdx }));
-    if (mode === "practica") setRevealed((r) => ({ ...r, [qid]: true }));
+    if (isPracticeLike(mode)) {
+      setRevealed((r) => ({ ...r, [qid]: true }));
+      const q = questions.find((x) => x.id === qid);
+      if (q && !recordedRef.current.has(qid)) {
+        recordedRef.current.add(qid);
+        setQStats((prev) => recordResults([{ id: qid, correct: optionIdx === q.answer }], prev));
+      }
+    }
   };
 
   const correctCount = useMemo(
@@ -116,10 +143,15 @@ export default function TestPage() {
 
   const finishExam = () => {
     if (timerRef.current) clearInterval(timerRef.current);
+    setQStats((prev) =>
+      recordResults(
+        questions.map((q) => ({ id: q.id, correct: answers[q.id] === q.answer })),
+        prev
+      )
+    );
     setMode("resultado");
   };
 
-  // Persistir estadisticas al llegar a resultado (una sola vez por examen).
   useEffect(() => {
     if (mode !== "resultado" || questions.length === 0 || savedRef.current) return;
     savedRef.current = true;
@@ -154,10 +186,7 @@ export default function TestPage() {
             <StatBox label="Examenes" value={String(stats.examsTaken)} />
             <StatBox label="Mejor puntaje" value={`${stats.bestPercent}%`} highlight />
             <StatBox label="Ultimo" value={`${stats.lastPercent}%`} />
-            <StatBox
-              label="Aciertos totales"
-              value={`${stats.totalCorrect}/${stats.totalAnswered}`}
-            />
+            <StatBox label="Por repasar" value={String(worst.length)} />
           </div>
         )}
 
@@ -166,16 +195,14 @@ export default function TestPage() {
             <div className="text-3xl">📚</div>
             <h2 className="mt-2 text-lg font-semibold">Modo practica</h2>
             <p className="mt-1 text-sm text-gray-600">
-              Responde y revisa de inmediato la respuesta correcta con su explicacion y
-              referencia legal. Puedes enfocarte en un tema.
+              Responde y revisa de inmediato, con explicacion y referencia legal. Puedes
+              enfocarte en un tema.
             </p>
             <label className="mt-3 block text-sm font-medium text-gray-700">
               Tema
               <select
                 value={practiceCategory}
-                onChange={(e) =>
-                  setPracticeCategory(e.target.value as Category | "all")
-                }
+                onChange={(e) => setPracticeCategory(e.target.value as Category | "all")}
                 className="mt-1 w-full rounded-lg border border-black/15 px-3 py-2 outline-none focus:border-brand"
               >
                 <option value="all">Todos los temas ({QUESTIONS.length})</option>
@@ -201,14 +228,46 @@ export default function TestPage() {
             <div className="text-3xl">🎯</div>
             <h2 className="mt-2 text-lg font-semibold">Modo examen</h2>
             <p className="mt-1 text-sm text-gray-600">
-              {EXAM_SIZE} preguntas al azar, como el examen real, con temporizador. Recibes
-              tu resultado al final (apruebas con {Math.round(PASS_RATIO * 100)}% o mas).
+              {EXAM_SIZE} preguntas al azar, como el examen real, con temporizador. Apruebas
+              con {Math.round(PASS_RATIO * 100)}% o mas.
             </p>
             <button
               onClick={() => start("examen")}
               className="mt-4 w-full rounded-lg bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700"
             >
               Comenzar examen
+            </button>
+          </div>
+
+          <div className="rounded-xl border border-black/10 bg-white p-6">
+            <div className="text-3xl">⭐</div>
+            <h2 className="mt-2 text-lg font-semibold">Preguntas frecuentes</h2>
+            <p className="mt-1 text-sm text-gray-600">
+              Las {frequentQuestions().length} preguntas clave sobre los temas que casi
+              siempre aparecen. Ideal para un repaso rapido.
+            </p>
+            <button
+              onClick={() => start("frecuentes")}
+              className="mt-4 w-full rounded-lg bg-brand px-5 py-2.5 font-semibold text-white hover:bg-brand-dark"
+            >
+              Repasar frecuentes
+            </button>
+          </div>
+
+          <div className="rounded-xl border border-black/10 bg-white p-6">
+            <div className="text-3xl">🔁</div>
+            <h2 className="mt-2 text-lg font-semibold">Repasa tus errores</h2>
+            <p className="mt-1 text-sm text-gray-600">
+              {worst.length > 0
+                ? `Tienes ${worst.length} pregunta(s) que sueles fallar. Repasalas, ordenadas de la que mas fallas a la que menos.`
+                : "Aun no hay errores registrados. Responde algunas preguntas y aqui apareceran las que mas fallas."}
+            </p>
+            <button
+              onClick={() => start("errores")}
+              disabled={worst.length === 0}
+              className="mt-4 w-full rounded-lg bg-flag-red px-5 py-2.5 font-semibold text-white hover:opacity-90 disabled:opacity-40"
+            >
+              Repasar mis errores
             </button>
           </div>
         </div>
@@ -223,14 +282,8 @@ export default function TestPage() {
     const passed = correctCount / questions.length >= PASS_RATIO;
     return (
       <div className="space-y-6">
-        <div
-          className={`rounded-2xl p-8 text-white ${
-            passed ? "bg-green-600" : "bg-flag-red"
-          }`}
-        >
-          <h1 className="text-3xl font-bold">
-            {passed ? "¡Aprobado! 🎉" : "Sigue practicando 💪"}
-          </h1>
+        <div className={`rounded-2xl p-8 text-white ${passed ? "bg-green-600" : "bg-flag-red"}`}>
+          <h1 className="text-3xl font-bold">{passed ? "¡Aprobado! 🎉" : "Sigue practicando 💪"}</h1>
           <p className="mt-2 text-lg">
             Respondiste correctamente {correctCount} de {questions.length} (
             {Math.round((correctCount / questions.length) * 100)}%).
@@ -247,6 +300,7 @@ export default function TestPage() {
                 <p className="font-medium">
                   {i + 1}. {q.question}
                 </p>
+                {q.image && <Sign name={q.image} size={96} className="mt-2" />}
                 <p className={`mt-1 text-sm ${ok ? "text-green-700" : "text-flag-red"}`}>
                   {ok ? "✓ Correcta" : "✗ Incorrecta"} — tu respuesta:{" "}
                   {userAns != null ? q.options[userAns] : "(sin responder)"}
@@ -281,11 +335,11 @@ export default function TestPage() {
     );
   }
 
-  // ---- PRACTICA / EXAMEN (una pregunta) ----
+  // ---- PRACTICA / EXAMEN / FRECUENTES / ERRORES (una pregunta) ----
   if (!current) {
     return (
       <div className="space-y-4">
-        <p className="text-gray-600">No hay preguntas disponibles para este tema.</p>
+        <p className="text-gray-600">No hay preguntas disponibles para esta seccion.</p>
         <button
           onClick={() => setMode("menu")}
           className="rounded-lg border border-black/15 px-5 py-2 font-semibold hover:bg-black/5"
@@ -296,16 +350,26 @@ export default function TestPage() {
     );
   }
 
+  const practiceLike = isPracticeLike(mode);
   const userAns = answers[current.id];
-  const isRevealed = mode === "practica" && revealed[current.id];
+  const isRevealed = practiceLike && revealed[current.id];
   const answeredAll = questions.every((q) => answers[q.id] != null);
   const answeredCount = questions.filter((q) => answers[q.id] != null).length;
+  const sectionLabel =
+    mode === "examen"
+      ? "Examen"
+      : mode === "frecuentes"
+      ? "Frecuentes"
+      : mode === "errores"
+      ? "Tus errores"
+      : "Practica";
+  const curStat = qstats[current.id];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between text-sm text-gray-500">
         <span>
-          Pregunta {index + 1} de {questions.length}
+          {sectionLabel} · pregunta {index + 1} de {questions.length}
         </span>
         <div className="flex items-center gap-2">
           {mode === "examen" && (
@@ -327,14 +391,23 @@ export default function TestPage() {
       </div>
 
       <div className="rounded-xl border border-black/10 bg-white p-6">
+        {current.image && (
+          <div className="mb-4 flex justify-center">
+            <Sign name={current.image} size={150} />
+          </div>
+        )}
         <p className="text-lg font-semibold">{current.question}</p>
+        {mode === "errores" && curStat && (
+          <p className="mt-1 text-xs text-flag-red">
+            Has fallado esta {curStat.seen - curStat.correct} de {curStat.seen} veces
+          </p>
+        )}
         <div className="mt-4 space-y-2">
           {current.options.map((opt, i) => {
             const selected = userAns === i;
             let cls = "w-full rounded-lg border px-4 py-3 text-left transition ";
             if (isRevealed) {
-              if (i === current.answer)
-                cls += "border-green-500 bg-green-50 text-green-800";
+              if (i === current.answer) cls += "border-green-500 bg-green-50 text-green-800";
               else if (selected) cls += "border-flag-red bg-red-50 text-flag-red";
               else cls += "border-black/10 bg-white text-gray-500";
             } else {
@@ -354,9 +427,7 @@ export default function TestPage() {
         {isRevealed && (
           <div className="mt-4 rounded-lg bg-gray-50 p-4 text-sm">
             <p className="text-gray-700">{current.explanation}</p>
-            {current.reference && (
-              <p className="mt-1 text-xs text-gray-400">{current.reference}</p>
-            )}
+            {current.reference && <p className="mt-1 text-xs text-gray-400">{current.reference}</p>}
           </div>
         )}
       </div>
@@ -397,7 +468,7 @@ export default function TestPage() {
             onClick={() => setMode("menu")}
             className="rounded-lg border border-black/15 px-5 py-2 font-semibold hover:bg-black/5"
           >
-            Finalizar practica
+            Finalizar
           </button>
         )}
       </div>

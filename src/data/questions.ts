@@ -9,6 +9,8 @@
 // cada Direccion de Transito municipal y sus preguntas exactas pueden variar. Verifica
 // siempre la normativa vigente en https://www.conaset.cl y https://www.bcn.cl (Ley 18.290).
 
+import type { SignName } from "@/components/Signs";
+
 export type Category =
   | "senales"
   | "normas"
@@ -28,6 +30,10 @@ export interface Question {
   explanation: string;
   /** referencia normativa, ej. "Ley 18.290 art. 145" */
   reference?: string;
+  /** senal de transito asociada (se dibuja como imagen sobre la pregunta) */
+  image?: SignName;
+  /** marcada como pregunta frecuente / clave que casi siempre aparece */
+  frequent?: boolean;
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
@@ -1441,6 +1447,38 @@ export const QUESTIONS: Question[] = [
     reference: "Ley 18.290, art. 168",
   },
 ];
+
+// Senales de transito asociadas a ciertas preguntas (se dibujan como imagen).
+const QUESTION_IMAGES: Partial<Record<number, SignName>> = {
+  13: "pare",
+  14: "ceda",
+  16: "linea-continua",
+  17: "semaforo",
+  26: "velocidad-max",
+  29: "no-estacionar",
+  36: "peatones",
+  46: "no-entrar",
+  72: "ninos",
+  94: "no-adelantar",
+};
+
+// Preguntas clave / de alta frecuencia: los temas que casi siempre aparecen en el examen.
+// Seleccion curada (no son estadisticas oficiales) de los contenidos mas esenciales.
+const FREQUENT_IDS = new Set<number>([
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 18, 19, 21, 26, 28, 30, 39, 80,
+]);
+
+// Aplica imagenes y marca de frecuente sobre las preguntas (en un solo lugar).
+for (const q of QUESTIONS) {
+  const img = QUESTION_IMAGES[q.id];
+  if (img) q.image = img;
+  if (FREQUENT_IDS.has(q.id)) q.frequent = true;
+}
+
+/** Preguntas marcadas como frecuentes / clave. */
+export function frequentQuestions(): Question[] {
+  return QUESTIONS.filter((q) => q.frequent);
+}
 
 /**
  * Devuelve `count` preguntas aleatorias (mezcladas) usando una semilla simple.
