@@ -52,13 +52,13 @@ npm start
 3. Framework: **Next.js** (autodetectado). No requiere configuración extra.
 4. **Deploy**.
 
-El archivo [`vercel.json`](./vercel.json) ya define un **cron** que llama a `/api/monitor` cada 30 minutos:
+El archivo [`vercel.json`](./vercel.json) define un **cron** que llama a `/api/monitor` una vez al día (mediodía UTC):
 
 ```json
-{ "crons": [{ "path": "/api/monitor", "schedule": "*/30 * * * *" }] }
+{ "crons": [{ "path": "/api/monitor", "schedule": "0 12 * * *" }] }
 ```
 
-> Los cron jobs de Vercel requieren un plan que los soporte. Si no los usas, puedes borrar `vercel.json`; el monitor seguirá funcionando de forma manual desde la página `/monitor`.
+> **Plan Hobby (gratis):** Vercel solo permite cron jobs **diarios**. Por eso el schedule es `0 12 * * *` (una vez al día). Si tienes plan **Pro**, puedes cambiarlo a `*/30 * * * *` (cada 30 min) u otra frecuencia. Si no quieres cron, borra `vercel.json`; el monitor seguirá funcionando manualmente desde la página `/monitor`.
 
 ### Notificaciones cuando aparezcan cupos (opcional)
 
