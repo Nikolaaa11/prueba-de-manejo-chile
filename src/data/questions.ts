@@ -1283,6 +1283,163 @@ export const QUESTIONS: Question[] = [
       "La berma sirve para detenciones de emergencia. Circular o adelantar por ella esta prohibido y es muy peligroso.",
     reference: "Ley 18.290, art. 119 y 128",
   },
+  {
+    id: 86,
+    category: "alcohol",
+    question:
+      "Segun la 'Ley Emilia', conducir en estado de ebriedad y causar lesiones graves, gravisimas o la muerte de una persona:",
+    options: [
+      "Solo implica una multa",
+      "Constituye un delito que contempla pena de carcel efectiva",
+      "No tiene consecuencias si se paga la indemnizacion",
+      "Solo suspende la licencia por un mes",
+    ],
+    answer: 1,
+    explanation:
+      "La Ley Emilia establece carcel efectiva (minimo de un ano) para quien, conduciendo en estado de ebriedad, causa lesiones graves, gravisimas o la muerte; ademas sanciona la fuga y la negativa al examen.",
+    reference: "Ley 20.770 (Ley Emilia)",
+  },
+  {
+    id: 87,
+    category: "preferencia",
+    question: "Una ciclovia es:",
+    options: [
+      "Una pista mas para los automoviles en horario punta",
+      "Una via de uso exclusivo para ciclistas; los vehiculos motorizados no deben circular ni estacionar en ella",
+      "Una zona de estacionamiento",
+      "Un paso peatonal",
+    ],
+    answer: 1,
+    explanation:
+      "La ciclovia es de uso exclusivo de las bicicletas; los vehiculos motorizados no pueden circular, detenerse ni estacionar sobre ella.",
+    reference: "Ley 18.290 (Ley de Convivencia de Modos)",
+  },
+  {
+    id: 88,
+    category: "seguridad",
+    question: "El uso del casco para conductores y acompanantes de motocicletas y bicicletas:",
+    options: [
+      "Es opcional para adultos",
+      "Es obligatorio y debe estar correctamente abrochado",
+      "Solo se exige en carretera",
+      "Solo lo usa el conductor",
+    ],
+    answer: 1,
+    explanation:
+      "El casco es obligatorio y debe ir bien sujeto. En motocicletas es obligatorio para conductor y acompanante; reduce drasticamente el riesgo de lesiones graves en la cabeza.",
+    reference: "Ley 18.290, art. 92 y normativa de motos",
+  },
+  {
+    id: 89,
+    category: "normas",
+    question:
+      "En las ciudades con restriccion vehicular por contaminacion, los vehiculos afectados:",
+    options: [
+      "Pueden circular igual pagando una tarifa",
+      "No pueden circular en el horario y dia indicados segun el ultimo digito de su patente",
+      "Solo se restringen los fines de semana",
+      "La restriccion es voluntaria",
+    ],
+    answer: 1,
+    explanation:
+      "Durante la restriccion vehicular (o episodios de alerta/preemergencia/emergencia ambiental), los vehiculos cuyos digitos de patente esten restringidos no pueden circular en la zona y horario definidos.",
+    reference: "Planes de descontaminacion (MMA / autoridad regional)",
+  },
+  {
+    id: 90,
+    category: "preferencia",
+    question:
+      "Cuando el semaforo peatonal esta en verde para los peatones, el conductor que vira debe:",
+    options: [
+      "Avanzar primero porque el vehiculo tiene prioridad",
+      "Ceder el paso a los peatones que cruzan con su luz a favor",
+      "Tocar la bocina",
+      "Cruzar entre los peatones",
+    ],
+    answer: 1,
+    explanation:
+      "Aunque el conductor tenga luz para virar, debe ceder el paso a los peatones que cruzan con su senal a favor.",
+    reference: "Ley 18.290, art. 104 y 168",
+  },
+  {
+    id: 91,
+    category: "seguridad",
+    question:
+      "El 'aquaplaning' (hidroplaneo) ocurre cuando:",
+    options: [
+      "El motor se sobrecalienta",
+      "Una capa de agua se interpone entre los neumaticos y el pavimento y el vehiculo pierde adherencia",
+      "Se empanan los vidrios",
+      "Fallan los frenos por el frio",
+    ],
+    answer: 1,
+    explanation:
+      "El aquaplaning sucede cuando el agua impide el contacto del neumatico con el pavimento; para prevenirlo hay que reducir la velocidad con lluvia y mantener los neumaticos en buen estado.",
+    reference: "Conduccion en lluvia (CONASET)",
+  },
+  {
+    id: 92,
+    category: "seguridad",
+    question:
+      "Ante un accidente, respecto de una persona lesionada que no corre peligro inmediato, lo recomendable es:",
+    options: [
+      "Moverla rapidamente para sacarla del auto",
+      "No moverla innecesariamente y esperar a personal especializado, salvo riesgo de incendio u otro peligro",
+      "Darle agua y levantarla",
+      "Dejarla sola e irse",
+    ],
+    answer: 1,
+    explanation:
+      "Mover a un lesionado sin necesidad puede agravar lesiones (por ejemplo de columna). Salvo peligro inminente, se espera a personal especializado tras dar aviso de emergencia.",
+    reference: "Primeros auxilios basicos (CONASET)",
+  },
+  {
+    id: 93,
+    category: "documentos",
+    question: "Las infracciones de transito se clasifican en:",
+    options: [
+      "Unicas",
+      "Leves, graves y gravisimas, segun su gravedad",
+      "Solo graves",
+      "Civiles y penales unicamente",
+    ],
+    answer: 1,
+    explanation:
+      "La Ley de Transito clasifica las infracciones en leves, graves y gravisimas; a mayor gravedad, mayores sanciones (multas, suspension o cancelacion de la licencia).",
+    reference: "Ley 18.290, art. 200",
+  },
+  {
+    id: 94,
+    category: "senales",
+    question:
+      "Una senal reglamentaria circular con borde rojo que muestra dos autos (uno negro y uno rojo) lado a lado indica:",
+    options: [
+      "Pista doble",
+      "Prohibido adelantar",
+      "Estacionamiento para dos autos",
+      "Zona de carga",
+    ],
+    answer: 1,
+    explanation:
+      "Esa senal reglamentaria indica 'No adelantar' en el tramo; debe respetarse hasta que una senal indique el termino de la prohibicion.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 95,
+    category: "normas",
+    question:
+      "Si al conducir se aproxima a un cruce de peatones y un peaton espera en la acera para cruzar, lo correcto es:",
+    options: [
+      "Acelerar para pasar antes",
+      "Reducir la velocidad y permitir que el peaton cruce con seguridad",
+      "Mantener la velocidad si tienes prioridad",
+      "Tocar la bocina para que no cruce",
+    ],
+    answer: 1,
+    explanation:
+      "En la aproximacion a un paso peatonal se debe reducir la velocidad y dar al peaton la oportunidad de cruzar con seguridad.",
+    reference: "Ley 18.290, art. 168",
+  },
 ];
 
 /**
