@@ -23,10 +23,14 @@ const RRULE_DAYS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
 export type ReleaseRule =
   // Cada semana, un dia fijo a una hora fija (ej. Las Condes: sabado 10:00)
   | { kind: "weekly"; weekday: number; hour: number; minute?: number }
+  // Cada semana, en varios dias fijos (ej. Vina del Mar: miercoles y viernes 12:00)
+  | { kind: "weeklyDays"; weekdays: number[]; hour: number; minute?: number }
   // Un dia fijo del mes (ej. La Reina: dia 15 a las 18:00)
   | { kind: "monthlyDay"; day: number; hour: number; minute?: number }
   // El primer dia habil del mes (ej. Quilicura: 1er dia habil 15:00)
   | { kind: "monthlyFirstBusinessDay"; hour: number; minute?: number }
+  // El ultimo dia habil del mes (ej. Antofagasta)
+  | { kind: "monthlyLastBusinessDay"; hour: number; minute?: number }
   // Todos los dias a una hora (ej. apertura diaria)
   | { kind: "daily"; hour: number; minute?: number }
   // Agenda siempre abierta (no hay un momento puntual de liberacion)
@@ -51,6 +55,12 @@ function firstBusinessDayOfMonth(year: number, month: number): Date {
   return d;
 }
 
+function lastBusinessDayOfMonth(year: number, month: number): Date {
+  const d = new Date(year, month + 1, 0); // ultimo dia del mes
+  while (!isBusinessDay(d)) d.setDate(d.getDate() - 1);
+  return d;
+}
+
 /**
  * Devuelve la proxima fecha/hora de liberacion a partir de `from`, o null si la regla
  * no tiene un momento puntual (open).
@@ -63,8 +73,34 @@ export function nextOccurrence(rule: ReleaseRule, from: Date = new Date()): Date
       const candidate = new Date(from);
       const delta = (rule.weekday - candidate.getDay() + 7) % 7;
       candidate.setDate(candidate.getDate() + delta);
-      let next = atTime(candidate, rule.hour, minute);
+      const next = atTime(candidate, rule.hour, minute);
       if (next.getTime() <= from.getTime()) next.setDate(next.getDate() + 7);
+      return next;
+    }
+    case "weeklyDays": {
+      let best: Date | null = null;
+      for (const wd of rule.weekdays) {
+        const candidate = new Date(from);
+        const delta = (wd - candidate.getDay() + 7) % 7;
+        candidate.setDate(candidate.getDate() + delta);
+        const n = atTime(candidate, rule.hour, minute);
+        if (n.getTime() <= from.getTime()) n.setDate(n.getDate() + 7);
+        if (!best || n.getTime() < best.getTime()) best = n;
+      }
+      return best;
+    }
+    case "monthlyLastBusinessDay": {
+      let y = from.getFullYear();
+      let m = from.getMonth();
+      let next = atTime(lastBusinessDayOfMonth(y, m), rule.hour, minute);
+      if (next.getTime() <= from.getTime()) {
+        m += 1;
+        if (m > 11) {
+          m = 0;
+          y += 1;
+        }
+        next = atTime(lastBusinessDayOfMonth(y, m), rule.hour, minute);
+      }
       return next;
     }
     case "monthlyDay": {
@@ -119,11 +155,17 @@ export function occursOnDate(rule: ReleaseRule, date: Date): boolean {
   switch (rule.kind) {
     case "weekly":
       return date.getDay() === rule.weekday;
+    case "weeklyDays":
+      return rule.weekdays.includes(date.getDay());
     case "monthlyDay":
       return date.getDate() === rule.day;
     case "monthlyFirstBusinessDay": {
       const fbd = firstBusinessDayOfMonth(date.getFullYear(), date.getMonth());
       return date.getDate() === fbd.getDate();
+    }
+    case "monthlyLastBusinessDay": {
+      const lbd = lastBusinessDayOfMonth(date.getFullYear(), date.getMonth());
+      return date.getDate() === lbd.getDate();
     }
     case "daily":
       return true;
@@ -144,10 +186,20 @@ export function describeReleaseRule(rule: ReleaseRule): string {
   switch (rule.kind) {
     case "weekly":
       return `Todos los ${WEEKDAY_NAMES[rule.weekday]} a las ${hhmm(rule.hour, minute)}`;
+    case "weeklyDays": {
+      const dias = rule.weekdays.map((w) => WEEKDAY_NAMES[w]);
+      const lista =
+        dias.length > 1
+          ? `${dias.slice(0, -1).join(", ")} y ${dias[dias.length - 1]}`
+          : dias[0];
+      return `Los ${lista} a las ${hhmm(rule.hour, minute)}`;
+    }
     case "monthlyDay":
       return `El dia ${rule.day} de cada mes a las ${hhmm(rule.hour, minute)}`;
     case "monthlyFirstBusinessDay":
       return `El primer dia habil de cada mes a las ${hhmm(rule.hour, minute)}`;
+    case "monthlyLastBusinessDay":
+      return `El ultimo dia habil de cada mes a las ${hhmm(rule.hour, minute)}`;
     case "daily":
       return `Todos los dias (apertura cerca de las ${hhmm(rule.hour, minute)})`;
     case "inperson":
@@ -164,10 +216,14 @@ export function toRRule(rule: ReleaseRule): string | null {
   switch (rule.kind) {
     case "weekly":
       return `FREQ=WEEKLY;BYDAY=${RRULE_DAYS[rule.weekday]}`;
+    case "weeklyDays":
+      return `FREQ=WEEKLY;BYDAY=${rule.weekdays.map((w) => RRULE_DAYS[w]).join(",")}`;
     case "monthlyDay":
       return `FREQ=MONTHLY;BYMONTHDAY=${rule.day}`;
     case "monthlyFirstBusinessDay":
       return "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1";
+    case "monthlyLastBusinessDay":
+      return "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1";
     case "daily":
       return "FREQ=DAILY";
     case "open":

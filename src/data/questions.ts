@@ -1580,10 +1580,25 @@ const COMMONLY_FAILED: Partial<Record<number, string>> = {
   100: "Senalada por CONASET entre las mas dificiles: comportamiento en pistas 'solo viraje'.",
 };
 
-// Aplica imagenes, marca de frecuente y de 'mas fallada' sobre las preguntas.
+// Para las preguntas de identificacion de senales, el enunciado se reemplaza por
+// "¿Que significa esta senal?" (estilo examen real): la imagen reemplaza a la descripcion.
+const IMAGE_PROMPTS: Partial<Record<number, string>> = {
+  13: "¿Que significa esta senal?",
+  14: "¿Que significa esta senal?",
+  26: "¿Que significa esta senal?",
+  46: "¿Que significa esta senal?",
+  94: "¿Que significa esta senal?",
+  36: "¿Que advierte esta senal?",
+  72: "¿Que advierte esta senal?",
+  16: "¿Que indica esta demarcacion (linea de eje en la calzada)?",
+};
+
+// Aplica imagenes, enunciado por imagen, marca de frecuente y de 'mas fallada'.
 for (const q of QUESTIONS) {
   const img = QUESTION_IMAGES[q.id];
   if (img) q.image = img;
+  const prompt = IMAGE_PROMPTS[q.id];
+  if (prompt) q.question = prompt;
   if (FREQUENT_IDS.has(q.id)) q.frequent = true;
   const fn = COMMONLY_FAILED[q.id];
   if (fn) {
