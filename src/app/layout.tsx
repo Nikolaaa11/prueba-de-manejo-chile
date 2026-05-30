@@ -1,20 +1,28 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import SiteHeader from "@/components/SiteHeader";
+import PWARegister from "@/components/PWARegister";
 
 export const metadata: Metadata = {
   title: "Licencia Chile — Prepara tu prueba de manejo",
   description:
-    "Practica el examen teorico de licencia de conducir Clase B con preguntas reales basadas en la Ley 18.290, y encuentra donde agendar tu hora para la prueba de manejo en Chile.",
+    "Practica el examen teorico de licencia de conducir Clase B con preguntas reales basadas en la Ley 18.290, y encuentra cuando agendar tu hora para la prueba de manejo en Chile.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Licencia Chile",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
 };
 
-const navItems = [
-  { href: "/", label: "Inicio" },
-  { href: "/test", label: "Test teorico" },
-  { href: "/agendamiento", label: "Agendar hora" },
-  { href: "/calendario", label: "Calendario" },
-  { href: "/monitor", label: "Monitor de cupos" },
-];
+export const viewport: Viewport = {
+  themeColor: "#070b16",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function RootLayout({
   children,
@@ -24,38 +32,23 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <header className="bg-brand text-white">
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-            <Link href="/" className="flex items-center gap-2 font-bold">
-              <span className="text-xl">🚗</span>
-              <span>Licencia Chile</span>
-            </Link>
-            <nav className="flex flex-wrap gap-3 text-sm">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded px-2 py-1 hover:bg-white/15"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </header>
-        <main className="mx-auto min-h-[70vh] max-w-5xl px-4 py-8">{children}</main>
-        <footer className="border-t border-black/10 bg-white">
-          <div className="mx-auto max-w-5xl px-4 py-6 text-xs text-gray-500">
+        <PWARegister />
+        <SiteHeader />
+        <main className="mx-auto min-h-[70vh] max-w-6xl animate-fadeUp px-4 py-8">
+          {children}
+        </main>
+        <footer className="border-t border-white/10">
+          <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500">
             <p>
               Proyecto educativo de codigo abierto. No es un sitio oficial del Estado de
               Chile ni de ninguna municipalidad. El contenido del test se basa en la Ley
               18.290 y material de CONASET, pero puede contener errores u omisiones: verifica
               siempre la normativa vigente en{" "}
-              <a className="text-brand underline" href="https://www.conaset.cl" target="_blank" rel="noreferrer">
+              <a className="text-neon-cyan underline" href="https://www.conaset.cl" target="_blank" rel="noreferrer">
                 conaset.cl
               </a>{" "}
               y{" "}
-              <a className="text-brand underline" href="https://www.bcn.cl" target="_blank" rel="noreferrer">
+              <a className="text-neon-cyan underline" href="https://www.bcn.cl" target="_blank" rel="noreferrer">
                 bcn.cl
               </a>
               .

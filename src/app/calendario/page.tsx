@@ -24,9 +24,9 @@ const MONTHS = [
 const WEEKDAYS = ["lun", "mar", "mie", "jue", "vie", "sab", "dom"];
 
 const DEMANDA_BADGE: Record<string, { label: string; cls: string }> = {
-  baja: { label: "Demanda baja", cls: "bg-green-100 text-green-800" },
-  media: { label: "Demanda media", cls: "bg-amber-100 text-amber-800" },
-  alta: { label: "Demanda alta", cls: "bg-red-100 text-flag-red" },
+  baja: { label: "Demanda baja", cls: "bg-emerald-500/15 text-emerald-300" },
+  media: { label: "Demanda media", cls: "bg-amber-500/15 text-amber-200" },
+  alta: { label: "Demanda alta", cls: "bg-rose-500/15 text-flag-red" },
 };
 
 function downloadICS(filename: string, content: string) {
@@ -107,7 +107,7 @@ export default function CalendarioPage() {
   };
 
   if (!now || !cursor) {
-    return <p className="text-gray-500">Cargando calendario…</p>;
+    return <p className="text-slate-400">Cargando calendario…</p>;
   }
 
   // Construccion de la grilla del mes (lunes a domingo).
@@ -138,13 +138,13 @@ export default function CalendarioPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-bold">Calendario de liberacion de cupos</h1>
-        <p className="mt-1 text-gray-600">
+        <p className="mt-1 text-slate-300">
           Cuando cada municipalidad abre nuevas horas para la prueba de manejo. Programa una
           alerta para entrar justo a tiempo a reservar.
         </p>
       </header>
 
-      <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+      <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100">
         <strong>Importante:</strong> estos horarios provienen de los sitios oficiales de cada
         municipio y fueron verificados al armar el proyecto, pero pueden cambiar sin aviso.
         Usalos como guia de <em>cuando entrar a revisar</em> y confirma siempre en el sitio
@@ -157,21 +157,21 @@ export default function CalendarioPage() {
           onClick={() =>
             downloadICS("liberacion-cupos-licencia.ics", buildICS(toICSEvents(withRelease), now))
           }
-          className="rounded-lg bg-brand px-5 py-2.5 font-semibold text-white hover:bg-brand-dark"
+          className="rounded-lg bg-gradient-to-r from-neon-cyan to-neon-violet px-5 py-2.5 font-semibold text-white hover:brightness-110"
         >
           📅 Descargar calendario (.ics)
         </button>
         <button
           onClick={enableNotifications}
-          className="rounded-lg border border-black/15 px-5 py-2.5 font-semibold hover:bg-black/5"
+          className="rounded-lg border border-white/15 px-5 py-2.5 font-semibold hover:bg-white/10"
         >
           🔔 Activar avisos en este navegador
         </button>
       </div>
       {notifyMsg && (
-        <p className="rounded-lg bg-brand-light p-3 text-sm text-brand">{notifyMsg}</p>
+        <p className="rounded-lg bg-neon-cyan/10 p-3 text-sm text-neon-cyan">{notifyMsg}</p>
       )}
-      <p className="-mt-4 text-xs text-gray-500">
+      <p className="-mt-4 text-xs text-slate-400">
         El archivo .ics agrega recordatorios recurrentes (con alarma 30 min antes) a Google
         Calendar, Apple Calendar o el calendario de tu telefono — esa es la alerta mas
         confiable. Los avisos del navegador solo funcionan mientras esta pestana esta abierta.
@@ -186,12 +186,12 @@ export default function CalendarioPage() {
             return (
               <div
                 key={m.id}
-                className="flex flex-col gap-2 rounded-lg border border-black/10 bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-semibold">{m.comuna}</h3>
-                    <span className="rounded-full bg-brand text-white px-2.5 py-0.5 text-xs font-medium">
+                    <span className="rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet text-white px-2.5 py-0.5 text-xs font-medium">
                       {countdown(next!, now)}
                     </span>
                     {badge && (
@@ -200,11 +200,11 @@ export default function CalendarioPage() {
                       </span>
                     )}
                   </div>
-                  <p className="mt-1 text-sm text-gray-600">
+                  <p className="mt-1 text-sm text-slate-300">
                     {describeReleaseRule(m.release!.rule)} · proxima: {formatNext(next!)}
                   </p>
                   {m.release!.note && (
-                    <p className="mt-1 text-xs text-gray-400">{m.release!.note}</p>
+                    <p className="mt-1 text-xs text-slate-500">{m.release!.note}</p>
                   )}
                 </div>
                 <div className="flex shrink-0 gap-2">
@@ -212,7 +212,7 @@ export default function CalendarioPage() {
                     href={bookingLink(m)}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
+                    className="rounded-lg bg-gradient-to-r from-neon-cyan to-neon-violet px-4 py-2 text-sm font-semibold text-white hover:brightness-110"
                   >
                     Reservar →
                   </a>
@@ -220,7 +220,7 @@ export default function CalendarioPage() {
                     onClick={() =>
                       downloadICS(`liberacion-${m.id}.ics`, buildICS(toICSEvents([m]), now))
                     }
-                    className="rounded-lg border border-black/15 px-3 py-2 text-sm font-medium hover:bg-black/5"
+                    className="rounded-lg border border-white/15 px-3 py-2 text-sm font-medium hover:bg-white/10"
                     title="Descargar recordatorio de esta comuna"
                   >
                     .ics
@@ -241,20 +241,20 @@ export default function CalendarioPage() {
           <div className="flex gap-2">
             <button
               onClick={() => moveMonth(-1)}
-              className="rounded-lg border border-black/15 px-3 py-1 text-sm hover:bg-black/5"
+              className="rounded-lg border border-white/15 px-3 py-1 text-sm hover:bg-white/10"
             >
               ← Anterior
             </button>
             <button
               onClick={() => moveMonth(1)}
-              className="rounded-lg border border-black/15 px-3 py-1 text-sm hover:bg-black/5"
+              className="rounded-lg border border-white/15 px-3 py-1 text-sm hover:bg-white/10"
             >
               Siguiente →
             </button>
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs font-medium text-gray-500">
+        <div className="mt-3 grid grid-cols-7 gap-1 text-center text-xs font-medium text-slate-400">
           {WEEKDAYS.map((d) => (
             <div key={d} className="py-1">{d}</div>
           ))}
@@ -268,31 +268,31 @@ export default function CalendarioPage() {
               <div
                 key={i}
                 className={`min-h-[64px] rounded-lg border p-1 text-left ${
-                  today ? "border-brand bg-brand-light" : "border-black/10 bg-white"
+                  today ? "border-neon-cyan bg-neon-cyan/10" : "border-white/10 bg-white/[0.04]"
                 }`}
               >
-                <div className={`text-xs font-semibold ${today ? "text-brand" : "text-gray-500"}`}>
+                <div className={`text-xs font-semibold ${today ? "text-neon-cyan" : "text-slate-400"}`}>
                   {date.getDate()}
                 </div>
                 <div className="mt-0.5 space-y-0.5">
                   {rels.slice(0, 3).map((m) => (
                     <div
                       key={m.id}
-                      className="truncate rounded bg-green-100 px-1 text-[10px] leading-tight text-green-800"
+                      className="truncate rounded bg-emerald-500/15 px-1 text-[10px] leading-tight text-emerald-300"
                       title={`${m.comuna} — ${describeReleaseRule(m.release!.rule)}`}
                     >
                       {m.comuna}
                     </div>
                   ))}
                   {rels.length > 3 && (
-                    <div className="text-[10px] text-gray-400">+{rels.length - 3} mas</div>
+                    <div className="text-[10px] text-slate-500">+{rels.length - 3} mas</div>
                   )}
                 </div>
               </div>
             );
           })}
         </div>
-        <p className="mt-2 text-xs text-gray-400">
+        <p className="mt-2 text-xs text-slate-500">
           Las comunas con &quot;agenda abierta&quot; (sin un dia fijo) no aparecen en la grilla;
           revisalas cuando quieras desde la pagina de agendar.
         </p>
