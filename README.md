@@ -8,9 +8,9 @@ Plataforma web (Next.js) para **estudiar el examen teórico de licencia de condu
 
 | Módulo | Descripción |
 | --- | --- |
-| **Test teórico** (`/test`) | Banco de preguntas Clase B con explicaciones y referencia legal. Modo *práctica* (feedback inmediato) y modo *examen* (20 preguntas al azar, cronometrado mentalmente, resultado al final). |
-| **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con enlaces oficiales, modalidad, requisitos y documentos. Buscador por comuna/región. |
-| **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada de horas leyendo las páginas municipales, con patrón de adaptadores. Incluye cron de Vercel y soporte opcional de notificaciones por webhook. |
+| **Test teórico** (`/test`) | 85 preguntas Clase B con explicaciones y referencia legal. Modo *práctica* (feedback inmediato + filtro por tema) y modo *examen* (20 preguntas al azar, **temporizador real** y resultado al final). Tus **estadísticas** (mejor puntaje, intentos) se guardan en el navegador. |
+| **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, enlaces directos confirmados (y búsqueda oficial de respaldo), modalidad, requisitos y documentos. Buscador por comuna/región. |
+| **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada leyendo las páginas municipales (solo comunas con página directa verificada), con patrón de adaptadores. Incluye cron de Vercel y notificaciones opcionales por webhook. |
 
 ## La verdad sobre "conseguir hora rápido"
 
