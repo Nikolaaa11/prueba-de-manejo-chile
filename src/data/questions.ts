@@ -34,6 +34,10 @@ export interface Question {
   image?: SignName;
   /** marcada como pregunta frecuente / clave que casi siempre aparece */
   frequent?: boolean;
+  /** entre las que mas se fallan en el examen real (segun fuentes reportadas) */
+  commonlyFailed?: boolean;
+  /** nota sobre por que suele fallarse (con dato/porcentaje si se conoce) */
+  failNote?: string;
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
@@ -1446,6 +1450,95 @@ export const QUESTIONS: Question[] = [
       "En la aproximacion a un paso peatonal se debe reducir la velocidad y dar al peaton la oportunidad de cruzar con seguridad.",
     reference: "Ley 18.290, art. 168",
   },
+  {
+    id: 96,
+    category: "normas",
+    question:
+      "¿A que distancia minima de la senal que indica un paradero de locomocion colectiva esta prohibido estacionar?",
+    options: ["5 metros", "10 metros", "20 metros", "50 metros"],
+    answer: 2,
+    explanation:
+      "Esta prohibido estacionar a menos de 20 metros de la senal vertical que indica un paradero de transporte publico. Las municipalidades pueden aumentar esa distancia.",
+    reference: "Ley 18.290, art. 160",
+  },
+  {
+    id: 97,
+    category: "normas",
+    question: "En una autopista, la pista (o carril) de desaceleracion sirve para:",
+    options: [
+      "Adelantar a mayor velocidad",
+      "Reducir la velocidad antes de tomar una salida, sin frenar bruscamente en la pista principal",
+      "Estacionar momentaneamente",
+      "Aumentar la velocidad para incorporarse",
+    ],
+    answer: 1,
+    explanation:
+      "La pista de desaceleracion permite disminuir la velocidad para tomar una salida sin frenar en la via principal. La de aceleracion, en cambio, sirve para incorporarse a la autopista.",
+    reference: "Manual de Senalizacion de Transito / conduccion en autopista",
+  },
+  {
+    id: 98,
+    category: "normas",
+    question:
+      "Si la pista por la que circulas esta obstruida (un vehiculo detenido, una obra o un obstaculo), debes:",
+    options: [
+      "Tocar la bocina hasta que se libere",
+      "Senalizar con anticipacion y cambiarte de pista solo cuando sea seguro, cediendo el paso a quienes ya circulan por ella",
+      "Cambiarte de inmediato sin mirar los espejos",
+      "Adelantar por la berma",
+    ],
+    answer: 1,
+    explanation:
+      "Ante una pista obstruida debes anunciar la maniobra con la senal direccional, revisar espejos y punto ciego, y cambiarte solo cuando sea seguro, dando preferencia a los vehiculos que ya circulan por la pista de destino.",
+    reference: "Ley 18.290, art. 124 y 128",
+  },
+  {
+    id: 99,
+    category: "normas",
+    question:
+      "En una autopista de varias pistas, la pista de mas a la izquierda debe usarse principalmente para:",
+    options: [
+      "Circular siempre por ella",
+      "Adelantar o realizar virajes a la izquierda, no para circular de forma permanente",
+      "Los vehiculos mas lentos",
+      "Estacionar en emergencias",
+    ],
+    answer: 1,
+    explanation:
+      "La pista izquierda se usa para adelantar; una vez hecho, se regresa a la pista derecha. Circular permanentemente por la izquierda entorpece el transito y puede ser sancionado.",
+    reference: "Ley 18.290, art. 119 y 128",
+  },
+  {
+    id: 100,
+    category: "senales",
+    question:
+      "Si te encuentras en una pista demarcada como 'solo viraje' (por ejemplo, solo viraje a la derecha), debes:",
+    options: [
+      "Seguir derecho si lo prefieres",
+      "Realizar obligatoriamente el viraje indicado por la demarcacion o senal",
+      "Detenerte y esperar indicaciones",
+      "Cambiarte de pista dentro de la interseccion",
+    ],
+    answer: 1,
+    explanation:
+      "Las pistas de 'solo viraje' obligan a girar en el sentido indicado por la flecha o senal; no se puede continuar de frente desde esa pista.",
+    reference: "Manual de Senalizacion de Transito (demarcaciones y flechas)",
+  },
+  {
+    id: 101,
+    category: "senales",
+    question: "Las senales de transito se clasifican principalmente en:",
+    options: [
+      "Grandes, medianas y pequenas",
+      "Reglamentarias, preventivas (de advertencia) e informativas",
+      "Urbanas y rurales",
+      "Solo verticales y horizontales",
+    ],
+    answer: 1,
+    explanation:
+      "Se clasifican en reglamentarias (obligaciones y prohibiciones), preventivas o de advertencia (avisan un peligro) e informativas (servicios e indicaciones). Confundir el tipo de senal es uno de los errores mas comunes del examen.",
+    reference: "Manual de Senalizacion de Transito",
+  },
 ];
 
 // Senales de transito asociadas a ciertas preguntas (se dibujan como imagen).
@@ -1468,16 +1561,45 @@ const FREQUENT_IDS = new Set<number>([
   1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 18, 19, 21, 26, 28, 30, 39, 80,
 ]);
 
-// Aplica imagenes y marca de frecuente sobre las preguntas (en un solo lugar).
+// Preguntas/temas que MAS SE FALLAN en el examen real, segun datos reportados por
+// portales de practica (practicatest.cl), prensa (La Tercera) y CONASET. NO son
+// estadisticas oficiales por pregunta de las municipalidades; el campo `failNote`
+// indica el dato o la razon del error frecuente cuando se conoce.
+const COMMONLY_FAILED: Partial<Record<number, string>> = {
+  69: "El tema mas fallado: cerca del 79% responde mal lo relativo a la distancia de frenado. Recuerda que crece con el CUADRADO de la velocidad.",
+  22: "La distancia de seguimiento segura es un tema con muchos errores: depende de la velocidad y del estado del camino.",
+  96: "Cerca del 65% la falla: son 20 metros desde la senal del paradero (art. 160).",
+  101: "CONASET la situa entre las 5 mas dificiles: muchos confunden reglamentarias, preventivas e informativas.",
+  15: "Clasificar las senales (preventivas vs reglamentarias vs informativas) es un error muy comun.",
+  27: "Clasificar las senales por su color/forma confunde a muchos postulantes.",
+  11: "La preferencia en intersecciones sin semaforo ni Carabineros se responde mal con frecuencia.",
+  32: "La preferencia en rotondas suele prestarse a confusion.",
+  97: "Senalada por CONASET entre las mas dificiles: comportamiento en autovias/autopistas (pistas de desaceleracion).",
+  98: "Senalada por CONASET entre las mas dificiles: como actuar ante una pista obstruida.",
+  99: "Senalada por CONASET entre las mas dificiles: cuando usar la pista de mas a la izquierda en autopista.",
+  100: "Senalada por CONASET entre las mas dificiles: comportamiento en pistas 'solo viraje'.",
+};
+
+// Aplica imagenes, marca de frecuente y de 'mas fallada' sobre las preguntas.
 for (const q of QUESTIONS) {
   const img = QUESTION_IMAGES[q.id];
   if (img) q.image = img;
   if (FREQUENT_IDS.has(q.id)) q.frequent = true;
+  const fn = COMMONLY_FAILED[q.id];
+  if (fn) {
+    q.commonlyFailed = true;
+    q.failNote = fn;
+  }
 }
 
 /** Preguntas marcadas como frecuentes / clave. */
 export function frequentQuestions(): Question[] {
   return QUESTIONS.filter((q) => q.frequent);
+}
+
+/** Preguntas que mas se fallan en el examen real (segun fuentes reportadas). */
+export function commonlyFailedQuestions(): Question[] {
+  return QUESTIONS.filter((q) => q.commonlyFailed);
 }
 
 /**

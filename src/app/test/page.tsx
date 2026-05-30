@@ -6,6 +6,7 @@ import {
   CATEGORY_LABELS,
   pickRandom,
   frequentQuestions,
+  commonlyFailedQuestions,
   type Question,
   type Category,
 } from "@/data/questions";
@@ -18,7 +19,14 @@ import {
   type QStatsMap,
 } from "@/lib/qstats";
 
-type Mode = "menu" | "practica" | "examen" | "frecuentes" | "errores" | "resultado";
+type Mode =
+  | "menu"
+  | "practica"
+  | "examen"
+  | "frecuentes"
+  | "fallan"
+  | "errores"
+  | "resultado";
 
 const EXAM_SIZE = Math.min(20, QUESTIONS.length);
 const PASS_RATIO = 0.7;
@@ -62,7 +70,7 @@ function formatTime(seconds: number): string {
 }
 
 const isPracticeLike = (m: Mode) =>
-  m === "practica" || m === "frecuentes" || m === "errores";
+  m === "practica" || m === "frecuentes" || m === "errores" || m === "fallan";
 
 export default function TestPage() {
   const [mode, setMode] = useState<Mode>("menu");
@@ -102,6 +110,9 @@ export default function TestPage() {
     else if (m === "frecuentes") {
       const fq = frequentQuestions();
       qs = pickRandom(fq.length, undefined, fq);
+    } else if (m === "fallan") {
+      const cf = commonlyFailedQuestions();
+      qs = pickRandom(cf.length, undefined, cf);
     } else if (m === "errores") qs = worst.map((w) => w.question);
     else {
       const pool =
@@ -270,6 +281,30 @@ export default function TestPage() {
               Repasar mis errores
             </button>
           </div>
+
+          {/* Las que mas se fallan en el examen real */}
+          <div className="rounded-xl border border-flag-red/40 bg-red-50 p-6 sm:col-span-2">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-3xl">📉</div>
+                <h2 className="mt-2 text-lg font-semibold">
+                  Las que mas se fallan en el examen real
+                </h2>
+                <p className="mt-1 max-w-2xl text-sm text-gray-600">
+                  {commonlyFailedQuestions().length} preguntas sobre los temas que mas
+                  reprueban en la prueba teorica (distancia de frenado, estacionar cerca de
+                  un paradero, clasificacion de senales, autopistas y pistas de viraje).
+                  Datos reportados por CONASET, La Tercera y portales de practica.
+                </p>
+              </div>
+              <button
+                onClick={() => start("fallan")}
+                className="shrink-0 rounded-lg bg-flag-red px-5 py-2.5 font-semibold text-white hover:opacity-90"
+              >
+                Practicar estas
+              </button>
+            </div>
+          </div>
         </div>
 
         <CategoryBreakdown />
@@ -362,6 +397,8 @@ export default function TestPage() {
       ? "Frecuentes"
       : mode === "errores"
       ? "Tus errores"
+      : mode === "fallan"
+      ? "Las que mas se fallan"
       : "Practica";
   const curStat = qstats[current.id];
 
@@ -400,6 +437,11 @@ export default function TestPage() {
         {mode === "errores" && curStat && (
           <p className="mt-1 text-xs text-flag-red">
             Has fallado esta {curStat.seen - curStat.correct} de {curStat.seen} veces
+          </p>
+        )}
+        {mode === "fallan" && current.failNote && (
+          <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-flag-red">
+            ⚠ {current.failNote}
           </p>
         )}
         <div className="mt-4 space-y-2">
