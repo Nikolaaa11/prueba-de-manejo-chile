@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-3">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card
           href="/test"
           emoji="📝"
@@ -41,7 +41,13 @@ export default function Home() {
           href="/agendamiento"
           emoji="📍"
           title="Agendar hora"
-          desc={`Directorio de ${MUNICIPALITIES.length} municipalidades con enlaces y requisitos oficiales.`}
+          desc={`Directorio de ${MUNICIPALITIES.length} municipalidades, ordenadas por posibilidad de cupo.`}
+        />
+        <Card
+          href="/calendario"
+          emoji="📅"
+          title="Calendario"
+          desc="Cuando libera cupos cada comuna + alertas (.ics) para tu telefono."
         />
         <Card
           href="/monitor"

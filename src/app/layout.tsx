@@ -12,6 +12,7 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/test", label: "Test teorico" },
   { href: "/agendamiento", label: "Agendar hora" },
+  { href: "/calendario", label: "Calendario" },
   { href: "/monitor", label: "Monitor de cupos" },
 ];
 

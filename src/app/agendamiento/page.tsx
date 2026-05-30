@@ -1,13 +1,21 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import {
   MUNICIPALITIES,
   REQUISITOS_CLASE_B,
   DOCUMENTOS,
   bookingLink,
+  byChance,
   type Municipality,
 } from "@/data/municipalities";
+import {
+  describeReleaseRule,
+  nextOccurrence,
+  countdown,
+  formatNext,
+} from "@/lib/release";
 
 const MODALIDAD_LABEL: Record<Municipality["modalidad"], string> = {
   online: "Online",
@@ -17,42 +25,77 @@ const MODALIDAD_LABEL: Record<Municipality["modalidad"], string> = {
   desconocida: "Por confirmar",
 };
 
+const DEMANDA_BADGE: Record<string, { label: string; cls: string }> = {
+  baja: { label: "Demanda baja", cls: "bg-green-100 text-green-800" },
+  media: { label: "Demanda media", cls: "bg-amber-100 text-amber-800" },
+  alta: { label: "Demanda alta", cls: "bg-red-100 text-flag-red" },
+};
+
 export default function AgendamientoPage() {
   const [query, setQuery] = useState("");
+  const [region, setRegion] = useState("");
+  const [sortChance, setSortChance] = useState(true);
+  const [onlyRelease, setOnlyRelease] = useState(false);
+  const [hideAlta, setHideAlta] = useState(false);
+  const [now, setNow] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setNow(new Date());
+    const t = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(t);
+  }, []);
+
   const regions = useMemo(
     () => Array.from(new Set(MUNICIPALITIES.map((m) => m.region))).sort(),
     []
   );
-  const [region, setRegion] = useState("");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return MUNICIPALITIES.filter((m) => {
+    let list = MUNICIPALITIES.filter((m) => {
       const matchQ =
         !q ||
         m.comuna.toLowerCase().includes(q) ||
         m.region.toLowerCase().includes(q);
       const matchR = !region || m.region === region;
-      return matchQ && matchR;
+      const matchRel = !onlyRelease || !!m.release;
+      const matchAlta = !hideAlta || m.demanda !== "alta";
+      return matchQ && matchR && matchRel && matchAlta;
     });
-  }, [query, region]);
+    list = sortChance
+      ? byChance(list)
+      : [...list].sort((a, b) => a.comuna.localeCompare(b.comuna));
+    return list;
+  }, [query, region, onlyRelease, hideAlta, sortChance]);
 
   return (
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-bold">Agendar tu hora para la prueba de manejo</h1>
         <p className="mt-1 text-gray-600">
-          Busca tu municipalidad para ir directo a su pagina de tramites de licencia de
-          conducir. Recuerda: el agendamiento se realiza en el sitio oficial de cada
-          municipio.
+          Busca tu municipalidad, mira cuando libera cupos y ve directo a reservar. El
+          agendamiento se realiza en el sitio oficial de cada municipio.
         </p>
       </header>
+
+      <div className="flex flex-col gap-3 rounded-xl border border-brand/30 bg-brand-light p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-brand">
+          💡 <strong>¿Quieres una alerta para entrar justo cuando liberan cupos?</strong>{" "}
+          Mira el calendario de liberaciones y descarga recordatorios para tu telefono.
+        </p>
+        <Link
+          href="/calendario"
+          className="shrink-0 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
+        >
+          Ver calendario →
+        </Link>
+      </div>
 
       <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
         <strong>Importante:</strong> en Chile no existe un sistema nacional unico de
         agendamiento. Cada municipalidad administra su propia agenda y la mayoria exige
-        acreditar que vives en la comuna. Las URL pueden cambiar; verifica siempre en el
-        sitio oficial.
+        acreditar que vives en la comuna. Las URL y los horarios pueden cambiar; verifica
+        siempre en el sitio oficial.
       </div>
 
       {/* Buscador */}
@@ -78,66 +121,120 @@ export default function AgendamientoPage() {
         </select>
       </div>
 
+      {/* Filtros */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={sortChance}
+            onChange={(e) => setSortChance(e.target.checked)}
+          />
+          Ordenar por mas posibilidades de cupo
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={onlyRelease}
+            onChange={(e) => setOnlyRelease(e.target.checked)}
+          />
+          Solo con horario de liberacion conocido
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={hideAlta}
+            onChange={(e) => setHideAlta(e.target.checked)}
+          />
+          Ocultar comunas de demanda alta
+        </label>
+      </div>
+
       {/* Resultados */}
       <div className="grid gap-3 sm:grid-cols-2">
-        {filtered.map((m) => (
-          <div
-            key={m.id}
-            className="flex flex-col rounded-xl border border-black/10 bg-white p-5"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <h3 className="text-lg font-semibold">{m.comuna}</h3>
-                <p className="text-sm text-gray-500">Region {m.region}</p>
+        {filtered.map((m) => {
+          const badge = m.demanda ? DEMANDA_BADGE[m.demanda] : null;
+          const next = m.release && now ? nextOccurrence(m.release.rule, now) : null;
+          return (
+            <div
+              key={m.id}
+              className="flex flex-col rounded-xl border border-black/10 bg-white p-5"
+            >
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <h3 className="text-lg font-semibold">{m.comuna}</h3>
+                  <p className="text-sm text-gray-500">Region {m.region}</p>
+                </div>
+                <div className="flex flex-col items-end gap-1">
+                  <span className="rounded-full bg-brand-light px-3 py-1 text-xs font-medium text-brand">
+                    {MODALIDAD_LABEL[m.modalidad]}
+                  </span>
+                  {badge && (
+                    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${badge.cls}`}>
+                      {badge.label}
+                    </span>
+                  )}
+                </div>
               </div>
-              <span className="rounded-full bg-brand-light px-3 py-1 text-xs font-medium text-brand">
-                {MODALIDAD_LABEL[m.modalidad]}
-              </span>
-            </div>
 
-            {m.requiereResidencia && (
-              <p className="mt-2 text-xs text-amber-700">
-                ⚠ Suele exigir acreditar residencia en la comuna.
-              </p>
-            )}
-            {m.notas && <p className="mt-2 text-sm text-gray-600">{m.notas}</p>}
-            {m.phone && (
-              <p className="mt-2 text-sm text-gray-600">📞 {m.phone}</p>
-            )}
+              {/* Liberacion de cupos */}
+              {m.release && (
+                <div className="mt-3 rounded-lg bg-green-50 p-3 text-sm">
+                  <p className="font-medium text-green-900">
+                    🗓 Libera cupos: {describeReleaseRule(m.release.rule)}
+                  </p>
+                  {next && (
+                    <p className="mt-0.5 text-green-800">
+                      Proxima: {formatNext(next)}{" "}
+                      <span className="font-semibold">({countdown(next, now!)})</span>
+                    </p>
+                  )}
+                  {m.release.note && (
+                    <p className="mt-1 text-xs text-green-700/80">{m.release.note}</p>
+                  )}
+                </div>
+              )}
 
-            <div className="mt-auto pt-4">
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href={bookingLink(m)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
-                >
-                  {m.agendaUrl ? "Ir a agendar →" : "Buscar pagina oficial →"}
-                </a>
-                <a
-                  href={m.website}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-lg border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/5"
-                >
-                  Sitio del municipio
-                </a>
-              </div>
-              {!m.agendaUrl && (
-                <p className="mt-2 text-xs text-gray-400">
-                  Sin enlace directo verificado: el boton abre una busqueda oficial que
-                  lleva a la pagina vigente de la comuna.
+              {m.requiereResidencia && (
+                <p className="mt-2 text-xs text-amber-700">
+                  ⚠ Suele exigir acreditar residencia en la comuna.
                 </p>
               )}
+              {m.notas && <p className="mt-2 text-sm text-gray-600">{m.notas}</p>}
+              {m.phone && <p className="mt-2 text-sm text-gray-600">📞 {m.phone}</p>}
+
+              <div className="mt-auto pt-4">
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={bookingLink(m)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
+                  >
+                    {m.agendaUrl ? "Ir a agendar →" : "Buscar pagina oficial →"}
+                  </a>
+                  <a
+                    href={m.website}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-lg border border-black/15 px-4 py-2 text-sm font-medium hover:bg-black/5"
+                  >
+                    Sitio del municipio
+                  </a>
+                </div>
+                {!m.agendaUrl && (
+                  <p className="mt-2 text-xs text-gray-400">
+                    Sin enlace directo verificado: el boton abre una busqueda oficial que
+                    lleva a la pagina vigente de la comuna.
+                  </p>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {filtered.length === 0 && (
           <p className="text-gray-500">
-            No encontramos esa comuna en el directorio todavia. Puedes buscar
-            &quot;[tu comuna] licencia de conducir&quot; en Google para llegar al sitio
-            oficial de tu municipalidad.
+            No encontramos comunas con esos filtros. Prueba quitando alguno o busca
+            &quot;[tu comuna] licencia de conducir&quot; en Google.
           </p>
         )}
       </div>

@@ -11,6 +11,18 @@
 //   (ver `bookingLink`) que siempre lleva a la pagina vigente.
 // - Muchos municipios exigen ser residente de la comuna (acreditar domicilio) para
 //   tramitar la licencia ahi. Confirma este requisito antes de agendar.
+// - El campo `release` indica CUANDO el municipio libera nuevas horas (dato obtenido del
+//   sitio oficial; ver `source`). Se usa en el calendario y en la exportacion a .ics.
+
+import type { ReleaseRule } from "@/lib/release";
+
+export interface ReleaseInfo {
+  rule: ReleaseRule;
+  /** URL oficial de donde se obtuvo el horario de liberacion. */
+  source: string;
+  /** Nota adicional (ej. "cupos limitados", "para el mes siguiente"). */
+  note?: string;
+}
 
 export interface Municipality {
   id: string;
@@ -26,6 +38,10 @@ export interface Municipality {
   modalidad: "online" | "presencial" | "telefonico" | "mixto" | "desconocida";
   /** Exige acreditar residencia en la comuna. */
   requiereResidencia: boolean;
+  /** Nivel de demanda / dificultad para conseguir cupo (referencial). */
+  demanda?: "alta" | "media" | "baja";
+  /** Cuando libera nuevas horas (si se conoce). */
+  release?: ReleaseInfo;
   notas?: string;
 }
 
@@ -35,11 +51,12 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Santiago",
     region: "Metropolitana",
     website: "https://www.munistgo.cl",
-    agendaUrl: "https://www.munistgo.cl/tramites/licencia-de-conducir/",
+    agendaUrl: "https://tramites.munistgo.cl/SolicitaHoraLicencia/",
     modalidad: "online",
     requiereResidencia: true,
+    demanda: "alta",
     notas:
-      "La Direccion de Transito de Santiago suele exigir acreditar domicilio en la comuna. Revisa la disponibilidad de horas en su portal de tramites.",
+      "Alta demanda: los cupos se agotan rapido. Exige acreditar domicilio en la comuna. Reserva online en el portal de tramites.",
   },
   {
     id: "providencia",
@@ -55,9 +72,17 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Las Condes",
     region: "Metropolitana",
     website: "https://www.lascondes.cl",
+    agendaUrl: "https://reservadehoras.lascondes.cl/",
+    phone: "+56 2 2950 7000",
     modalidad: "online",
     requiereResidencia: true,
-    notas: "Reserva de hora online para licencia de conducir en el sitio de Las Condes.",
+    demanda: "alta",
+    release: {
+      rule: { kind: "weekly", weekday: 6, hour: 10, minute: 0 },
+      source: "https://www.lascondes.cl/tramites/transito/licencias-de-conducir/",
+      note: "Se abre agenda para la semana siguiente, solo via pagina web.",
+    },
+    notas: "Reserva 100% online. La agenda de la semana siguiente se abre los sabados a las 10:00.",
   },
   {
     id: "nunoa",
@@ -74,8 +99,9 @@ export const MUNICIPALITIES: Municipality[] = [
     website: "https://www.maipu.cl",
     modalidad: "mixto",
     requiereResidencia: true,
+    demanda: "alta",
     notas:
-      "Una de las comunas mas pobladas; la demanda de horas es alta, conviene revisar temprano.",
+      "Una de las comunas mas pobladas; la demanda de horas es muy alta y la espera puede ser de semanas. Conviene revisar temprano o considerar otra comuna donde puedas acreditar residencia.",
   },
   {
     id: "puente-alto",
@@ -84,6 +110,9 @@ export const MUNICIPALITIES: Municipality[] = [
     website: "https://www.mpuentealto.cl",
     modalidad: "mixto",
     requiereResidencia: true,
+    demanda: "alta",
+    notas:
+      "Comuna muy poblada; alta demanda y espera larga. Si puedes acreditar residencia en otra comuna con liberacion conocida, suele ser mas rapido.",
   },
   {
     id: "la-florida",
@@ -131,9 +160,10 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Temuco",
     region: "La Araucania",
     website: "https://www.temuco.cl",
-    agendaUrl: "https://www.temuco.cl/transito/",
-    modalidad: "mixto",
+    agendaUrl: "https://www.temuco.cl/tramites-online/reserva-de-horas-licencia-de-conducir/",
+    modalidad: "online",
     requiereResidencia: true,
+    demanda: "media",
   },
   {
     id: "antofagasta",
@@ -172,8 +202,15 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "Quilicura",
     region: "Metropolitana",
     website: "https://www.quilicura.cl",
-    modalidad: "mixto",
+    agendaUrl: "https://horalicencia.quilicura.cl/",
+    modalidad: "online",
     requiereResidencia: true,
+    demanda: "media",
+    release: {
+      rule: { kind: "monthlyFirstBusinessDay", hour: 15, minute: 0 },
+      source: "https://ww2.muniquilicura.cl/transito-y-transporte-publico/",
+      note: "Cupos del mes siguiente; cupos limitados.",
+    },
   },
   {
     id: "renca",
@@ -196,8 +233,15 @@ export const MUNICIPALITIES: Municipality[] = [
     comuna: "La Reina",
     region: "Metropolitana",
     website: "https://www.lareina.cl",
-    modalidad: "mixto",
+    agendaUrl: "https://www.lareina.cl/departamento-de-licencias-de-conducir/",
+    modalidad: "online",
     requiereResidencia: true,
+    demanda: "media",
+    release: {
+      rule: { kind: "monthlyDay", day: 15, hour: 18, minute: 0 },
+      source: "https://www.lareina.cl/departamento-de-licencias-de-conducir/",
+      note: "Se activan las horas del mes siguiente a contar del dia 15, desde las 18:00.",
+    },
   },
   {
     id: "vitacura",
@@ -219,9 +263,15 @@ export const MUNICIPALITIES: Municipality[] = [
     id: "san-miguel",
     comuna: "San Miguel",
     region: "Metropolitana",
-    website: "https://www.munisanmiguel.cl",
-    modalidad: "mixto",
+    website: "https://web.sanmiguel.cl/agenda-online-abierta-para-licencias-de-conducir/",
+    modalidad: "online",
     requiereResidencia: true,
+    demanda: "media",
+    release: {
+      rule: { kind: "open" },
+      source: "https://web.sanmiguel.cl/agenda-online-abierta-para-licencias-de-conducir/",
+      note: "Agenda online abierta; revisa disponibilidad directamente.",
+    },
   },
   {
     id: "coquimbo",
@@ -287,6 +337,36 @@ export const MUNICIPALITIES: Municipality[] = [
     modalidad: "mixto",
     requiereResidencia: true,
   },
+  {
+    id: "colina",
+    comuna: "Colina",
+    region: "Metropolitana",
+    website: "https://www.colina.cl/agenda-tu-cita/",
+    agendaUrl: "https://cu.colina.cl",
+    modalidad: "online",
+    requiereResidencia: true,
+    demanda: "media",
+    release: {
+      rule: { kind: "weekly", weekday: 1, hour: 15, minute: 0 },
+      source: "https://www.patentechile.com/agendar-hora-licencia-conducir-colina/",
+      note: "Lunes 15:00 se habilitan horas para las dos semanas siguientes; ademas hay cupos nuevos a diario (5 a 25 dias adelante). Exige residencia.",
+    },
+  },
+  {
+    id: "pudahuel",
+    comuna: "Pudahuel",
+    region: "Metropolitana",
+    website: "https://www.mpudahuel.cl",
+    agendaUrl: "https://www.mpudahuel.cl/direccion-de-transito-licencias-de-conducir",
+    modalidad: "online",
+    requiereResidencia: true,
+    demanda: "media",
+    release: {
+      rule: { kind: "weekly", weekday: 1, hour: 9, minute: 0 },
+      source: "https://www.mpudahuel.cl/direccion-de-transito-licencias-de-conducir",
+      note: "Cada lunes a las 09:00 se abren cupos online (con varias semanas de anticipacion).",
+    },
+  },
 ];
 
 /** Busqueda oficial que lleva a la pagina vigente de licencias de la comuna. */
@@ -303,6 +383,33 @@ export function searchUrl(m: Municipality): string {
  */
 export function bookingLink(m: Municipality): string {
   return m.agendaUrl ?? searchUrl(m);
+}
+
+/** Comunas con un horario de liberacion conocido (para el calendario y las alertas). */
+export function municipalitiesWithRelease(): Municipality[] {
+  return MUNICIPALITIES.filter((m) => m.release);
+}
+
+const DEMANDA_SCORE: Record<NonNullable<Municipality["demanda"]>, number> = {
+  baja: 0,
+  media: 1,
+  alta: 2,
+};
+
+/**
+ * Puntaje de "facilidad para conseguir cupo" (menor = mejor). Prioriza menor demanda,
+ * tener un horario de liberacion conocido y un enlace directo de reserva.
+ */
+export function chanceScore(m: Municipality): number {
+  const demanda = m.demanda ? DEMANDA_SCORE[m.demanda] : 1.5;
+  const releaseBonus = m.release ? -0.5 : 0;
+  const directBonus = m.agendaUrl ? -0.25 : 0;
+  return demanda + releaseBonus + directBonus;
+}
+
+/** Comunas ordenadas de mayor a menor probabilidad de conseguir cupo. */
+export function byChance(list: Municipality[] = MUNICIPALITIES): Municipality[] {
+  return [...list].sort((a, b) => chanceScore(a) - chanceScore(b));
 }
 
 /** Requisitos generales (referenciales) para obtener licencia Clase B por primera vez. */
