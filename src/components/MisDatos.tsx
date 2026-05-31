@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // "Mis datos para agendar": el usuario guarda sus datos una sola vez (en su navegador)
 // y luego los copia con un toque para pegarlos en el formulario de la municipalidad.
@@ -40,8 +40,8 @@ const FIELDS: { key: keyof Datos; label: string; placeholder: string; type?: str
 
 export default function MisDatos() {
   const [datos, setDatos] = useState<Datos>(EMPTY);
-  const [loaded, setLoaded] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     try {
@@ -50,7 +50,6 @@ export default function MisDatos() {
     } catch {
       /* ignore */
     }
-    setLoaded(true);
   }, []);
 
   const update = (k: keyof Datos, v: string) => {
@@ -85,8 +84,26 @@ export default function MisDatos() {
 
   const filled = FIELDS.filter((f) => datos[f.key]).length;
 
+  // Bookmarklet de autocompletado: rellena campos comunes del formulario municipal con tus
+  // datos. El usuario lo arrastra a su barra de marcadores y lo clickea EN el sitio del
+  // municipio. Es una herramienta de uso personal: revisa siempre lo que rellena.
+  const bookmarklet =
+    "javascript:(function(){var d=" +
+    JSON.stringify(datos) +
+    ";function s(e,v){try{e.focus();var p=Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype,'value');if(p&&p.set){p.set.call(e,v)}else{e.value=v}e.dispatchEvent(new Event('input',{bubbles:true}));e.dispatchEvent(new Event('change',{bubbles:true}))}catch(_){}}" +
+    "var n=0;document.querySelectorAll('input,textarea').forEach(function(e){var k=((e.name||'')+' '+(e.id||'')+' '+(e.placeholder||'')+' '+(e.getAttribute('aria-label')||'')).toLowerCase();var v='';if(/(rut|run)/.test(k))v=d.rut;else if(/(mail|correo)/.test(k))v=d.email;else if(/(fono|tel|celular|movil|whats)/.test(k))v=d.telefono;else if(/(nombre|name)/.test(k))v=d.nombre;else if(/(direcc|domicil|calle)/.test(k))v=d.direccion;else if(/(comuna)/.test(k))v=d.comuna;else if(/(nacim|birth)/.test(k))v=d.nacimiento;if(v){s(e,v);n++}});alert('Licencia Chile: rellene '+n+' campo(s). Revisa y completa el resto.')})();";
+
+  const bmRef = useRef<HTMLAnchorElement | null>(null);
+  useEffect(() => {
+    if (bmRef.current) bmRef.current.setAttribute("href", bookmarklet);
+  }, [bookmarklet]);
+
   return (
-    <details className="card overflow-hidden" open={loaded && filled === 0}>
+    <details
+      className="card overflow-hidden"
+      open={open}
+      onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}
+    >
       <summary className="flex cursor-pointer list-none items-center justify-between p-5">
         <div>
           <h2 className="font-semibold">⚡ Mis datos para agendar mas rapido</h2>
@@ -134,6 +151,42 @@ export default function MisDatos() {
             servidor.
           </p>
         </div>
+
+        {/* Bookmarklet de autocompletado */}
+        {filled > 0 && (
+          <div className="mt-5 rounded-xl border border-brand/20 bg-brand/[0.04] p-4">
+            <h3 className="text-sm font-semibold text-ink">
+              🔖 Boton magico: autocompletar el formulario
+            </h3>
+            <p className="mt-1 text-xs text-neutral-600">
+              Arrastra este boton a tu barra de marcadores. Luego, estando en el formulario
+              de tu comuna, haz clic en el y rellenara los campos (RUT, nombre, correo,
+              telefono, direccion) con tus datos.
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              {/* href se asigna por ref para evitar el saneamiento de javascript: de React */}
+              <a
+                ref={bmRef}
+                onClick={(e) => e.preventDefault()}
+                className="cursor-grab rounded-full bg-gradient-to-r from-brand to-neon-violet px-4 py-2 text-sm font-semibold text-white shadow-sm active:cursor-grabbing"
+                title="Arrastrame a tus marcadores"
+              >
+                ⚡ Autocompletar licencia
+              </a>
+              <button
+                type="button"
+                onClick={() => copy("__bm__", bookmarklet)}
+                className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-brand hover:bg-black/[0.03]"
+              >
+                {copied === "__bm__" ? "✓ Copiado" : "Copiar codigo"}
+              </button>
+            </div>
+            <p className="mt-2 text-xs text-neutral-400">
+              Herramienta de uso personal. Revisa siempre lo que rellena: los formularios
+              municipales varian y puede que algunos campos no coincidan.
+            </p>
+          </div>
+        )}
       </div>
     </details>
   );

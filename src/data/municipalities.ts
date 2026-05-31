@@ -28,8 +28,8 @@ export interface Municipality {
   id: string;
   comuna: string;
   region: string;
-  /** Sitio web oficial del municipio (dominio verificado). */
-  website: string;
+  /** Sitio web oficial del municipio (dominio verificado). Opcional. */
+  website?: string;
   /** Pagina directa de transito/licencias, SOLO si fue verificada (responde 200). */
   agendaUrl?: string;
   /** Telefono de contacto de la Direccion de Transito, si se conoce. */
@@ -42,6 +42,8 @@ export interface Municipality {
   demanda?: "alta" | "media" | "baja";
   /** Cuando libera nuevas horas (si se conoce). */
   release?: ReleaseInfo;
+  /** Requisitos especificos adicionales de esta comuna. */
+  requisitosExtra?: string[];
   notas?: string;
 }
 
@@ -84,6 +86,10 @@ export const MUNICIPALITIES: Municipality[] = [
       source: "https://www.lascondes.cl/tramites/transito/licencias-de-conducir/",
       note: "Se abre agenda para la semana siguiente, solo via pagina web.",
     },
+    requisitosExtra: [
+      "Documentos que acrediten residencia en Las Condes (la agenda los exige).",
+      "Email: licencias@lascondes.cl · Tel: +56 2 2950 7000.",
+    ],
     notas: "Reserva 100% online. La agenda de la semana siguiente se abre los sabados a las 10:00.",
   },
   {
@@ -320,6 +326,9 @@ export const MUNICIPALITIES: Municipality[] = [
       source: "https://web.sanmiguel.cl/agenda-online-abierta-para-licencias-de-conducir/",
       note: "Agenda online abierta; revisa disponibilidad directamente.",
     },
+    requisitosExtra: [
+      "Descarga e imprime el 'Anexo N°1' para ciertos tramites (lo indica el sistema de reserva).",
+    ],
   },
   {
     id: "coquimbo",
@@ -399,6 +408,9 @@ export const MUNICIPALITIES: Municipality[] = [
       source: "https://www.patentechile.com/agendar-hora-licencia-conducir-colina/",
       note: "Lunes 15:00 se habilitan horas para las dos semanas siguientes; ademas hay cupos nuevos a diario (5 a 25 dias adelante). Exige residencia.",
     },
+    requisitosExtra: [
+      "La residencia se valida con la Hoja de Vida del Conductor (Registro Civil con ClaveUnica).",
+    ],
   },
   {
     id: "pudahuel",
@@ -416,6 +428,75 @@ export const MUNICIPALITIES: Municipality[] = [
     },
   },
 ];
+
+// Cobertura del corredor central (La Calera -> Talca), incluyendo TODAS las comunas de
+// Santiago (Region Metropolitana). Para estas comunas aun no tenemos pagina de reserva
+// verificada ni horario de liberacion, asi que el boton lleva a una busqueda oficial. Se
+// generan automaticamente y no duplican las que ya estan definidas arriba con datos.
+function slugify(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const CORREDOR: { region: string; comunas: string[] }[] = [
+  {
+    region: "Valparaiso",
+    comunas: [
+      "La Calera", "La Cruz", "Nogales", "Hijuelas", "Quillota", "Calle Larga",
+      "Los Andes", "San Esteban", "Rinconada", "San Felipe", "Putaendo", "Santa Maria",
+      "Llaillay", "Catemu", "Panquehue", "Limache", "Olmue", "Villa Alemana", "Concon",
+      "Casablanca", "San Antonio", "Cartagena", "El Tabo", "El Quisco", "Algarrobo",
+      "Santo Domingo",
+    ],
+  },
+  {
+    region: "Metropolitana",
+    comunas: [
+      "Cerrillos", "Cerro Navia", "Conchali", "El Bosque", "Huechuraba", "Independencia",
+      "La Cisterna", "La Granja", "La Pintana", "Lo Barnechea", "Lo Espejo", "Lo Prado",
+      "Macul", "Pedro Aguirre Cerda", "Quinta Normal", "Recoleta", "San Joaquin",
+      "San Ramon", "Pirque", "San Jose de Maipo", "Lampa", "Til Til", "Buin",
+      "Calera de Tango", "Paine", "Melipilla", "Alhue", "Curacavi", "Maria Pinto",
+      "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Penaflor",
+    ],
+  },
+  {
+    region: "O'Higgins",
+    comunas: [
+      "Machali", "Graneros", "Mostazal", "Codegua", "Donihue", "Coltauco", "Olivar",
+      "Requinoa", "Rengo", "Malloa", "Quinta de Tilcoco", "San Vicente", "Peumo",
+      "Las Cabras", "San Fernando", "Chimbarongo", "Nancagua", "Placilla", "Santa Cruz",
+    ],
+  },
+  {
+    region: "Maule",
+    comunas: [
+      "Curico", "Teno", "Romeral", "Molina", "Sagrada Familia", "Hualane", "Rauco",
+      "Talca", "San Clemente", "Pelarco", "Pencahue", "Maule", "San Rafael", "Rio Claro",
+      "Constitucion",
+    ],
+  },
+];
+
+const _existing = new Set(MUNICIPALITIES.map((m) => m.id));
+for (const grupo of CORREDOR) {
+  for (const comuna of grupo.comunas) {
+    const id = slugify(comuna);
+    if (_existing.has(id)) continue;
+    _existing.add(id);
+    MUNICIPALITIES.push({
+      id,
+      comuna,
+      region: grupo.region,
+      modalidad: "desconocida",
+      requiereResidencia: true,
+    });
+  }
+}
 
 /** Busqueda oficial que lleva a la pagina vigente de licencias de la comuna. */
 export function searchUrl(m: Municipality): string {

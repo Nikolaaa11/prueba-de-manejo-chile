@@ -23,6 +23,7 @@ type Mode =
   | "menu"
   | "practica"
   | "examen"
+  | "oficial"
   | "frecuentes"
   | "fallan"
   | "errores"
@@ -30,6 +31,11 @@ type Mode =
 
 const EXAM_SIZE = Math.min(20, QUESTIONS.length);
 const PASS_RATIO = 0.7;
+// Examen oficial referencial: 35 preguntas, 3 de doble puntaje (alcohol, velocidad,
+// retencion infantil), maximo 38 puntos, se aprueba con 33, 45 minutos.
+const OFICIAL_SIZE = Math.min(35, QUESTIONS.length);
+const OFICIAL_SECONDS = 45 * 60;
+const OFICIAL_PASS = 33;
 const STORAGE_KEY = "licencia-chile-stats-v1";
 
 interface Stats {
@@ -81,6 +87,8 @@ export default function TestPage() {
   const [practiceCategory, setPracticeCategory] = useState<Category | "all">("all");
 
   const [elapsed, setElapsed] = useState(0);
+  const [oficial, setOficial] = useState(false);
+  const doubleRef = useRef<Set<number>>(new Set());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const [stats, setStats] = useState<Stats>(EMPTY_STATS);
@@ -94,7 +102,7 @@ export default function TestPage() {
   }, []);
 
   useEffect(() => {
-    if (mode === "examen") {
+    if (mode === "examen" || mode === "oficial") {
       timerRef.current = setInterval(() => setElapsed((e) => e + 1), 1000);
     }
     return () => {
@@ -143,8 +151,16 @@ export default function TestPage() {
 
   const start = (m: Mode) => {
     let qs: Question[] = [];
+    const dbl = new Set<number>();
     if (m === "examen") qs = pickRandom(EXAM_SIZE);
-    else if (m === "frecuentes") {
+    else if (m === "oficial") {
+      qs = pickRandom(OFICIAL_SIZE);
+      // 3 preguntas de doble puntaje: una de alcohol, una de velocidad y una de seguridad.
+      for (const cat of ["alcohol", "velocidad", "seguridad"] as Category[]) {
+        const found = qs.find((q) => q.category === cat && !dbl.has(q.id));
+        if (found) dbl.add(found.id);
+      }
+    } else if (m === "frecuentes") {
       const fq = frequentQuestions();
       qs = pickRandom(fq.length, undefined, fq);
     } else if (m === "fallan") {
@@ -159,6 +175,8 @@ export default function TestPage() {
       qs = pickRandom(pool.length, undefined, pool);
     }
     if (qs.length === 0) return;
+    doubleRef.current = dbl;
+    setOficial(m === "oficial");
     setQuestions(qs);
     setIndex(0);
     setAnswers({});
@@ -189,6 +207,15 @@ export default function TestPage() {
     [questions, answers]
   );
 
+  // Puntaje del examen oficial (las preguntas de doble puntaje valen 2).
+  const points = useMemo(() => {
+    let p = 0;
+    for (const q of questions)
+      if (answers[q.id] === q.answer) p += doubleRef.current.has(q.id) ? 2 : 1;
+    return p;
+  }, [questions, answers]);
+  const maxPoints = questions.length + doubleRef.current.size;
+
   const finishExam = () => {
     if (timerRef.current) clearInterval(timerRef.current);
     setQStats((prev) =>
@@ -199,6 +226,12 @@ export default function TestPage() {
     );
     setMode("resultado");
   };
+
+  // Auto-termina el examen oficial al agotarse el tiempo.
+  useEffect(() => {
+    if (mode === "oficial" && elapsed >= OFICIAL_SECONDS) finishExam();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, elapsed]);
 
   useEffect(() => {
     if (mode !== "resultado" || questions.length === 0 || savedRef.current) return;
@@ -323,6 +356,26 @@ export default function TestPage() {
             </button>
           </div>
 
+          <div className="rounded-xl border border-neon-violet/30 bg-neon-violet/[0.06] p-6 sm:col-span-2">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="text-3xl">🏁</div>
+                <h2 className="mt-2 text-lg font-semibold">Examen oficial (simulacro real)</h2>
+                <p className="mt-1 max-w-2xl text-sm text-neutral-600">
+                  {OFICIAL_SIZE} preguntas y 45 minutos, igual que el examen teorico real. 3
+                  preguntas valen doble puntaje (alcohol, velocidad y retencion infantil);
+                  apruebas con {OFICIAL_PASS} de {OFICIAL_SIZE + 3} puntos.
+                </p>
+              </div>
+              <button
+                onClick={() => start("oficial")}
+                className="shrink-0 rounded-full bg-gradient-to-r from-brand to-neon-violet px-5 py-2.5 font-semibold text-white shadow-sm hover:brightness-110"
+              >
+                Rendir simulacro
+              </button>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-black/[0.06] bg-white p-6">
             <div className="text-3xl">⭐</div>
             <h2 className="mt-2 text-lg font-semibold">Preguntas frecuentes</h2>
@@ -387,15 +440,24 @@ export default function TestPage() {
 
   // ---- RESULTADO ----
   if (mode === "resultado") {
-    const passed = correctCount / questions.length >= PASS_RATIO;
+    const passed = oficial
+      ? points >= OFICIAL_PASS
+      : correctCount / questions.length >= PASS_RATIO;
     return (
       <div className="space-y-6">
         <div className={`rounded-2xl p-8 text-white ${passed ? "bg-emerald-500" : "bg-flag-red"}`}>
           <h1 className="text-3xl font-bold">{passed ? "¡Aprobado! 🎉" : "Sigue practicando 💪"}</h1>
-          <p className="mt-2 text-lg">
-            Respondiste correctamente {correctCount} de {questions.length} (
-            {Math.round((correctCount / questions.length) * 100)}%).
-          </p>
+          {oficial ? (
+            <p className="mt-2 text-lg">
+              Obtuviste {points} de {maxPoints} puntos (apruebas con {OFICIAL_PASS}).{" "}
+              {correctCount}/{questions.length} preguntas correctas.
+            </p>
+          ) : (
+            <p className="mt-2 text-lg">
+              Respondiste correctamente {correctCount} de {questions.length} (
+              {Math.round((correctCount / questions.length) * 100)}%).
+            </p>
+          )}
           <p className="mt-1 text-white/90">Tiempo: {formatTime(elapsed)}</p>
         </div>
 
@@ -470,6 +532,8 @@ export default function TestPage() {
   const sectionLabel =
     mode === "examen"
       ? "Examen"
+      : mode === "oficial"
+      ? "Examen oficial"
       : mode === "frecuentes"
       ? "Frecuentes"
       : mode === "errores"
@@ -477,6 +541,8 @@ export default function TestPage() {
       : mode === "fallan"
       ? "Las que mas se fallan"
       : "Practica";
+  const remaining = OFICIAL_SECONDS - elapsed;
+  const isDouble = oficial && doubleRef.current.has(current.id);
   const curStat = qstats[current.id];
 
   return (
@@ -489,6 +555,20 @@ export default function TestPage() {
           {mode === "examen" && (
             <span className="rounded-full bg-neutral-100 px-3 py-1 font-mono font-medium text-neutral-800">
               ⏱ {formatTime(elapsed)}
+            </span>
+          )}
+          {mode === "oficial" && (
+            <span
+              className={`rounded-full px-3 py-1 font-mono font-medium ${
+                remaining <= 300 ? "bg-rose-500/15 text-flag-red" : "bg-neutral-100 text-neutral-800"
+              }`}
+            >
+              ⏱ {formatTime(Math.max(0, remaining))}
+            </span>
+          )}
+          {isDouble && (
+            <span className="rounded-full bg-neon-violet/15 px-3 py-1 text-xs font-semibold text-neon-violet">
+              ×2 doble puntaje
             </span>
           )}
           <span className="rounded-full bg-neon-cyan/10 px-3 py-1 font-medium text-neon-cyan">
@@ -562,7 +642,7 @@ export default function TestPage() {
           ← Anterior
         </button>
 
-        {mode === "examen" && (
+        {(mode === "examen" || mode === "oficial") && (
           <span className="text-sm text-neutral-500">
             {answeredCount}/{questions.length} respondidas
           </span>
@@ -575,12 +655,12 @@ export default function TestPage() {
           >
             Siguiente →
           </button>
-        ) : mode === "examen" ? (
+        ) : mode === "examen" || mode === "oficial" ? (
           <button
             onClick={finishExam}
-            disabled={!answeredAll}
+            disabled={mode === "examen" && !answeredAll}
             className="rounded-lg bg-emerald-500 px-5 py-2 font-semibold text-white hover:brightness-110 disabled:opacity-40"
-            title={answeredAll ? "" : "Responde todas las preguntas para terminar"}
+            title={mode === "examen" && !answeredAll ? "Responde todas las preguntas para terminar" : ""}
           >
             Terminar y ver resultado
           </button>

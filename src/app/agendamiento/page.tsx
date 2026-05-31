@@ -34,6 +34,33 @@ const DEMANDA_BADGE: Record<string, { label: string; cls: string }> = {
   alta: { label: "Demanda alta", cls: "bg-rose-500/15 text-flag-red" },
 };
 
+const TONE: Record<string, { box: string; dot: string }> = {
+  green: { box: "border-emerald-500/20 bg-emerald-500/10 text-emerald-800", dot: "bg-emerald-500" },
+  amber: { box: "border-amber-500/20 bg-amber-500/10 text-amber-800", dot: "bg-amber-500" },
+  blue: { box: "border-brand/20 bg-brand/10 text-brand", dot: "bg-brand" },
+  gray: { box: "border-black/[0.06] bg-black/[0.04] text-neutral-600", dot: "bg-neutral-400" },
+};
+
+// Estado de cupos claro: si hay agenda abierta, cuando abre, o si hay que revisar.
+function cupoEstado(m: Municipality, now: Date | null): { tone: string; label: string } {
+  if (m.release) {
+    if (m.release.rule.kind === "open")
+      return { tone: "green", label: "Agenda abierta — suele haber horas" };
+    const next = now ? nextOccurrence(m.release.rule, now) : null;
+    if (next && now) {
+      const soon = next.getTime() - now.getTime() < 48 * 3600 * 1000;
+      return {
+        tone: soon ? "green" : "amber",
+        label: `Abre ${countdown(next, now)} · ${formatNext(next)}`,
+      };
+    }
+    return { tone: "amber", label: `Abre: ${describeReleaseRule(m.release.rule).toLowerCase()}` };
+  }
+  if (m.agendaUrl)
+    return { tone: "blue", label: "Reserva online directa — revisa disponibilidad" };
+  return { tone: "gray", label: "Busca la pagina oficial y revisa disponibilidad" };
+}
+
 export default function AgendamientoPage() {
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("");
@@ -159,6 +186,8 @@ export default function AgendamientoPage() {
         {filtered.map((m) => {
           const badge = m.demanda ? DEMANDA_BADGE[m.demanda] : null;
           const next = m.release && now ? nextOccurrence(m.release.rule, now) : null;
+          const estado = cupoEstado(m, now);
+          const tone = TONE[estado.tone];
           return (
             <div
               key={m.id}
@@ -181,7 +210,13 @@ export default function AgendamientoPage() {
                 </div>
               </div>
 
-              {/* Liberacion de cupos */}
+              {/* Estado de cupos: claro de un vistazo */}
+              <div className={`mt-3 flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium ${tone.box}`}>
+                <span className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} />
+                {estado.label}
+              </div>
+
+              {/* Liberacion de cupos (detalle) */}
               {m.release && (
                 <div className="mt-3 rounded-lg bg-emerald-500/10 p-3 text-sm">
                   <p className="font-medium text-emerald-800">
@@ -220,6 +255,16 @@ export default function AgendamientoPage() {
                       ))}
                     </ul>
                   </div>
+                  {m.requisitosExtra && m.requisitosExtra.length > 0 && (
+                    <div>
+                      <p className="font-medium text-ink">Especifico de {m.comuna}:</p>
+                      <ul className="mt-1 list-disc space-y-0.5 pl-5 text-neutral-600">
+                        {m.requisitosExtra.map((r) => (
+                          <li key={r}>{r}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   {m.requiereResidencia && (
                     <p className="text-amber-700">
                       ⚠ Debes acreditar que vives en {m.comuna} (certificado de residencia o
@@ -250,14 +295,16 @@ export default function AgendamientoPage() {
                   >
                     {m.agendaUrl ? "Ir a agendar →" : "Buscar pagina oficial →"}
                   </a>
-                  <a
-                    href={m.website}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-lg border border-black/10 px-4 py-2 text-sm font-medium hover:bg-black/[0.04]"
-                  >
-                    Sitio del municipio
-                  </a>
+                  {m.website && (
+                    <a
+                      href={m.website}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="rounded-lg border border-black/10 px-4 py-2 text-sm font-medium hover:bg-black/[0.04]"
+                    >
+                      Sitio del municipio
+                    </a>
+                  )}
                 </div>
                 {!m.agendaUrl && (
                   <p className="mt-2 text-xs text-neutral-400">
