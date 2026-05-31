@@ -6,10 +6,13 @@ import {
   MUNICIPALITIES,
   REQUISITOS_CLASE_B,
   DOCUMENTOS,
+  EXAMENES,
+  PASOS_AGENDAMIENTO,
   bookingLink,
   byChance,
   type Municipality,
 } from "@/data/municipalities";
+import MisDatos from "@/components/MisDatos";
 import {
   describeReleaseRule,
   nextOccurrence,
@@ -90,6 +93,8 @@ export default function AgendamientoPage() {
           Ver calendario →
         </Link>
       </div>
+
+      <MisDatos />
 
       <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-900">
         <strong>Importante:</strong> en Chile no existe un sistema nacional unico de
@@ -202,6 +207,39 @@ export default function AgendamientoPage() {
               {m.notas && <p className="mt-2 text-sm text-neutral-600">{m.notas}</p>}
               {m.phone && <p className="mt-2 text-sm text-neutral-600">📞 {m.phone}</p>}
 
+              <details className="mt-3 rounded-lg border border-black/[0.06] bg-neutral-50 p-3 text-sm">
+                <summary className="cursor-pointer list-none font-medium text-brand">
+                  ¿Que necesitas y como agendar aqui?
+                </summary>
+                <div className="mt-2 space-y-2 text-neutral-700">
+                  <div>
+                    <p className="font-medium text-ink">Documentos a tener listos:</p>
+                    <ul className="mt-1 list-disc space-y-0.5 pl-5 text-neutral-600">
+                      {DOCUMENTOS.map((d) => (
+                        <li key={d}>{d}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  {m.requiereResidencia && (
+                    <p className="text-amber-700">
+                      ⚠ Debes acreditar que vives en {m.comuna} (certificado de residencia o
+                      cuenta de servicios a tu nombre).
+                    </p>
+                  )}
+                  {m.release && (
+                    <p className="text-emerald-700">
+                      🗓 Entra a reservar {describeReleaseRule(m.release.rule).toLowerCase()},
+                      que es cuando hay mas cupos.
+                    </p>
+                  )}
+                  <p>
+                    Para llenar el formulario mas rapido, copia tus datos desde{" "}
+                    <strong>&quot;Mis datos para agendar&quot;</strong> (arriba). Mira la guia
+                    de pasos al final de la pagina.
+                  </p>
+                </div>
+              </details>
+
               <div className="mt-auto pt-4">
                 <div className="flex flex-wrap gap-2">
                   <a
@@ -239,29 +277,61 @@ export default function AgendamientoPage() {
         )}
       </div>
 
-      {/* Requisitos y documentos */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-black/[0.06] bg-white p-5">
-          <h2 className="font-semibold">Requisitos (Clase B, primera vez)</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-800">
-            {REQUISITOS_CLASE_B.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
+      {/* Guia completa */}
+      <section className="space-y-4">
+        <h2 className="text-xl font-bold tracking-tight text-ink">
+          Guia para sacar tu licencia Clase B
+        </h2>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft">
+            <h3 className="font-semibold">✅ Requisitos</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+              {REQUISITOS_CLASE_B.map((r) => (
+                <li key={r}>{r}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft">
+            <h3 className="font-semibold">📄 Documentos</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+              {DOCUMENTOS.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft">
+            <h3 className="font-semibold">🧪 Examenes (presenciales)</h3>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-700">
+              {EXAMENES.map((e) => (
+                <li key={e}>{e}</li>
+              ))}
+            </ul>
+            <p className="mt-2 text-xs text-neutral-400">
+              Tienes 2 oportunidades por examen; el repechaje es dentro de 25 dias habiles.
+            </p>
+          </div>
         </div>
-        <div className="rounded-xl border border-black/[0.06] bg-white p-5">
-          <h2 className="font-semibold">Documentos que suelen pedir</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-800">
-            {DOCUMENTOS.map((d) => (
-              <li key={d}>{d}</li>
+
+        <div className="rounded-2xl border border-black/[0.06] bg-white p-5 shadow-soft">
+          <h3 className="font-semibold">📝 Paso a paso para agendar (y llenar el formulario rapido)</h3>
+          <ol className="mt-3 space-y-3">
+            {PASOS_AGENDAMIENTO.map((p, i) => (
+              <li key={i} className="flex gap-3">
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand/10 text-xs font-bold text-brand">
+                  {i + 1}
+                </span>
+                <span className="text-sm text-neutral-700">{p}</span>
+              </li>
             ))}
-          </ul>
-          <p className="mt-3 text-xs text-neutral-400">
-            Los requisitos exactos los define cada municipalidad. Confirma en el sitio
-            oficial antes de asistir.
+          </ol>
+          <p className="mt-4 text-xs text-neutral-400">
+            Los requisitos y aranceles exactos los define cada municipalidad: confirma en el
+            sitio oficial antes de asistir. El agendamiento es online, pero los examenes son
+            presenciales.
           </p>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

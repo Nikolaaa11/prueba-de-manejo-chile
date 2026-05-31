@@ -462,19 +462,41 @@ export function byChance(list: Municipality[] = MUNICIPALITIES): Municipality[] 
 
 /** Requisitos generales (referenciales) para obtener licencia Clase B por primera vez. */
 export const REQUISITOS_CLASE_B: string[] = [
-  "Ser mayor de 18 anos.",
-  "Cedula de identidad vigente.",
-  "Acreditar domicilio en la comuna (en la mayoria de los municipios).",
-  "Saber leer y escribir (licencia no profesional).",
-  "Aprobar el examen teorico (conocimiento de la Ley de Transito y senalizacion).",
+  "Tener 18 anos o mas (excepcionalmente 17 con curso de escuela de conductores).",
+  "Haber egresado de ensenanza basica (saber leer y escribir).",
+  "Acreditar domicilio en la comuna (lo exige la mayoria de los municipios).",
+  "Aprobar el examen teorico (Ley de Transito y senalizacion).",
+  "Aprobar los examenes medico, psicometrico y sensometrico.",
   "Aprobar el examen practico de conduccion.",
-  "Aprobar el examen medico y psicotecnico (vista, audicion, coordinacion, etc.).",
-  "Pagar los derechos municipales correspondientes.",
+  "Pagar el arancel municipal correspondiente.",
 ];
 
+/** Documentos que normalmente debes llevar / tener a mano. */
 export const DOCUMENTOS: string[] = [
   "Cedula de identidad vigente.",
-  "Comprobante de domicilio (cuenta de servicios, certificado de residencia, etc.).",
-  "Pago de derechos municipales (segun cada municipio).",
-  "En caso de extranjeros: documentos de residencia segun corresponda.",
+  "Certificado de residencia o comprobante de domicilio en la comuna.",
+  "Certificado de estudios (egreso de ensenanza basica).",
+  "Hoja de vida del conductor (se obtiene gratis en el Registro Civil con ClaveUnica).",
+  "Comprobante de pago del arancel municipal.",
+  "Extranjeros: documento de residencia vigente segun corresponda.",
+];
+
+/** Examenes que se rinden de forma PRESENCIAL en la Direccion de Transito. */
+export const EXAMENES: string[] = [
+  "Examen teorico (conocimiento de la normativa y senales).",
+  "Examen practico de conduccion.",
+  "Examen medico / entrevista medica.",
+  "Examen psicometrico (coordinacion y reacciones).",
+  "Examen sensometrico (vision y audicion).",
+];
+
+/** Guia generica paso a paso del agendamiento online (la mayoria de las comunas). */
+export const PASOS_AGENDAMIENTO: string[] = [
+  "Reune y digitaliza tus documentos antes de empezar (cedula, residencia, estudios, hoja de vida del conductor).",
+  "Entra al sistema de reserva de tu comuna (boton 'Ir a agendar'). Algunas piden iniciar sesion con ClaveUnica.",
+  "Ingresa tu RUT y tus datos personales. Tip: usa 'Mis datos' (arriba) y pega cada campo con un toque.",
+  "Selecciona el tramite 'Primera licencia Clase B' (o renovacion, segun tu caso).",
+  "Elige una fecha y hora disponibles y confirma la reserva.",
+  "Paga el arancel (online o presencial, segun la comuna) y guarda el comprobante o QR.",
+  "Llega puntual con TODOS los documentos: los examenes (teorico, practico, medico) se rinden de forma presencial.",
 ];
