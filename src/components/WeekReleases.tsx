@@ -39,7 +39,7 @@ export default function WeekReleases() {
   if (!rows) {
     return (
       <div className="card p-6">
-        <div className="h-5 w-48 animate-pulse rounded bg-white/10" />
+        <div className="h-5 w-48 animate-pulse rounded bg-neutral-200" />
       </div>
     );
   }
@@ -48,16 +48,16 @@ export default function WeekReleases() {
     <div className="card p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">
-          <span className="mr-2 animate-pulseGlow text-neon-cyan">●</span>
+          <span className="mr-2 animate-pulseGlow text-emerald-500">●</span>
           Liberan cupos esta semana
         </h2>
-        <Link href="/calendario" className="text-sm text-neon-cyan hover:underline">
+        <Link href="/calendario" className="text-sm font-medium text-brand hover:underline">
           Ver calendario →
         </Link>
       </div>
 
       {rows.length === 0 ? (
-        <p className="mt-3 text-sm text-slate-400">
+        <p className="mt-3 text-sm text-neutral-500">
           No hay liberaciones programadas en los proximos 7 dias entre las comunas con
           horario conocido. Revisa el calendario o las de agenda abierta.
         </p>
@@ -69,11 +69,11 @@ export default function WeekReleases() {
               href={r.url}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:border-neon-cyan/50 hover:bg-white/[0.06]"
+              className="group flex items-center justify-between rounded-xl border border-black/[0.06] bg-neutral-50 px-4 py-3 transition hover:border-brand/40 hover:bg-white"
             >
               <div>
                 <div className="font-semibold">{r.comuna}</div>
-                <div className="text-xs text-slate-400">{formatNext(new Date(r.next))}</div>
+                <div className="text-xs text-neutral-500">{formatNext(new Date(r.next))}</div>
               </div>
               <span className="chip-cyan">{countdown(new Date(r.next), new Date(now))}</span>
             </a>

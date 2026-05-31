@@ -9,56 +9,53 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Tema futurista oscuro
+        // Tema claro estilo Apple
         ink: {
-          DEFAULT: "#070b16", // fondo base
-          800: "#0c1322",
-          700: "#121a2e",
+          DEFAULT: "#1d1d1f", // texto principal (gris casi negro de Apple)
+          800: "#2a2a2e",
+          700: "#3a3a3e",
         },
+        // Acentos (se mantienen los nombres "neon-*" pero apuntan a la paleta Apple)
         neon: {
-          cyan: "#22d3ee",
-          blue: "#3b82f6",
-          violet: "#8b5cf6",
-          pink: "#ec4899",
+          cyan: "#0071e3", // azul Apple
+          blue: "#0071e3",
+          violet: "#5e5ce6", // indigo Apple
+          pink: "#ff375f",
         },
         brand: {
-          DEFAULT: "#22d3ee",
-          dark: "#0ea5b7",
-          light: "#0c1322",
+          DEFAULT: "#0071e3",
+          dark: "#0066cc",
+          light: "#f5f5f7",
         },
         flag: {
-          red: "#fb7185",
-          blue: "#3b82f6",
+          red: "#d70015",
+          blue: "#0071e3",
         },
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(34,211,238,0.25), 0 8px 40px -8px rgba(34,211,238,0.35)",
-        "glow-violet": "0 0 0 1px rgba(139,92,246,0.25), 0 8px 40px -8px rgba(139,92,246,0.4)",
+        // Sombras suaves estilo Apple
+        glow: "0 6px 24px -6px rgba(0,0,0,0.12)",
+        "glow-violet": "0 6px 24px -6px rgba(94,92,230,0.25)",
+        soft: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px -12px rgba(0,0,0,0.12)",
       },
       keyframes: {
-        aurora: {
-          "0%, 100%": { transform: "translate(0,0) scale(1)", opacity: "0.55" },
-          "50%": { transform: "translate(6%, 8%) scale(1.15)", opacity: "0.8" },
-        },
         fadeUp: {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        shimmer: {
-          "0%": { backgroundPosition: "200% 0" },
-          "100%": { backgroundPosition: "-200% 0" },
-        },
         pulseGlow: {
           "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.45" },
+          "50%": { opacity: "0.4" },
+        },
+        floaty: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-8px)" },
         },
       },
       animation: {
-        aurora: "aurora 14s ease-in-out infinite",
-        "aurora-slow": "aurora 22s ease-in-out infinite",
         fadeUp: "fadeUp 0.5s ease-out both",
-        shimmer: "shimmer 2.5s linear infinite",
         pulseGlow: "pulseGlow 2s ease-in-out infinite",
+        floaty: "floaty 6s ease-in-out infinite",
       },
     },
   },

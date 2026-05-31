@@ -2,7 +2,7 @@
 
 Plataforma web (Next.js) para **estudiar el examen teórico de licencia de conducir Clase B en Chile** y **encontrar dónde agendar tu hora para la prueba de manejo**. Lista para desplegar en **Vercel**.
 
-✨ **Interfaz futurista** (tema oscuro con gradientes neón y glassmorphism), **instalable como app (PWA)** que funciona **offline**, con **panel de preparación** (dominio por tema + % de preparación) y un widget de **"liberan cupos esta semana"** en la portada.
+✨ **Interfaz limpia estilo Apple** (tema claro, tipografía SF/system, tarjetas blancas con sombras suaves y acentos azul/índigo), **instalable como app (PWA)** que funciona **offline**, con **panel de preparación** (dominio por tema + % de preparación), **señales de tránsito dibujadas en SVG** y un widget de **"liberan cupos esta semana"** en la portada.
 
 > ⚠️ **Aviso importante.** Este es un proyecto educativo de código abierto. **No es un sitio oficial** del Estado de Chile ni de ninguna municipalidad. El contenido del test se basa en la Ley de Tránsito 18.290 y material de CONASET, pero puede contener errores: verifica siempre la normativa vigente en [conaset.cl](https://www.conaset.cl) y [bcn.cl](https://www.bcn.cl).
 

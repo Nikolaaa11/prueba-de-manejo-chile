@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #070b16;
-  --foreground: #e7ecf5;
+  --background: #f5f5f7; /* gris claro de Apple */
+  --foreground: #1d1d1f;
 }
 
 html,
@@ -16,35 +16,10 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-  position: relative;
-}
-
-/* Fondo "aurora" futurista: glows suaves que se mueven lentamente */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  z-index: -1;
-  border-radius: 9999px;
-  filter: blur(90px);
-  pointer-events: none;
-}
-body::before {
-  top: -12vh;
-  left: -10vw;
-  width: 55vw;
-  height: 55vw;
-  background: radial-gradient(circle at center, rgba(34, 211, 238, 0.28), transparent 60%);
-  animation: aurora 16s ease-in-out infinite;
-}
-body::after {
-  bottom: -18vh;
-  right: -12vw;
-  width: 55vw;
-  height: 55vw;
-  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.26), transparent 60%);
-  animation: aurora 22s ease-in-out infinite reverse;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -53,42 +28,42 @@ a {
 }
 
 @layer components {
-  /* Tarjeta de vidrio (glassmorphism) */
+  /* Tarjeta estilo Apple: blanca, borde sutil, sombra suave */
   .card {
-    @apply rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl;
+    @apply rounded-2xl border border-black/[0.06] bg-white shadow-soft;
   }
   .card-hover {
-    @apply transition duration-300 hover:border-neon-cyan/50 hover:bg-white/[0.06] hover:shadow-glow;
+    @apply transition duration-300 hover:-translate-y-0.5 hover:shadow-glow;
   }
 
-  /* Botones */
+  /* Botones tipo "pill" de Apple */
   .btn-primary {
-    @apply rounded-xl bg-gradient-to-r from-neon-cyan to-neon-violet px-5 py-2.5 font-semibold text-ink shadow-glow transition hover:brightness-110 disabled:opacity-40;
+    @apply rounded-full bg-brand px-5 py-2.5 font-semibold text-white shadow-sm transition hover:bg-brand-dark disabled:opacity-40;
   }
   .btn-ghost {
-    @apply rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold text-white/90 transition hover:bg-white/10;
+    @apply rounded-full border border-black/10 bg-white px-5 py-2.5 font-semibold text-ink transition hover:bg-black/[0.03];
   }
 
   /* Chips / etiquetas */
   .chip {
-    @apply rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-200;
+    @apply rounded-full border border-black/[0.06] bg-black/[0.04] px-3 py-1 text-xs font-medium text-neutral-600;
   }
   .chip-cyan {
-    @apply rounded-full bg-neon-cyan/15 px-3 py-1 text-xs font-medium text-neon-cyan;
+    @apply rounded-full bg-brand/10 px-3 py-1 text-xs font-medium text-brand;
   }
 
   /* Inputs */
   .input {
-    @apply rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-white placeholder-slate-500 outline-none transition focus:border-neon-cyan focus:bg-white/10;
+    @apply rounded-xl border border-black/10 bg-white px-4 py-2.5 text-ink placeholder-neutral-400 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20;
   }
 
-  /* Texto con gradiente */
+  /* Texto con gradiente azul-indigo Apple (para palabras destacadas) */
   .gradient-text {
-    @apply bg-gradient-to-r from-neon-cyan via-sky-300 to-neon-violet bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand to-neon-violet bg-clip-text text-transparent;
   }
 
-  /* Panel claro para mostrar senales con buen contraste sobre fondo oscuro */
+  /* Panel para mostrar senales con buen contraste sobre fondo claro */
   .sign-plate {
-    @apply inline-flex items-center justify-center rounded-2xl bg-white/90 p-3 shadow-lg;
+    @apply inline-flex items-center justify-center rounded-2xl border border-black/[0.06] bg-neutral-100 p-3 shadow-sm;
   }
 }

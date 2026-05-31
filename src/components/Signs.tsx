@@ -12,7 +12,16 @@ export type SignName =
   | "peatones"
   | "ninos"
   | "linea-continua"
-  | "no-estacionar";
+  | "no-estacionar"
+  | "curva"
+  | "cruce-ferroviario"
+  | "no-virar-izquierda"
+  | "no-virar-u"
+  | "baden"
+  | "doble-sentido"
+  | "altura-maxima"
+  | "rotonda"
+  | "animales";
 
 export const SIGN_LABELS: Record<SignName, string> = {
   pare: "Senal PARE (octogono rojo)",
@@ -25,7 +34,34 @@ export const SIGN_LABELS: Record<SignName, string> = {
   ninos: "Senal preventiva de ninos / zona escolar",
   "linea-continua": "Linea de eje continua en la calzada",
   "no-estacionar": "Senal No estacionar",
+  curva: "Senal preventiva de curva peligrosa",
+  "cruce-ferroviario": "Senal de cruce ferroviario (Cruz de San Andres)",
+  "no-virar-izquierda": "Senal No virar a la izquierda",
+  "no-virar-u": "Senal No virar en U",
+  baden: "Senal preventiva de resalto / baden",
+  "doble-sentido": "Senal preventiva de doble sentido de transito",
+  "altura-maxima": "Senal de altura maxima permitida",
+  rotonda: "Senal preventiva de rotonda",
+  animales: "Senal preventiva de animales en la via",
 };
+
+// Marco de senal preventiva (rombo amarillo con borde negro) reutilizable.
+function Diamond() {
+  return (
+    <polygon
+      points="60,8 112,60 60,112 8,60"
+      fill="#ffcc00"
+      stroke="#111"
+      strokeWidth={6}
+      strokeLinejoin="round"
+    />
+  );
+}
+
+// Marco de senal reglamentaria (circulo blanco con borde rojo) reutilizable.
+function RedCircle() {
+  return <circle cx="60" cy="60" r="52" fill="#fff" stroke="#d52b1e" strokeWidth={10} />;
+}
 
 // Figura simple de peaton (stick figure) reutilizable.
 function Pedestrian({ x = 60, scale = 1 }: { x?: number; scale?: number }) {
@@ -160,6 +196,126 @@ export function Sign({
             E
           </text>
           <line x1="24" y1="24" x2="96" y2="96" stroke="#d52b1e" strokeWidth={10} strokeLinecap="round" />
+        </svg>
+      );
+
+    case "curva":
+      return (
+        <svg {...common}>
+          <Diamond />
+          <path
+            d="M48 88 C 48 64, 74 62, 74 44"
+            fill="none"
+            stroke="#111"
+            strokeWidth={8}
+            strokeLinecap="round"
+          />
+          <polygon points="74,34 66,48 82,48" fill="#111" />
+        </svg>
+      );
+
+    case "cruce-ferroviario":
+      return (
+        <svg {...common}>
+          <circle cx="60" cy="60" r="52" fill="#fff" stroke="#ffcc00" strokeWidth={4} />
+          <g stroke="#d52b1e" strokeWidth={11} strokeLinecap="round">
+            <line x1="24" y1="24" x2="96" y2="96" />
+            <line x1="96" y1="24" x2="24" y2="96" />
+          </g>
+        </svg>
+      );
+
+    case "no-virar-izquierda":
+      return (
+        <svg {...common}>
+          <RedCircle />
+          <g fill="none" stroke="#111" strokeWidth={8} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M70 86 L70 58 L46 58" />
+          </g>
+          <polygon points="36,58 50,50 50,66" fill="#111" />
+          <line x1="26" y1="26" x2="94" y2="94" stroke="#d52b1e" strokeWidth={10} strokeLinecap="round" />
+        </svg>
+      );
+
+    case "no-virar-u":
+      return (
+        <svg {...common}>
+          <RedCircle />
+          <path
+            d="M46 84 L46 58 C46 44 74 44 74 58 L74 72"
+            fill="none"
+            stroke="#111"
+            strokeWidth={8}
+            strokeLinecap="round"
+          />
+          <polygon points="74,82 66,68 82,68" fill="#111" />
+          <line x1="26" y1="26" x2="94" y2="94" stroke="#d52b1e" strokeWidth={10} strokeLinecap="round" />
+        </svg>
+      );
+
+    case "baden":
+      return (
+        <svg {...common}>
+          <Diamond />
+          <line x1="26" y1="78" x2="94" y2="78" stroke="#111" strokeWidth={6} strokeLinecap="round" />
+          <path d="M30 78 q 15 -26 30 0" fill="none" stroke="#111" strokeWidth={7} />
+          <path d="M60 78 q 15 -26 30 0" fill="none" stroke="#111" strokeWidth={7} />
+        </svg>
+      );
+
+    case "doble-sentido":
+      return (
+        <svg {...common}>
+          <Diamond />
+          <g stroke="#111" strokeWidth={7} strokeLinecap="round">
+            <line x1="48" y1="40" x2="48" y2="80" />
+            <line x1="72" y1="40" x2="72" y2="80" />
+          </g>
+          <polygon points="48,32 40,46 56,46" fill="#111" />
+          <polygon points="72,88 64,74 80,74" fill="#111" />
+        </svg>
+      );
+
+    case "altura-maxima":
+      return (
+        <svg {...common}>
+          <RedCircle />
+          <g stroke="#111" strokeWidth={7} strokeLinecap="round">
+            <line x1="38" y1="42" x2="82" y2="42" />
+            <line x1="38" y1="78" x2="82" y2="78" />
+            <line x1="60" y1="42" x2="60" y2="78" />
+          </g>
+          <polygon points="60,40 52,54 68,54" fill="#111" />
+          <polygon points="60,80 52,66 68,66" fill="#111" />
+        </svg>
+      );
+
+    case "rotonda":
+      return (
+        <svg {...common}>
+          <Diamond />
+          <g fill="none" stroke="#111" strokeWidth={7}>
+            <path d="M60 36 A 24 24 0 1 1 38 52" strokeLinecap="round" />
+            <path d="M78 70 A 24 24 0 1 1 82 60" strokeLinecap="round" />
+          </g>
+          <polygon points="38,44 32,58 46,56" fill="#111" />
+          <polygon points="82,52 86,66 72,62" fill="#111" />
+        </svg>
+      );
+
+    case "animales":
+      return (
+        <svg {...common}>
+          <Diamond />
+          <g fill="#111">
+            <ellipse cx="58" cy="58" rx="22" ry="12" />
+            <rect x="40" y="62" width="5" height="18" rx="2" />
+            <rect x="52" y="64" width="5" height="16" rx="2" />
+            <rect x="64" y="64" width="5" height="16" rx="2" />
+            <rect x="74" y="62" width="5" height="18" rx="2" />
+            <path d="M78 52 q 14 -4 12 -16 q -10 2 -12 10 z" />
+            <rect x="33" y="48" width="12" height="9" rx="3" />
+          </g>
         </svg>
       );
 

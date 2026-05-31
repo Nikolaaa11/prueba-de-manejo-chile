@@ -26,8 +26,8 @@ const MODALIDAD_LABEL: Record<Municipality["modalidad"], string> = {
 };
 
 const DEMANDA_BADGE: Record<string, { label: string; cls: string }> = {
-  baja: { label: "Demanda baja", cls: "bg-emerald-500/15 text-emerald-300" },
-  media: { label: "Demanda media", cls: "bg-amber-500/15 text-amber-200" },
+  baja: { label: "Demanda baja", cls: "bg-emerald-500/15 text-emerald-700" },
+  media: { label: "Demanda media", cls: "bg-amber-500/15 text-amber-800" },
   alta: { label: "Demanda alta", cls: "bg-rose-500/15 text-flag-red" },
 };
 
@@ -72,7 +72,7 @@ export default function AgendamientoPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-bold">Agendar tu hora para la prueba de manejo</h1>
-        <p className="mt-1 text-slate-300">
+        <p className="mt-1 text-neutral-600">
           Busca tu municipalidad, mira cuando libera cupos y ve directo a reservar. El
           agendamiento se realiza en el sitio oficial de cada municipio.
         </p>
@@ -91,7 +91,7 @@ export default function AgendamientoPage() {
         </Link>
       </div>
 
-      <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100">
+      <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-900">
         <strong>Importante:</strong> en Chile no existe un sistema nacional unico de
         agendamiento. Cada municipalidad administra su propia agenda y la mayoria exige
         acreditar que vives en la comuna. Las URL y los horarios pueden cambiar; verifica
@@ -105,12 +105,12 @@ export default function AgendamientoPage() {
           placeholder="Buscar comuna o region…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-1 rounded-lg border border-white/15 px-4 py-2.5 outline-none focus:border-neon-cyan"
+          className="flex-1 rounded-lg border border-black/10 px-4 py-2.5 outline-none focus:border-neon-cyan"
         />
         <select
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          className="rounded-lg border border-white/15 px-4 py-2.5 outline-none focus:border-neon-cyan"
+          className="rounded-lg border border-black/10 px-4 py-2.5 outline-none focus:border-neon-cyan"
         >
           <option value="">Todas las regiones</option>
           {regions.map((r) => (
@@ -157,12 +157,12 @@ export default function AgendamientoPage() {
           return (
             <div
               key={m.id}
-              className="flex flex-col rounded-xl border border-white/10 bg-white/[0.04] p-5"
+              className="flex flex-col rounded-xl border border-black/[0.06] bg-white p-5"
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <h3 className="text-lg font-semibold">{m.comuna}</h3>
-                  <p className="text-sm text-slate-400">Region {m.region}</p>
+                  <p className="text-sm text-neutral-500">Region {m.region}</p>
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span className="rounded-full bg-neon-cyan/10 px-3 py-1 text-xs font-medium text-neon-cyan">
@@ -179,28 +179,28 @@ export default function AgendamientoPage() {
               {/* Liberacion de cupos */}
               {m.release && (
                 <div className="mt-3 rounded-lg bg-emerald-500/10 p-3 text-sm">
-                  <p className="font-medium text-emerald-200">
+                  <p className="font-medium text-emerald-800">
                     🗓 Libera cupos: {describeReleaseRule(m.release.rule)}
                   </p>
                   {next && (
-                    <p className="mt-0.5 text-emerald-300">
+                    <p className="mt-0.5 text-emerald-700">
                       Proxima: {formatNext(next)}{" "}
                       <span className="font-semibold">({countdown(next, now!)})</span>
                     </p>
                   )}
                   {m.release.note && (
-                    <p className="mt-1 text-xs text-emerald-300/80">{m.release.note}</p>
+                    <p className="mt-1 text-xs text-emerald-700/80">{m.release.note}</p>
                   )}
                 </div>
               )}
 
               {m.requiereResidencia && (
-                <p className="mt-2 text-xs text-amber-300">
+                <p className="mt-2 text-xs text-amber-700">
                   ⚠ Suele exigir acreditar residencia en la comuna.
                 </p>
               )}
-              {m.notas && <p className="mt-2 text-sm text-slate-300">{m.notas}</p>}
-              {m.phone && <p className="mt-2 text-sm text-slate-300">📞 {m.phone}</p>}
+              {m.notas && <p className="mt-2 text-sm text-neutral-600">{m.notas}</p>}
+              {m.phone && <p className="mt-2 text-sm text-neutral-600">📞 {m.phone}</p>}
 
               <div className="mt-auto pt-4">
                 <div className="flex flex-wrap gap-2">
@@ -216,13 +216,13 @@ export default function AgendamientoPage() {
                     href={m.website}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-lg border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/10"
+                    className="rounded-lg border border-black/10 px-4 py-2 text-sm font-medium hover:bg-black/[0.04]"
                   >
                     Sitio del municipio
                   </a>
                 </div>
                 {!m.agendaUrl && (
-                  <p className="mt-2 text-xs text-slate-500">
+                  <p className="mt-2 text-xs text-neutral-400">
                     Sin enlace directo verificado: el boton abre una busqueda oficial que
                     lleva a la pagina vigente de la comuna.
                   </p>
@@ -232,7 +232,7 @@ export default function AgendamientoPage() {
           );
         })}
         {filtered.length === 0 && (
-          <p className="text-slate-400">
+          <p className="text-neutral-500">
             No encontramos comunas con esos filtros. Prueba quitando alguno o busca
             &quot;[tu comuna] licencia de conducir&quot; en Google.
           </p>
@@ -241,22 +241,22 @@ export default function AgendamientoPage() {
 
       {/* Requisitos y documentos */}
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+        <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <h2 className="font-semibold">Requisitos (Clase B, primera vez)</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-200">
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-800">
             {REQUISITOS_CLASE_B.map((r) => (
               <li key={r}>{r}</li>
             ))}
           </ul>
         </div>
-        <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+        <div className="rounded-xl border border-black/[0.06] bg-white p-5">
           <h2 className="font-semibold">Documentos que suelen pedir</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-200">
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-800">
             {DOCUMENTOS.map((d) => (
               <li key={d}>{d}</li>
             ))}
           </ul>
-          <p className="mt-3 text-xs text-slate-500">
+          <p className="mt-3 text-xs text-neutral-400">
             Los requisitos exactos los define cada municipalidad. Confirma en el sitio
             oficial antes de asistir.
           </p>

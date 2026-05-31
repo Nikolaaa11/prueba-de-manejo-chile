@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070b16",
+  themeColor: "#f5f5f7",
   width: "device-width",
   initialScale: 1,
 };
@@ -37,8 +37,8 @@ export default function RootLayout({
         <main className="mx-auto min-h-[70vh] max-w-6xl animate-fadeUp px-4 py-8">
           {children}
         </main>
-        <footer className="border-t border-white/10">
-          <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500">
+        <footer className="border-t border-black/[0.06]">
+          <div className="mx-auto max-w-6xl px-4 py-6 text-xs text-neutral-500">
             <p>
               Proyecto educativo de codigo abierto. No es un sitio oficial del Estado de
               Chile ni de ninguna municipalidad. El contenido del test se basa en la Ley

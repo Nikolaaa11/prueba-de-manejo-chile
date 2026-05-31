@@ -14,13 +14,13 @@ const navItems = [
 export default function SiteHeader() {
   const pathname = usePathname();
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-ink/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-black/[0.06] bg-white/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-neon-cyan to-neon-violet text-lg shadow-glow">
+          <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-brand to-neon-violet text-lg text-white shadow-sm">
             🚗
           </span>
-          <span className="text-lg font-bold tracking-tight">
+          <span className="text-lg font-semibold tracking-tight text-ink">
             Licencia <span className="gradient-text">Chile</span>
           </span>
         </Link>
@@ -34,10 +34,10 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-lg px-3 py-1.5 transition ${
+                className={`rounded-full px-3 py-1.5 transition ${
                   active
-                    ? "bg-white/10 text-neon-cyan shadow-[inset_0_0_0_1px_rgba(34,211,238,0.3)]"
-                    : "text-slate-300 hover:bg-white/5 hover:text-white"
+                    ? "bg-brand/10 font-medium text-brand"
+                    : "text-neutral-500 hover:bg-black/[0.04] hover:text-ink"
                 }`}
               >
                 {item.label}

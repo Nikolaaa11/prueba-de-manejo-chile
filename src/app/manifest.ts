@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Practica el examen teorico Clase B y encuentra cuando agendar tu hora para la prueba de manejo en Chile.",
     start_url: "/",
     display: "standalone",
-    background_color: "#070b16",
-    theme_color: "#070b16",
+    background_color: "#f5f5f7",
+    theme_color: "#ffffff",
     orientation: "portrait",
     categories: ["education", "productivity"],
     icons: [

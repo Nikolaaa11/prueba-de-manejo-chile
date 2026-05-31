@@ -13,9 +13,9 @@ interface CheckResult {
 }
 
 const BADGE: Record<CheckResult["availability"], { label: string; cls: string }> = {
-  disponible: { label: "Posibles cupos", cls: "bg-emerald-500/15 text-emerald-300" },
-  "sin-cupos": { label: "Sin cupos", cls: "bg-white/10 text-slate-300" },
-  desconocido: { label: "Por revisar", cls: "bg-amber-500/15 text-amber-200" },
+  disponible: { label: "Posibles cupos", cls: "bg-emerald-500/15 text-emerald-700" },
+  "sin-cupos": { label: "Sin cupos", cls: "bg-neutral-100 text-neutral-600" },
+  desconocido: { label: "Por revisar", cls: "bg-amber-500/15 text-amber-800" },
   error: { label: "No accesible", cls: "bg-rose-500/15 text-flag-red" },
 };
 
@@ -50,13 +50,13 @@ export default function MonitorPage() {
     <div className="space-y-8">
       <header>
         <h1 className="text-2xl font-bold">Monitor de cupos</h1>
-        <p className="mt-1 text-slate-300">
+        <p className="mt-1 text-neutral-600">
           Revisa la disponibilidad aproximada de horas en las paginas de las
           municipalidades.
         </p>
       </header>
 
-      <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-100">
+      <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 p-4 text-sm text-amber-900">
         <strong>Como leer estos resultados:</strong> el monitor intenta interpretar el
         contenido publico de cada sitio municipal, pero no hay una API oficial de cupos.
         Por eso muchos resultados saldran como <em>&quot;Por revisar&quot;</em> o
@@ -65,11 +65,11 @@ export default function MonitorPage() {
         agenda directamente en el sitio del municipio.
       </div>
 
-      <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+      <div className="rounded-xl border border-black/[0.06] bg-white p-5">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold">
             Selecciona municipalidades{" "}
-            <span className="text-sm font-normal text-slate-400">
+            <span className="text-sm font-normal text-neutral-500">
               (o deja vacio para revisar todas)
             </span>
           </h2>
@@ -95,7 +95,7 @@ export default function MonitorPage() {
               className={`rounded-full border px-3 py-1 text-sm transition ${
                 selected.includes(m.id)
                   ? "border-neon-cyan bg-gradient-to-r from-neon-cyan to-neon-violet text-white"
-                  : "border-white/15 bg-white/[0.04] hover:border-neon-cyan/50"
+                  : "border-black/10 bg-white hover:border-neon-cyan/50"
               }`}
             >
               {m.agendaUrl && <span className="mr-1 text-emerald-400">●</span>}
@@ -103,7 +103,7 @@ export default function MonitorPage() {
             </button>
           ))}
         </div>
-        <p className="mt-2 text-xs text-slate-500">
+        <p className="mt-2 text-xs text-neutral-400">
           <span className="text-emerald-400">●</span> = monitoreo directo disponible. El resto
           se deriva a busqueda manual.
         </p>
@@ -130,7 +130,7 @@ export default function MonitorPage() {
             return (
               <div
                 key={r.municipalityId}
-                className="flex flex-col gap-2 rounded-lg border border-white/10 bg-white/[0.04] p-4 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-2 rounded-lg border border-black/[0.06] bg-white p-4 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <div className="flex items-center gap-2">
@@ -141,13 +141,13 @@ export default function MonitorPage() {
                       {badge.label}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-slate-300">{r.message}</p>
+                  <p className="mt-1 text-sm text-neutral-600">{r.message}</p>
                 </div>
                 <a
                   href={r.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="shrink-0 rounded-lg border border-white/15 px-4 py-2 text-sm font-medium hover:bg-white/10"
+                  className="shrink-0 rounded-lg border border-black/10 px-4 py-2 text-sm font-medium hover:bg-black/[0.04]"
                 >
                   Abrir sitio →
                 </a>
@@ -157,15 +157,15 @@ export default function MonitorPage() {
         </div>
       )}
 
-      <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5 text-sm text-slate-300">
-        <h2 className="font-semibold text-slate-100">
+      <div className="rounded-xl border border-black/[0.06] bg-white p-5 text-sm text-neutral-600">
+        <h2 className="font-semibold text-ink">
           ¿Quieres recibir un aviso automatico?
         </h2>
         <p className="mt-2">
-          El proyecto incluye un cron en <code className="rounded bg-white/10 px-1">vercel.json</code>{" "}
-          que ejecuta <code className="rounded bg-white/10 px-1">/api/monitor</code> cada 30
+          El proyecto incluye un cron en <code className="rounded bg-neutral-100 px-1">vercel.json</code>{" "}
+          que ejecuta <code className="rounded bg-neutral-100 px-1">/api/monitor</code> cada 30
           minutos. Si defines la variable de entorno{" "}
-          <code className="rounded bg-white/10 px-1">NOTIFY_WEBHOOK_URL</code> en Vercel
+          <code className="rounded bg-neutral-100 px-1">NOTIFY_WEBHOOK_URL</code> en Vercel
           (por ejemplo, un webhook de Telegram, Slack o correo), recibiras una notificacion
           cuando se detecten posibles cupos. Revisa el <code>README</code> para los pasos.
         </p>

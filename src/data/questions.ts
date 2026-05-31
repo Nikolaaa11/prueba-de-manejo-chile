@@ -1539,6 +1539,204 @@ export const QUESTIONS: Question[] = [
       "Se clasifican en reglamentarias (obligaciones y prohibiciones), preventivas o de advertencia (avisan un peligro) e informativas (servicios e indicaciones). Confundir el tipo de senal es uno de los errores mas comunes del examen.",
     reference: "Manual de Senalizacion de Transito",
   },
+  {
+    id: 102,
+    category: "senales",
+    question: "¿Que advierte esta senal?",
+    options: [
+      "Camino en buen estado",
+      "Curva peligrosa: reduzca la velocidad y no adelante",
+      "Fin del camino",
+      "Zona de estacionamiento",
+    ],
+    answer: 1,
+    explanation:
+      "Es una senal preventiva que advierte una curva peligrosa mas adelante; se debe reducir la velocidad y no adelantar.",
+    reference: "Manual de Senalizacion de Transito (senales de advertencia)",
+  },
+  {
+    id: 103,
+    category: "senales",
+    question: "¿Que significa esta senal?",
+    options: [
+      "Cruce de peatones",
+      "Cruce a nivel con linea de ferrocarril: maxima precaucion",
+      "Hospital cercano",
+      "Zona de juegos",
+    ],
+    answer: 1,
+    explanation:
+      "La Cruz de San Andres indica un cruce a nivel con la via ferrea. Hay que disminuir la velocidad, mirar a ambos lados y nunca cruzar con las barreras bajas o el tren proximo.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 104,
+    category: "senales",
+    question: "¿Que significa esta senal?",
+    options: [
+      "Obligatorio virar a la izquierda",
+      "Prohibido virar a la izquierda",
+      "Curva a la izquierda",
+      "Solo viraje a la izquierda",
+    ],
+    answer: 1,
+    explanation:
+      "Es una senal reglamentaria que prohibe virar a la izquierda en esa interseccion.",
+    reference: "Manual de Senalizacion de Transito (senales reglamentarias)",
+  },
+  {
+    id: 105,
+    category: "senales",
+    question: "¿Que significa esta senal?",
+    options: [
+      "Prohibido el viraje en U (cambio de sentido)",
+      "Rotonda obligatoria",
+      "Retorno permitido",
+      "Doble sentido",
+    ],
+    answer: 0,
+    explanation:
+      "Prohibe el viraje en U, es decir, cambiar de sentido para volver por donde se venia.",
+    reference: "Manual de Senalizacion de Transito (senales reglamentarias)",
+  },
+  {
+    id: 106,
+    category: "senales",
+    question: "¿Que advierte esta senal?",
+    options: [
+      "Pavimento resbaladizo",
+      "Resalto o reductor de velocidad (lomo de toro): disminuya",
+      "Zona de derrumbes",
+      "Baden de agua",
+    ],
+    answer: 1,
+    explanation:
+      "Advierte un resalto reductor de velocidad (lomo de toro); se debe disminuir la marcha para pasarlo con seguridad.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 107,
+    category: "senales",
+    question: "¿Que advierte esta senal?",
+    options: [
+      "Doble sentido de transito: circule con precaucion y no adelante imprudentemente",
+      "Pista solo para buses",
+      "Fin de la doble via",
+      "Cruce de trenes",
+    ],
+    answer: 0,
+    explanation:
+      "Advierte que la via tiene doble sentido de circulacion; hay que extremar la precaucion al adelantar, pues pueden venir vehiculos de frente.",
+    reference: "Manual de Senalizacion de Transito (senales de advertencia)",
+  },
+  {
+    id: 108,
+    category: "senales",
+    question: "¿Que significa esta senal?",
+    options: [
+      "Velocidad maxima",
+      "Altura maxima permitida: los vehiculos mas altos no pueden pasar",
+      "Peso maximo",
+      "Ancho maximo",
+    ],
+    answer: 1,
+    explanation:
+      "Indica la altura maxima permitida (por un tunel, puente o estructura). Los vehiculos que la superen no pueden pasar.",
+    reference: "Manual de Senalizacion de Transito (senales reglamentarias)",
+  },
+  {
+    id: 109,
+    category: "senales",
+    question: "¿Que advierte esta senal?",
+    options: [
+      "Cruce giratorio (rotonda) mas adelante: ceda el paso al que ya circula",
+      "Viraje en U",
+      "Camino sinuoso",
+      "Interseccion en T",
+    ],
+    answer: 0,
+    explanation:
+      "Advierte la proximidad de una rotonda. Al entrar se debe ceder el paso a los vehiculos que ya circulan dentro de ella.",
+    reference: "Manual de Senalizacion de Transito",
+  },
+  {
+    id: 110,
+    category: "senales",
+    question: "¿Que advierte esta senal?",
+    options: [
+      "Zona de caza",
+      "Posible cruce de animales en la via: reduzca la velocidad",
+      "Granja cercana",
+      "Prohibido el paso de animales",
+    ],
+    answer: 1,
+    explanation:
+      "Advierte la posible presencia o cruce de animales en el camino (zonas rurales); se debe reducir la velocidad y estar atento.",
+    reference: "Manual de Senalizacion de Transito (senales de advertencia)",
+  },
+  {
+    id: 111,
+    category: "preferencia",
+    question:
+      "Si un Carabinero esta dirigiendo el transito en un cruce que ademas tiene semaforo, usted debe obedecer:",
+    options: [
+      "Siempre el semaforo",
+      "La indicacion del Carabinero, que prima sobre el semaforo y las senales",
+      "Al vehiculo que llegue primero",
+      "A nadie; puede avanzar con cuidado",
+    ],
+    answer: 1,
+    explanation:
+      "Las instrucciones de Carabineros o de la autoridad que regula el transito priman sobre los semaforos y la senalizacion. Debe obedecerse al funcionario.",
+    reference: "Ley 18.290, art. 103",
+  },
+  {
+    id: 112,
+    category: "seguridad",
+    question:
+      "Al estacionar en una pendiente (cuesta), ademas de aplicar el freno de mano, conviene:",
+    options: [
+      "Dejar las ruedas rectas",
+      "Girar las ruedas delanteras hacia la solera (cuneta) para que el vehiculo no se deslice",
+      "Dejarlo en punto muerto sin freno",
+      "Apagar las luces",
+    ],
+    answer: 1,
+    explanation:
+      "En pendiente se aplica el freno de mano, se deja una marcha puesta y se giran las ruedas hacia la solera para que, si el vehiculo se mueve, se detenga contra la cuneta.",
+    reference: "Conduccion segura (CONASET)",
+  },
+  {
+    id: 113,
+    category: "preferencia",
+    question: "Al salir de un estacionamiento o recinto particular hacia la via publica, usted debe:",
+    options: [
+      "Avanzar rapido aprovechando cualquier espacio",
+      "Ceder el paso a los vehiculos y peatones que ya circulan por la via",
+      "Tocar la bocina y salir",
+      "Tiene preferencia por estar saliendo",
+    ],
+    answer: 1,
+    explanation:
+      "Quien se incorpora a la via desde un acceso, estacionamiento o recinto debe ceder el paso a los vehiculos y peatones que ya circulan.",
+    reference: "Ley 18.290, art. 139 y 167",
+  },
+  {
+    id: 114,
+    category: "normas",
+    question:
+      "Si un vehiculo se aproxima por detras a mayor velocidad para adelantarte, lo correcto es:",
+    options: [
+      "Acelerar para que no te adelante",
+      "Mantenerte por tu derecha y facilitar el adelantamiento, sin aumentar la velocidad",
+      "Frenar bruscamente",
+      "Cambiarte a la pista izquierda",
+    ],
+    answer: 1,
+    explanation:
+      "El conductor que va a ser adelantado debe mantenerse a su derecha y no aumentar la velocidad, facilitando la maniobra del que adelanta.",
+    reference: "Ley 18.290, art. 128",
+  },
 ];
 
 // Senales de transito asociadas a ciertas preguntas (se dibujan como imagen).
@@ -1553,12 +1751,22 @@ const QUESTION_IMAGES: Partial<Record<number, SignName>> = {
   46: "no-entrar",
   72: "ninos",
   94: "no-adelantar",
+  102: "curva",
+  103: "cruce-ferroviario",
+  104: "no-virar-izquierda",
+  105: "no-virar-u",
+  106: "baden",
+  107: "doble-sentido",
+  108: "altura-maxima",
+  109: "rotonda",
+  110: "animales",
 };
 
 // Preguntas clave / de alta frecuencia: los temas que casi siempre aparecen en el examen.
 // Seleccion curada (no son estadisticas oficiales) de los contenidos mas esenciales.
 const FREQUENT_IDS = new Set<number>([
   1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 17, 18, 19, 21, 26, 28, 30, 39, 80,
+  103, 104, 111, 113,
 ]);
 
 // Preguntas/temas que MAS SE FALLAN en el examen real, segun datos reportados por

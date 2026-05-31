@@ -223,7 +223,7 @@ export default function TestPage() {
       <div className="space-y-6">
         <header>
           <h1 className="text-2xl font-bold">Test teorico — Licencia Clase B</h1>
-          <p className="mt-1 text-slate-300">
+          <p className="mt-1 text-neutral-600">
             {QUESTIONS.length} preguntas basadas en la Ley de Transito 18.290, la
             senalizacion oficial y material de CONASET.
           </p>
@@ -244,11 +244,11 @@ export default function TestPage() {
               <ReadinessRing value={overall.readiness} />
               <div>
                 <h2 className="text-lg font-semibold">Tu preparacion</h2>
-                <p className="mt-1 text-sm text-slate-400">
+                <p className="mt-1 text-sm text-neutral-500">
                   {overall.attempted} de {QUESTIONS.length} preguntas practicadas ·{" "}
                   {Math.round(overall.acc * 100)}% de aciertos
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-neutral-400">
                   Practica mas temas para subir tu nivel de preparacion.
                 </p>
               </div>
@@ -257,12 +257,12 @@ export default function TestPage() {
               {mastery.map((m) => (
                 <div key={m.cat}>
                   <div className="flex justify-between text-xs">
-                    <span className="text-slate-300">{CATEGORY_LABELS[m.cat]}</span>
-                    <span className="text-slate-500">
+                    <span className="text-neutral-600">{CATEGORY_LABELS[m.cat]}</span>
+                    <span className="text-neutral-400">
                       {m.attempted}/{m.total} · {Math.round(m.acc * 100)}%
                     </span>
                   </div>
-                  <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-neutral-100">
                     <div
                       className="h-full rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet transition-all"
                       style={{ width: `${Math.round(m.acc * 100)}%` }}
@@ -275,19 +275,19 @@ export default function TestPage() {
         )}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="rounded-xl border border-black/[0.06] bg-white p-6">
             <div className="text-3xl">📚</div>
             <h2 className="mt-2 text-lg font-semibold">Modo practica</h2>
-            <p className="mt-1 text-sm text-slate-300">
+            <p className="mt-1 text-sm text-neutral-600">
               Responde y revisa de inmediato, con explicacion y referencia legal. Puedes
               enfocarte en un tema.
             </p>
-            <label className="mt-3 block text-sm font-medium text-slate-200">
+            <label className="mt-3 block text-sm font-medium text-neutral-800">
               Tema
               <select
                 value={practiceCategory}
                 onChange={(e) => setPracticeCategory(e.target.value as Category | "all")}
-                className="mt-1 w-full rounded-lg border border-white/15 px-3 py-2 outline-none focus:border-neon-cyan"
+                className="mt-1 w-full rounded-lg border border-black/10 px-3 py-2 outline-none focus:border-neon-cyan"
               >
                 <option value="all">Todos los temas ({QUESTIONS.length})</option>
                 {(Object.keys(CATEGORY_LABELS) as Category[]).map((c) => {
@@ -308,10 +308,10 @@ export default function TestPage() {
             </button>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="rounded-xl border border-black/[0.06] bg-white p-6">
             <div className="text-3xl">🎯</div>
             <h2 className="mt-2 text-lg font-semibold">Modo examen</h2>
-            <p className="mt-1 text-sm text-slate-300">
+            <p className="mt-1 text-sm text-neutral-600">
               {EXAM_SIZE} preguntas al azar, como el examen real, con temporizador. Apruebas
               con {Math.round(PASS_RATIO * 100)}% o mas.
             </p>
@@ -323,10 +323,10 @@ export default function TestPage() {
             </button>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="rounded-xl border border-black/[0.06] bg-white p-6">
             <div className="text-3xl">⭐</div>
             <h2 className="mt-2 text-lg font-semibold">Preguntas frecuentes</h2>
-            <p className="mt-1 text-sm text-slate-300">
+            <p className="mt-1 text-sm text-neutral-600">
               Las {frequentQuestions().length} preguntas clave sobre los temas que casi
               siempre aparecen. Ideal para un repaso rapido.
             </p>
@@ -338,10 +338,10 @@ export default function TestPage() {
             </button>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+          <div className="rounded-xl border border-black/[0.06] bg-white p-6">
             <div className="text-3xl">🔁</div>
             <h2 className="mt-2 text-lg font-semibold">Repasa tus errores</h2>
-            <p className="mt-1 text-sm text-slate-300">
+            <p className="mt-1 text-sm text-neutral-600">
               {worst.length > 0
                 ? `Tienes ${worst.length} pregunta(s) que sueles fallar. Repasalas, ordenadas de la que mas fallas a la que menos.`
                 : "Aun no hay errores registrados. Responde algunas preguntas y aqui apareceran las que mas fallas."}
@@ -363,7 +363,7 @@ export default function TestPage() {
                 <h2 className="mt-2 text-lg font-semibold">
                   Las que mas se fallan en el examen real
                 </h2>
-                <p className="mt-1 max-w-2xl text-sm text-slate-300">
+                <p className="mt-1 max-w-2xl text-sm text-neutral-600">
                   {commonlyFailedQuestions().length} preguntas sobre los temas que mas
                   reprueban en la prueba teorica (distancia de frenado, estacionar cerca de
                   un paradero, clasificacion de senales, autopistas y pistas de viraje).
@@ -404,7 +404,7 @@ export default function TestPage() {
             const userAns = answers[q.id];
             const ok = userAns === q.answer;
             return (
-              <div key={q.id} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+              <div key={q.id} className="rounded-lg border border-black/[0.06] bg-white p-4">
                 <p className="font-medium">
                   {i + 1}. {q.question}
                 </p>
@@ -413,17 +413,17 @@ export default function TestPage() {
                     <Sign name={q.image} size={84} />
                   </span>
                 )}
-                <p className={`mt-1 text-sm ${ok ? "text-emerald-300" : "text-flag-red"}`}>
+                <p className={`mt-1 text-sm ${ok ? "text-emerald-700" : "text-flag-red"}`}>
                   {ok ? "✓ Correcta" : "✗ Incorrecta"} — tu respuesta:{" "}
                   {userAns != null ? q.options[userAns] : "(sin responder)"}
                 </p>
                 {!ok && (
-                  <p className="mt-1 text-sm text-slate-200">
+                  <p className="mt-1 text-sm text-neutral-800">
                     Respuesta correcta: <strong>{q.options[q.answer]}</strong>
                   </p>
                 )}
-                <p className="mt-2 text-sm text-slate-300">{q.explanation}</p>
-                {q.reference && <p className="mt-1 text-xs text-slate-500">{q.reference}</p>}
+                <p className="mt-2 text-sm text-neutral-600">{q.explanation}</p>
+                {q.reference && <p className="mt-1 text-xs text-neutral-400">{q.reference}</p>}
               </div>
             );
           })}
@@ -438,7 +438,7 @@ export default function TestPage() {
           </button>
           <button
             onClick={() => setMode("menu")}
-            className="rounded-lg border border-white/15 px-5 py-2.5 font-semibold hover:bg-white/10"
+            className="rounded-lg border border-black/10 px-5 py-2.5 font-semibold hover:bg-black/[0.04]"
           >
             Volver al menu
           </button>
@@ -451,10 +451,10 @@ export default function TestPage() {
   if (!current) {
     return (
       <div className="space-y-4">
-        <p className="text-slate-300">No hay preguntas disponibles para esta seccion.</p>
+        <p className="text-neutral-600">No hay preguntas disponibles para esta seccion.</p>
         <button
           onClick={() => setMode("menu")}
-          className="rounded-lg border border-white/15 px-5 py-2 font-semibold hover:bg-white/10"
+          className="rounded-lg border border-black/10 px-5 py-2 font-semibold hover:bg-black/[0.04]"
         >
           Volver al menu
         </button>
@@ -481,13 +481,13 @@ export default function TestPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between text-sm text-slate-400">
+      <div className="flex items-center justify-between text-sm text-neutral-500">
         <span>
           {sectionLabel} · pregunta {index + 1} de {questions.length}
         </span>
         <div className="flex items-center gap-2">
           {mode === "examen" && (
-            <span className="rounded-full bg-white/10 px-3 py-1 font-mono font-medium text-slate-200">
+            <span className="rounded-full bg-neutral-100 px-3 py-1 font-mono font-medium text-neutral-800">
               ⏱ {formatTime(elapsed)}
             </span>
           )}
@@ -497,14 +497,14 @@ export default function TestPage() {
         </div>
       </div>
 
-      <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-100">
         <div
           className="h-full bg-gradient-to-r from-neon-cyan to-neon-violet transition-all"
           style={{ width: `${((index + 1) / questions.length) * 100}%` }}
         />
       </div>
 
-      <div className="rounded-xl border border-white/10 bg-white/[0.04] p-6">
+      <div className="rounded-xl border border-black/[0.06] bg-white p-6">
         {current.image && (
           <div className="mb-4 flex justify-center">
             <span className="sign-plate">
@@ -528,13 +528,13 @@ export default function TestPage() {
             const selected = userAns === i;
             let cls = "w-full rounded-lg border px-4 py-3 text-left transition ";
             if (isRevealed) {
-              if (i === current.answer) cls += "border-emerald-400 bg-emerald-500/10 text-emerald-300";
+              if (i === current.answer) cls += "border-emerald-500 bg-emerald-500/10 text-emerald-700";
               else if (selected) cls += "border-flag-red bg-rose-500/10 text-flag-red";
-              else cls += "border-white/10 bg-white/[0.04] text-slate-400";
+              else cls += "border-black/[0.06] bg-white text-neutral-500";
             } else {
               cls += selected
                 ? "border-neon-cyan bg-neon-cyan/10"
-                : "border-white/10 bg-white/[0.04] hover:border-neon-cyan/50";
+                : "border-black/[0.06] bg-white hover:border-neon-cyan/50";
             }
             return (
               <button key={i} className={cls} onClick={() => choose(current.id, i)}>
@@ -546,9 +546,9 @@ export default function TestPage() {
         </div>
 
         {isRevealed && (
-          <div className="mt-4 rounded-lg bg-white/5 p-4 text-sm">
-            <p className="text-slate-200">{current.explanation}</p>
-            {current.reference && <p className="mt-1 text-xs text-slate-500">{current.reference}</p>}
+          <div className="mt-4 rounded-lg bg-neutral-50 p-4 text-sm">
+            <p className="text-neutral-800">{current.explanation}</p>
+            {current.reference && <p className="mt-1 text-xs text-neutral-400">{current.reference}</p>}
           </div>
         )}
       </div>
@@ -557,13 +557,13 @@ export default function TestPage() {
         <button
           onClick={() => setIndex((i) => Math.max(0, i - 1))}
           disabled={index === 0}
-          className="rounded-lg border border-white/15 px-4 py-2 font-medium disabled:opacity-40"
+          className="rounded-lg border border-black/10 px-4 py-2 font-medium disabled:opacity-40"
         >
           ← Anterior
         </button>
 
         {mode === "examen" && (
-          <span className="text-sm text-slate-400">
+          <span className="text-sm text-neutral-500">
             {answeredCount}/{questions.length} respondidas
           </span>
         )}
@@ -587,7 +587,7 @@ export default function TestPage() {
         ) : (
           <button
             onClick={() => setMode("menu")}
-            className="rounded-lg border border-white/15 px-5 py-2 font-semibold hover:bg-white/10"
+            className="rounded-lg border border-black/10 px-5 py-2 font-semibold hover:bg-black/[0.04]"
           >
             Finalizar
           </button>
@@ -605,7 +605,7 @@ function ReadinessRing({ value }: { value: number }) {
   return (
     <div className="relative grid h-20 w-20 shrink-0 place-items-center">
       <svg width="80" height="80" className="-rotate-90">
-        <circle cx="40" cy="40" r={r} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="7" />
+        <circle cx="40" cy="40" r={r} fill="none" stroke="rgba(0,0,0,0.08)" strokeWidth="7" />
         <circle
           cx="40"
           cy="40"
@@ -621,7 +621,7 @@ function ReadinessRing({ value }: { value: number }) {
       </svg>
       <div className="absolute text-center">
         <div className="text-xl font-bold">{value}%</div>
-        <div className="-mt-1 text-[9px] text-slate-400">listo</div>
+        <div className="-mt-1 text-[9px] text-neutral-500">listo</div>
       </div>
     </div>
   );
@@ -639,13 +639,13 @@ function StatBox({
   return (
     <div
       className={`rounded-xl border p-4 text-center ${
-        highlight ? "border-neon-cyan bg-neon-cyan/10" : "border-white/10 bg-white/[0.04]"
+        highlight ? "border-neon-cyan bg-neon-cyan/10" : "border-black/[0.06] bg-white"
       }`}
     >
-      <div className={`text-2xl font-bold ${highlight ? "text-neon-cyan" : "text-slate-100"}`}>
+      <div className={`text-2xl font-bold ${highlight ? "text-neon-cyan" : "text-ink"}`}>
         {value}
       </div>
-      <div className="mt-1 text-xs text-slate-400">{label}</div>
+      <div className="mt-1 text-xs text-neutral-500">{label}</div>
     </div>
   );
 }
@@ -656,7 +656,7 @@ function CategoryBreakdown() {
     return acc;
   }, {});
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5">
+    <div className="rounded-xl border border-black/[0.06] bg-white p-5">
       <h3 className="font-semibold">Temas que cubre el test</h3>
       <div className="mt-3 flex flex-wrap gap-2 text-sm">
         {Object.entries(counts).map(([cat, n]) => (
