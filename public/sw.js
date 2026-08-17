@@ -3,7 +3,15 @@
 // con respaldo a cache para uso offline; cache-first para estaticos.
 
 const CACHE = "licencia-chile-v1";
-const APP_SHELL = ["/", "/test", "/agendamiento", "/calendario", "/monitor", "/icon.svg"];
+const APP_SHELL = [
+  "/",
+  "/test",
+  "/desafio",
+  "/agendamiento",
+  "/calendario",
+  "/monitor",
+  "/icon.svg",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

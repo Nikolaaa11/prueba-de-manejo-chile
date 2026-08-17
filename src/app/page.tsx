@@ -39,6 +39,31 @@ export default function Home() {
       {/* LIBERAN ESTA SEMANA */}
       <WeekReleases />
 
+      {/* EL DESAFIO */}
+      <section className="overflow-hidden rounded-[28px] bg-gradient-to-br from-brand to-neon-violet p-8 text-white shadow-glow-violet sm:p-10">
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold">
+              Nuevo
+            </span>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight">
+              🎰 El Desafio — 280 preguntas oficiales
+            </h2>
+            <p className="mt-2 text-white/90">
+              El Cuestionario General Clase B completo, con su pauta oficial y una
+              explicacion en cada respuesta. Estudialo, gira la ruleta y rinde el test
+              real: 32 preguntas, 40 minutos y maximo 2 malas.
+            </p>
+          </div>
+          <Link
+            href="/desafio"
+            className="rounded-full bg-white px-6 py-3 font-semibold text-brand shadow-sm transition hover:bg-white/90"
+          >
+            Aceptar el desafio →
+          </Link>
+        </div>
+      </section>
+
       {/* MODULOS */}
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card href="/test" emoji="📝" title="Test teorico" desc={`${QUESTIONS.length} preguntas con señales, examen cronometrado y repaso de errores.`} accent="cyan" />
