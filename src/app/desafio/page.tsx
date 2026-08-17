@@ -819,12 +819,12 @@ function Ruleta({ onListo }: { onListo: (qs: OficialQuestion[]) => void }) {
   const [elegidas, setElegidas] = useState<OficialQuestion[]>([]);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  useEffect(
-    () => () => {
-      timers.current.forEach(clearTimeout);
-    },
-    []
-  );
+  useEffect(() => {
+    // Se copia la referencia dentro del efecto: en la limpieza `timers.current` ya
+    // podria apuntar a otra cosa.
+    const pendientes = timers.current;
+    return () => pendientes.forEach(clearTimeout);
+  }, []);
 
   const girar = () => {
     if (girando) return;
@@ -937,8 +937,10 @@ function Anuncio({ cantidad, onListo }: { cantidad: number; onListo: () => void 
 
   useEffect(() => {
     sfx.playFanfare();
+    // Se copia la referencia dentro del efecto para poder limpiarla con seguridad.
+    const pendientes = timers.current;
     const push = (fn: () => void, ms: number) => {
-      timers.current.push(setTimeout(fn, ms));
+      pendientes.push(setTimeout(fn, ms));
     };
     push(() => setEtapa("real"), 2200);
     push(() => {
@@ -955,7 +957,7 @@ function Anuncio({ cantidad, onListo }: { cantidad: number; onListo: () => void 
     }, 6000);
     push(onListo, 7000);
     return () => {
-      timers.current.forEach(clearTimeout);
+      pendientes.forEach(clearTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
