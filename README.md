@@ -11,6 +11,7 @@ Plataforma web (Next.js) para **estudiar el examen teórico de licencia de condu
 | Módulo | Descripción |
 | --- | --- |
 | **Test teórico** (`/test`) | 95 preguntas Clase B con explicaciones, referencia legal e **imágenes de señales** (SVG propios). Modos: *práctica* (feedback inmediato + filtro por tema), *examen* (20 al azar, **temporizador**), *preguntas frecuentes* (22 claves) y **repasa tus errores** (personalizado: registra tus aciertos/fallos por pregunta en el navegador y te muestra las que más fallas). Estadísticas guardadas localmente. |
+| **El Desafío** (`/desafio`) | Las **280 preguntas del Cuestionario General Clase B** con su **pauta oficial de respuestas**, transcritas del documento de estudio. Modo estudio con corrección inmediata (**verde/rojo** + explicación de por qué la correcta lo es), y luego una **ruleta** que sortea **32 preguntas** para el test real: anuncio con sonido, **40 minutos** de reloj y se aprueba con un **máximo de 2 malas**. Las preguntas de **alcohol, velocidad y retención infantil valen doble punto**. |
 | **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, **ordenado por posibilidad de conseguir cupo**, con badge de demanda, horario de liberación de cupos y cuenta regresiva, filtros, enlaces directos confirmados (y búsqueda oficial de respaldo). |
 | **Calendario** (`/calendario`) | Cuándo libera cupos cada comuna (datos reales de fuentes oficiales): próximas liberaciones con cuenta regresiva, grilla mensual y **exportación a `.ics`** para poner recordatorios con alarma en tu teléfono (Google/Apple Calendar). También avisos del navegador. |
 | **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada leyendo las páginas municipales (solo comunas con página directa verificada), con patrón de adaptadores. Incluye cron de Vercel y notificaciones opcionales por webhook. |
@@ -82,6 +83,13 @@ Edita [`src/data/municipalities.ts`](./src/data/municipalities.ts) y añade un o
 
 ### Agregar/editar preguntas del test
 Edita [`src/data/questions.ts`](./src/data/questions.ts). Cada pregunta tiene `question`, `options`, `answer` (índice de la correcta), `explanation` y `reference`.
+
+### El banco de 280 preguntas del Desafío
+Vive en [`src/data/oficial-questions.ts`](./src/data/oficial-questions.ts) (**archivo generado**: los enunciados y alternativas son transcripción literal del cuestionario, no los edites a mano) y sus tipos en [`src/data/oficial-types.ts`](./src/data/oficial-types.ts).
+
+Cada pregunta admite **una o varias** respuestas correctas (`correct` es un arreglo de letras), tal como el cuestionario original, que distingue entre *"Marque una respuesta"*, *"Marque dos respuestas"* y *"Marque tres respuestas"*. La pauta se verificó contra las **dos copias** de la tabla de respuestas que trae el documento: ambas coinciden en las 280.
+
+El campo `critical` (`"alcohol"`, `"velocidad"` o `"retencion"`) marca las preguntas de **doble puntaje**. Nueve preguntas quedan con `options: []` porque en el documento se responden sobre láminas de dibujos que el texto no incluye; la página las conserva pero las excluye del estudio y del sorteo.
 
 ### Mejorar la detección de cupos de un municipio
 En [`src/lib/monitor.ts`](./src/lib/monitor.ts), agrega una función al registro `ADAPTERS` con el `id` del municipio. Recibe el HTML de la página y devuelve `true`/`false`/`null`.

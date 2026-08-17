@@ -51,11 +51,39 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-8px)" },
         },
+        // Aparicion "con rebote" de las preguntas que salen en la ruleta.
+        pop: {
+          "0%": { opacity: "0", transform: "scale(0.6)" },
+          "60%": { opacity: "1", transform: "scale(1.08)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        // Papelillos del anuncio "empieza el desafio".
+        confetti: {
+          "0%": { opacity: "1", transform: "translateY(-10vh) rotate(0deg)" },
+          "100%": { opacity: "0", transform: "translateY(110vh) rotate(720deg)" },
+        },
+        // Latido del titulo del desafio.
+        heartbeat: {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.06)" },
+        },
+        // Numero de la cuenta regresiva 3-2-1.
+        countIn: {
+          "0%": { opacity: "0", transform: "scale(2.2)" },
+          "40%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(0.7)" },
+        },
       },
       animation: {
         fadeUp: "fadeUp 0.5s ease-out both",
         pulseGlow: "pulseGlow 2s ease-in-out infinite",
         floaty: "floaty 6s ease-in-out infinite",
+        pop: "pop 0.35s ease-out both",
+        // `both` mantiene el estado inicial (fuera de cuadro) durante el retardo,
+        // asi los papelillos no se quedan quietos arriba antes de caer.
+        confetti: "confetti 2.6s linear both",
+        heartbeat: "heartbeat 1.1s ease-in-out infinite",
+        countIn: "countIn 1s ease-out both",
       },
     },
   },
