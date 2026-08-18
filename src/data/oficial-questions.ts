@@ -1,18 +1,19 @@
 // Cuestionario General Licencias Clase B — las 280 preguntas del Examen Teorico de
-// Conduccion, transcritas del documento de estudio junto con su pauta oficial.
+// Conduccion, transcritas del documento de estudio.
 //
-// La pauta viene en el propio documento (tabla "RESPUESTAS"), que la incluye dos veces;
-// ambas copias coinciden en las 280 preguntas, y cada letra correcta fue verificada
-// contra las alternativas transcritas.
+// La pauta original viene en el propio documento (tabla "RESPUESTAS"), que la incluye dos
+// veces; ambas copias coinciden en las 280 y cada letra fue verificada contra las
+// alternativas transcritas.
 //
-// ARCHIVO GENERADO. Los enunciados y las alternativas son transcripcion literal del
-// documento: no los edites a mano. Los campos `category`, `critical` y `explanation` son
-// material propio agregado para el modo de estudio.
+// PUESTA AL DIA: el documento es anterior a varias reformas de la Ley de Transito. Las
+// preguntas cuya pauta quedo derogada tienen la respuesta CORREGIDA a la norma vigente y
+// un `legalNote` que explica que decia el original y que rige hoy.
 //
-// Nueve preguntas (139, 140, 143, 144, 156, 157, 249, 257 y 259) se responden en el
-// documento sobre laminas de dibujos que el texto no incluye, asi que quedan con
-// `options: []`. Se conservan para no perder ninguna pregunta del cuestionario, pero la
-// pagina del desafio las excluye del estudio y del sorteo.
+// ADAPTADAS: diez preguntas se respondian en el documento mirando una lamina de dibujos
+// que el PDF no incluye. Sus alternativas se reescribieron en texto conservando el tema,
+// y quedan marcadas con `adaptada: true`. Asi las 280 pueden salir en el desafio.
+//
+// ARCHIVO GENERADO: no lo edites a mano.
 
 import type { OficialQuestion } from "./oficial-types";
 
@@ -1947,7 +1948,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 134,
-    question: "¿Cuáles son las 2 formas más seguras para transportar una guagua en su automóvil?",
+    question: "¿Cuál es la forma más segura para transportar una guagua en su automóvil?",
     options: [
       { letter: "a", text: "En brazos de un adulto que va con cinturón de seguridad." },
       { letter: "b", text: "En brazos de un adulto de modo que el cinturón les sujete a ambos." },
@@ -1955,11 +1956,12 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
       { letter: "d", text: "En el asiento delantero, en una silla de seguridad mirando hacia atrás, pero sólo si el vehículo no posee doble airbag." },
       { letter: "e", text: "En el asiento trasero, en silla de seguridad mirando hacia atrás." },
     ],
-    correct: ["d", "e"],
-    marca: "Marque dos respuestas",
+    correct: ["e"],
+    marca: "Marque una respuesta",
     category: "seguridad",
     critical: "retencion",
-    explanation: "La guagua debe ir en silla de seguridad mirando hacia atrás: en el asiento trasero, o adelante sólo si el vehículo no tiene airbag para el acompañante. En brazos de un adulto es inútil, porque en un impacto nadie logra retenerla.",
+    explanation: "Hoy los menores deben viajar en los asientos traseros, en una silla de seguridad instalada a contramarcha, es decir mirando hacia atrás. Llevar la guagua adelante ya no se acepta, y en brazos de un adulto no ofrece ninguna retención.",
+    legalNote: "El cuestionario original respondía d) y e). Hoy la respuesta correcta es e): la norma vigente obliga a que los menores viajen en los asientos traseros con sistema de retención, por lo que la alternativa del asiento delantero (d) quedó derogada y sólo subsiste la e).",
   },
   {
     n: 135,
@@ -2024,25 +2026,35 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 139,
-    question: "¿En cuál o cuáles de las siguientes situaciones puede usted virar a la izquierda sin que siempre deba detenerse antes?",
-    options: [],
+    question: "¿En cuál o cuáles de las siguientes situaciones puede virar a la izquierda sin estar siempre obligado a detenerse antes de hacerlo?",
+    options: [
+      { letter: "a", text: "Ante una señal CEDA EL PASO (triángulo de fondo blanco con orla roja y la punta hacia abajo), reduciendo la velocidad y cediendo el paso a los vehículos de la vía preferente." },
+      { letter: "b", text: "Con luz verde del semáforo, cediendo el paso a los peatones que cruzan y a los vehículos que vienen en sentido contrario." },
+      { letter: "c", text: "Ante una señal PARE (disco octogonal rojo con la palabra PARE en letras blancas), cuando la vía transversal se ve despejada." },
+      { letter: "d", text: "Ante una luz amarilla intermitente, disminuyendo la velocidad y avanzando con precaución." },
+      { letter: "e", text: "Con luz roja del semáforo, si no se acerca ningún otro vehículo por la vía transversal." },
+    ],
     correct: ["a", "b", "d"],
-    marca: "Marque la o las respuesta(s) correcta(s)",
+    marca: "Marque tres respuestas",
     category: "senales",
-    explanation: "Hay señales e indicaciones que no obligan a detención total: basta con reducir la velocidad, observar y ceder el paso antes de virar a la izquierda. La detención completa se exige, en cambio, ante el disco PARE o la luz roja.",
-    imageDependent: true,
-    imageDescription: "Las alternativas son dibujos (señales del tránsito e indicaciones de semáforo), por lo que no aparecen textos a)/b)/c)/d) en el PDF. Falta la lámina con las situaciones ilustradas ante las cuales se puede virar a la izquierda sin detenerse siempre; la pauta indica que las correctas son a), b) y d).",
+    explanation: "El Ceda el Paso, la luz verde y la luz amarilla intermitente sólo obligan a reducir la velocidad y ceder el paso: puede virar sin detenerse si la vía está libre. El disco PARE y la luz roja exigen siempre detención total.",
+    adaptada: true,
   },
   {
     n: 140,
-    question: "¿Frente a cuál o cuáles de las siguientes señales e indicaciones del semáforo debe usted detenerse siempre?",
-    options: [],
+    question: "¿Frente a cuál o cuáles de las siguientes señales o indicaciones del semáforo debe detenerse siempre por completo?",
+    options: [
+      { letter: "a", text: "Señal triangular de fondo blanco con orla roja y la punta hacia abajo, que indica CEDA EL PASO." },
+      { letter: "b", text: "Señal en forma de disco octogonal de fondo rojo con la palabra PARE en letras blancas." },
+      { letter: "c", text: "Luz amarilla intermitente del semáforo." },
+      { letter: "d", text: "Luz roja del semáforo." },
+      { letter: "e", text: "Rombo amarillo con símbolo negro en forma de cruz, que advierte la proximidad de una intersección." },
+    ],
     correct: ["b", "d"],
-    marca: "Marque la o las respuesta(s) correcta(s)",
+    marca: "Marque dos respuestas",
     category: "senales",
-    explanation: "El disco PARE y la luz roja del semáforo obligan siempre a detención completa antes de la línea de detención, aunque la vía se vea despejada. Otras señales, como ceda el paso, sólo exigen reducir y ceder cuando corresponda.",
-    imageDependent: true,
-    imageDescription: "Las alternativas son dibujos de señales del tránsito e indicaciones de semáforo, por lo que no aparecen textos a)/b)/c)/d) en el PDF. Falta la lámina con esas señales; la pauta indica que ante las ilustradas en b) y d) se debe detener siempre (típicamente la señal PARE y la luz roja del semáforo).",
+    explanation: "El disco PARE y la luz roja del semáforo obligan siempre a detención total antes de la línea de detención, aunque la vía se vea despejada. El Ceda el Paso y la luz amarilla intermitente sólo exigen reducir la velocidad y ceder el paso.",
+    adaptada: true,
   },
   {
     n: 141,
@@ -2073,25 +2085,33 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 143,
-    question: "¿Cómo señaliza usted con el brazo cuando va a virar hacia la derecha?",
-    options: [],
+    question: "¿Cómo debe señalizar con el brazo, fuera del vehículo, que va a virar hacia la derecha?",
+    options: [
+      { letter: "a", text: "Con el brazo izquierdo extendido horizontalmente hacia afuera." },
+      { letter: "b", text: "Con el brazo izquierdo extendido fuera del vehículo y doblado hacia arriba, formando un ángulo recto." },
+      { letter: "c", text: "Con el brazo izquierdo extendido fuera del vehículo y doblado hacia abajo." },
+      { letter: "d", text: "Con el brazo derecho extendido horizontalmente por la ventanilla del acompañante." },
+    ],
     correct: ["b"],
     marca: "Marque una respuesta",
     category: "senales",
-    explanation: "El viraje a la derecha se señaliza con el brazo izquierdo extendido fuera del vehículo y doblado hacia arriba en ángulo recto, como muestra la alternativa b). Sirve para advertir cuando fallan los indicadores o hay poca visibilidad.",
-    imageDependent: true,
-    imageDescription: "Las alternativas son dibujos de un conductor haciendo distintas señas con el brazo, por lo que no aparecen textos a)/b)/c)/d) en el PDF. Falta esa lámina; la pauta indica que la correcta es b), que corresponde al brazo izquierdo extendido y doblado hacia arriba en ángulo recto (seña de viraje a la derecha).",
+    explanation: "El viraje a la derecha se indica con el brazo izquierdo fuera del vehículo y doblado hacia arriba en ángulo recto. Extendido horizontalmente anuncia viraje a la izquierda, y doblado hacia abajo, detención o frenado.",
+    adaptada: true,
   },
   {
     n: 144,
-    question: "¿Cuál señalización con el brazo del conductor de un vehículo que va adelante le indica que va a virar a la izquierda?",
-    options: [],
+    question: "¿Qué seña con el brazo hace el conductor que va adelante para indicarle que va a virar a la izquierda?",
+    options: [
+      { letter: "a", text: "Saca el brazo izquierdo y lo dobla hacia arriba, formando un ángulo recto." },
+      { letter: "b", text: "Saca el brazo izquierdo y lo dobla hacia abajo." },
+      { letter: "c", text: "Extiende el brazo izquierdo horizontalmente hacia afuera del vehículo." },
+      { letter: "d", text: "Extiende el brazo derecho horizontalmente por la ventanilla del acompañante." },
+    ],
     correct: ["c"],
     marca: "Marque una respuesta",
     category: "senales",
-    explanation: "El brazo izquierdo extendido horizontalmente hacia afuera anuncia viraje a la izquierda, que es la alternativa c). No la confundas con el brazo doblado hacia arriba, que corresponde al viraje a la derecha.",
-    imageDependent: true,
-    imageDescription: "Las alternativas son dibujos de un conductor haciendo distintas señas con el brazo, por lo que no aparecen textos a)/b)/c)/d) en el PDF. Falta esa lámina; la pauta indica que la correcta es c), que corresponde al brazo izquierdo extendido horizontalmente hacia afuera (seña de viraje a la izquierda).",
+    explanation: "El brazo izquierdo extendido horizontalmente hacia afuera anuncia viraje a la izquierda. No lo confunda con el brazo doblado hacia arriba, que indica viraje a la derecha, ni con el doblado hacia abajo, que anuncia detención.",
+    adaptada: true,
   },
   {
     n: 145,
@@ -2218,12 +2238,12 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
       { letter: "c", text: "120 km/hr" },
       { letter: "d", text: "100 km/hr" },
     ],
-    correct: ["c"],
+    correct: ["d"],
     marca: "Marque una respuesta",
     category: "velocidad",
     critical: "velocidad",
-    explanation: "Fuera de zona urbana, de día y con la calzada pavimentada en buen estado, el máximo general es 120 km/h mientras ninguna señal indique algo distinto. Las cifras menores corresponden a calles urbanas o a condiciones más restrictivas.",
-    legalNote: "Cuidado: este cuestionario es anterior a la rebaja de limites de velocidad, por eso su pauta responde 120 km/h. Hoy, en zona rural y con transito bidireccional, el maximo para vehiculos livianos es 100 km/h; los 120 km/h quedan reservados a autopistas de calzadas separadas y solo cuando la senalizacion lo indica.",
+    explanation: "En zona rural, con calzada de tránsito bidireccional, el máximo para vehículos livianos es 100 km/h. Los 120 km/h quedan reservados a autopistas o carreteras de calzadas separadas y solo cuando la señalización lo indica.",
+    legalNote: "El cuestionario original respondía c). Hoy la respuesta correcta es d): el máximo rural para livianos es hoy 100 km/h; los 120 km/h ya no aplican a una calzada bidireccional.",
   },
   {
     n: 154,
@@ -2234,12 +2254,12 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
       { letter: "c", text: "50 km/hr" },
       { letter: "d", text: "80 km/hr" },
     ],
-    correct: ["b"],
+    correct: ["c"],
     marca: "Marque una respuesta",
     category: "velocidad",
     critical: "velocidad",
-    explanation: "En zona urbana el límite general es 60 km/h, aunque la calle tenga dos pistas en un solo sentido de tránsito. Tener más pistas no autoriza ir más rápido, y siempre manda la señal cuando indica otra cosa.",
-    legalNote: "Cuidado: este cuestionario es anterior a la rebaja de limites de velocidad, por eso su pauta responde 60 km/h. Hoy el maximo general en zona urbana es 50 km/h, salvo que la senalizacion indique otra cosa.",
+    explanation: "En zona urbana el límite general es 50 km/h, aunque la calle tenga dos pistas en un solo sentido de tránsito. Tener más pistas no autoriza ir más rápido, y siempre manda la señal cuando indica otra cosa.",
+    legalNote: "El cuestionario original respondía b). Hoy la respuesta correcta es c): el máximo urbano bajó de 60 a 50 km/h.",
   },
   {
     n: 155,
@@ -2257,25 +2277,35 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 156,
-    question: "¿En cuál o cuáles situaciones el vehículo está mal estacionado?",
-    options: [],
+    question: "¿En cuál o cuáles de las siguientes situaciones el vehículo queda mal estacionado?",
+    options: [
+      { letter: "a", text: "Queda detenido sobre el cruce peatonal, tapando parte de la senda demarcada." },
+      { letter: "b", text: "Queda en doble fila, al lado de otro vehículo ya estacionado junto a la solera." },
+      { letter: "c", text: "Queda junto al borde derecho de la calzada, en el sentido del tránsito y sin obstruir accesos ni cruces." },
+      { letter: "d", text: "Queda dentro de un espacio demarcado para estacionar, con las ruedas paralelas a la solera derecha." },
+      { letter: "e", text: "Queda junto a la solera derecha de una calle de doble sentido, dejando libre el paso de los demás vehículos." },
+    ],
     correct: ["a", "b"],
-    marca: "Marque la o las respuesta(s) correcta(s)",
+    marca: "Marque dos respuestas",
     category: "normas",
-    explanation: "Un vehículo queda mal estacionado cuando obstruye la circulación, la visibilidad o el paso de otros usuarios, como en las situaciones a) y b). Siempre debe quedar junto al borde derecho, sin bloquear accesos ni cruces.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen: las alternativas son dibujos de varias situaciones de estacionamiento (rotuladas a, b, c, d...) y por eso no aparecen alternativas de texto en el PDF. Según la pauta, las situaciones a) y b) corresponden a vehículos mal estacionados.",
+    explanation: "Estacionar sobre un cruce peatonal o en doble fila obstruye el paso de peatones y vehículos. Siempre debe estacionar junto al borde derecho, en el sentido del tránsito y sin bloquear cruces, accesos ni paraderos.",
+    adaptada: true,
   },
   {
     n: 157,
     question: "¿En cuál o cuáles de las siguientes situaciones el conductor se ha detenido correctamente para recoger un pasajero?",
-    options: [],
+    options: [
+      { letter: "a", text: "Se detiene en doble fila, junto a otro vehículo ya estacionado, y el pasajero sube por el lado de la calzada." },
+      { letter: "b", text: "Se detiene junto a la vereda derecha, en el sentido del tránsito, en un tramo donde no está prohibido detenerse." },
+      { letter: "c", text: "Se detiene sobre el cruce peatonal de la esquina para que el pasajero suba más rápido." },
+      { letter: "d", text: "Se detiene junto a la vereda derecha, unos metros después de la esquina, sin bloquear el paradero ni la entrada de un garaje." },
+      { letter: "e", text: "Se detiene sobre la ciclovía, pegado al borde derecho de la calzada, mientras el pasajero sube." },
+    ],
     correct: ["b", "d"],
-    marca: "Marque la o las respuesta(s) correcta(s)",
+    marca: "Marque dos respuestas",
     category: "normas",
-    explanation: "Recoger a un pasajero es correcto sólo si te detienes junto a la vereda derecha, sin obstruir cruces, accesos ni la circulación, como en las situaciones b) y d). Así el pasajero sube por el lado de la vereda.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen: las alternativas son dibujos de situaciones de detención para recoger un pasajero (rotuladas a, b, c, d...) y por eso no aparecen alternativas de texto en el PDF. Según la pauta, las situaciones correctas son b) y d).",
+    explanation: "Para recoger un pasajero debe detenerse junto a la vereda derecha, en el sentido del tránsito y en un lugar permitido, sin quedar en doble fila ni sobre el cruce peatonal, para que suba por el lado de la vereda.",
+    adaptada: true,
   },
   {
     n: 158,
@@ -3465,19 +3495,19 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 242,
-    question: "Combine los números de las señales con los textos que correspondan.",
+    question: "¿Cuáles de las siguientes asociaciones entre una señal y su significado son correctas?",
     options: [
-      { letter: "a", text: "Mantenga su derecha" },
-      { letter: "b", text: "Pavimento resbaladizo" },
-      { letter: "c", text: "Curva" },
-      { letter: "d", text: "No adelantar" },
+      { letter: "a", text: "El rombo amarillo con la figura negra de un vehículo sobre huellas onduladas advierte pavimento resbaladizo." },
+      { letter: "b", text: "El rombo amarillo con una flecha negra que se dobla hacia un costado advierte una curva." },
+      { letter: "c", text: "La señal de fondo blanco con orla roja que prohíbe pasar a otro vehículo significa 'no adelantar'." },
+      { letter: "d", text: "La señal que ordena 'mantenga su derecha' es un rombo amarillo con símbolo negro, porque solamente advierte un peligro." },
+      { letter: "e", text: "La señal de 'no adelantar' es informativa, de fondo verde, porque solamente orienta al conductor." },
     ],
-    correct: ["a", "b", "c", "d"],
-    marca: "Marque la o las respuesta(s) correcta(s)",
+    correct: ["a", "b", "c"],
+    marca: "Marque tres respuestas",
     category: "senales",
-    explanation: "Las cuatro asociaciones son correctas: cada señal mostrada corresponde exactamente a uno de los textos, mantenga su derecha, pavimento resbaladizo, curva y no adelantar, por lo que todas las alternativas quedan emparejadas.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen con las señales numeradas que deben combinarse con los textos de las alternativas. Por las alternativas y la pauta (a, b, c y d son todas correctas) las señales corresponden a: mantenga su derecha, pavimento resbaladizo, curva y no adelantar. El texto extraído tampoco conserva la línea \"Marque ...\" de esta pregunta.",
+    explanation: "Las señales de advertencia son rombos amarillos con símbolo negro, como pavimento resbaladizo y curva; 'no adelantar' y 'mantenga su derecha' son reglamentarias, de fondo blanco con orla roja, porque imponen una prohibición o una obligación.",
+    adaptada: true,
   },
   {
     n: 243,
@@ -3575,13 +3605,18 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   {
     n: 249,
     question: "¿Cuál de los siguientes tipos de señales le indica que no haga algo?",
-    options: [],
+    options: [
+      { letter: "a", text: "Las señales de advertencia, con forma de rombo amarillo y símbolo negro, que anuncian un peligro más adelante." },
+      { letter: "b", text: "Las señales informativas de fondo verde, que orientan sobre destinos y distancias." },
+      { letter: "c", text: "Las señales reglamentarias prohibitivas, de fondo blanco con orla roja y símbolo negro, como 'no adelantar' o 'prohibido estacionar'." },
+      { letter: "d", text: "Las señales informativas de servicios, de fondo azul con símbolo blanco, que muestran dónde hay un hospital o un teléfono." },
+      { letter: "e", text: "Las señales reglamentarias de obligación, como 'mantenga su derecha', que ordenan realizar una maniobra determinada." },
+    ],
     correct: ["c"],
     marca: "Marque una respuesta",
     category: "senales",
-    explanation: "Las señales reglamentarias imponen obligaciones y prohibiciones; las prohibitivas, de fondo blanco con orla roja y generalmente una barra diagonal, son las que indican no hacer algo. Las de advertencia solo previenen y las informativas orientan.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen: las alternativas de esta pregunta son dibujos de distintos tipos de señales, por eso no aparecen alternativas de texto en el PDF y options queda vacío. Según la pauta la correcta es la c), que corresponde al dibujo de una señal reglamentaria (prohibitiva), es decir la que indica que no se haga algo.",
+    explanation: "Las prohibitivas son un tipo de señal reglamentaria: fondo blanco con orla roja y símbolo negro, muchas veces con una barra diagonal. Ordenan no hacer algo. Las de advertencia solo previenen y las informativas orientan.",
+    adaptada: true,
   },
   {
     n: 250,
@@ -3691,14 +3726,19 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 257,
-    question: "¿Cuál de estas señales le previene que más adelante hay una serie de curvas?",
-    options: [],
-    correct: ["b"],
+    question: "¿Cuál de estas señales advierte que más adelante hay una serie de curvas?",
+    options: [
+      { letter: "a", text: "Un rombo amarillo cuyo símbolo negro muestra dos curvas sucesivas en sentidos opuestos." },
+      { letter: "b", text: "Un rombo amarillo cuyo símbolo negro muestra una sola curva hacia un costado." },
+      { letter: "c", text: "Un rombo amarillo con la figura negra de un vehículo sobre huellas onduladas." },
+      { letter: "d", text: "Una señal de fondo blanco con orla roja que fija la velocidad máxima permitida." },
+      { letter: "e", text: "Una señal rectangular de fondo verde con el nombre y la distancia de la próxima localidad." },
+    ],
+    correct: ["a"],
     marca: "Marque una respuesta",
     category: "senales",
-    explanation: "La serie de curvas se advierte con el rombo amarillo cuyo símbolo muestra dos curvas sucesivas en sentidos opuestos, a diferencia del de curva única. Anuncia varios virajes seguidos, por lo que hay que reducir la velocidad antes.",
-    imageDependent: true,
-    imageDescription: "Faltan las imágenes: las alternativas eran dibujos de señales de tránsito, por eso no aparecen a)/b)/c)/d) en el texto extraído (options queda vacío). La respuesta correcta (b) corresponde al dibujo de la señal de advertencia de curvas sucesivas o serie de curvas. En el texto extraído tampoco aparece la línea 'Marque ...' para esta pregunta; se asume 'Marque una respuesta' porque la pauta indica una sola alternativa correcta.",
+    explanation: "La serie de curvas se advierte con un rombo amarillo cuyo símbolo muestra dos curvas seguidas en sentidos opuestos. Anuncia varios virajes encadenados, por lo que debe reducir la velocidad antes de entrar.",
+    adaptada: true,
   },
   {
     n: 258,
@@ -3718,14 +3758,19 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 259,
-    question: "¿Cuál de estas señales le advierte la proximidad de un cruce de peatones?",
-    options: [],
+    question: "¿Cuál de estas señales advierte la proximidad de un cruce de peatones?",
+    options: [
+      { letter: "a", text: "Un rombo amarillo con la figura negra de una persona caminando sobre una senda demarcada." },
+      { letter: "b", text: "Un rombo amarillo con la figura negra de dos niños corriendo." },
+      { letter: "c", text: "Una señal de fondo blanco con orla roja y la figura de un peatón cruzada por una barra diagonal." },
+      { letter: "d", text: "Un disco octogonal de fondo rojo con la palabra PARE en letras blancas." },
+      { letter: "e", text: "Un rombo amarillo con la figura negra de una bicicleta." },
+    ],
     correct: ["a"],
     marca: "Marque una respuesta",
     category: "senales",
-    explanation: "El cruce de peatones se advierte con un rombo amarillo que muestra la figura de una persona caminando sobre la senda demarcada. Anuncia que más adelante cruzan peatones y usted debe estar preparado para cederles el paso.",
-    imageDependent: true,
-    imageDescription: "Faltan las imágenes: las alternativas eran dibujos de señales de tránsito, por eso no aparecen a)/b)/c)/d) en el texto extraído (options queda vacío). La respuesta correcta (a) corresponde al dibujo de la señal de advertencia de cruce de peatones.",
+    explanation: "El cruce de peatones se anuncia con un rombo amarillo y la figura negra de una persona caminando sobre la senda demarcada. Advierte que más adelante cruzan peatones y usted debe estar listo para cederles el paso.",
+    adaptada: true,
   },
   {
     n: 260,

@@ -16,22 +16,11 @@ import {
 import * as sfx from "@/lib/sfx";
 
 /**
- * La 242 es un ejercicio de "combine los numeros de las senales con los textos": su pauta
- * empareja cada senal con un numero (a-3, b-5, c-1, d-4), algo que un set de alternativas
- * no puede representar, y ademas depende de una lamina que el documento no incluye.
+ * Las 280 preguntas del cuestionario, todas respondibles y todas con posibilidad de salir
+ * en la ruleta. Las 10 que en el documento original se contestaban mirando una lamina de
+ * dibujos fueron reescritas con alternativas de texto (quedan marcadas con `adaptada`).
  */
-const NO_JUGABLES = new Set([242]);
-
-/**
- * Banco jugable: 9 de las 280 preguntas tienen alternativas que en el documento original
- * son dibujos, asi que no se pueden responder desde el texto. Se conservan en
- * `OFICIAL_QUESTIONS` (para no perder ninguna) pero quedan fuera del estudio y del desafio.
- */
-const BANCO = OFICIAL_QUESTIONS.filter(
-  (q) => q.options.length > 0 && !NO_JUGABLES.has(q.n)
-);
-/** Total de preguntas del cuestionario original, incluidas las que son solo dibujo. */
-const TOTAL_DOC = OFICIAL_QUESTIONS.length;
+const BANCO = OFICIAL_QUESTIONS;
 
 /** Cuantas preguntas saca la ruleta para el desafio. */
 const RULETA_PICKS = 32;
@@ -292,22 +281,17 @@ function Inicio({
     <div className="space-y-6">
       <header>
         <h1 className="text-3xl font-bold tracking-tight">
-          El <span className="gradient-text">Desafío</span> — {TOTAL_DOC} preguntas
-          oficiales
+          El <span className="gradient-text">Desafío</span> — {total} preguntas oficiales
         </h1>
         <p className="mt-2 max-w-3xl text-neutral-600">
-          Cuestionario General de Licencias Clase B: las {TOTAL_DOC} preguntas del examen
-          teórico con su pauta oficial de respuestas. Primero respóndelas con corrección
-          inmediata, y después la ruleta sortea {RULETA_PICKS} para el test real contra
-          reloj.
+          Cuestionario General de Licencias Clase B: las {total} preguntas del examen
+          teórico, con las respuestas puestas al día según la Ley de Tránsito vigente.
+          Primero respóndelas con corrección inmediata, y después la ruleta sortea{" "}
+          {RULETA_PICKS} para el test real contra reloj.
         </p>
-        {TOTAL_DOC > total && (
-          <p className="mt-2 max-w-3xl text-xs text-neutral-400">
-            {TOTAL_DOC - total} preguntas del cuestionario se responden sobre láminas de
-            dibujos que el documento no incluye, así que quedan fuera del estudio y del
-            desafío. Las otras {total} están completas.
-          </p>
-        )}
+        <p className="mt-2 max-w-3xl text-xs text-neutral-400">
+          Las {total} entran al sorteo: ninguna queda fuera.
+        </p>
       </header>
 
       <div className="card p-6">
@@ -670,6 +654,14 @@ function TarjetaPregunta({
         </div>
       )}
 
+      {q.adaptada && (
+        <p className="mt-3 text-xs text-neutral-400">
+          En el cuestionario original esta pregunta se respondía mirando una lámina de
+          dibujos que el documento no incluye; las alternativas se reescribieron en texto
+          conservando el tema.
+        </p>
+      )}
+
       <p className="mt-3 text-xs font-medium uppercase tracking-wide text-neutral-400">
         {q.marca}
         {multi && ` · marca ${q.correct.length}`}
@@ -757,8 +749,8 @@ function Explicacion({ q, elegidas }: { q: OficialQuestion; elegidas: string[] }
         {q.explanation}
       </p>
       {q.legalNote && (
-        <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm leading-relaxed text-amber-900">
-          <strong className="font-semibold">⚠️ Norma vigente: </strong>
+        <p className="mt-3 rounded-xl border border-sky-300 bg-sky-50 p-3 text-sm leading-relaxed text-sky-900">
+          <strong className="font-semibold">🔄 Actualizado a la norma vigente: </strong>
           {q.legalNote}
         </p>
       )}

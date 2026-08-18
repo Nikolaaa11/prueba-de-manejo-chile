@@ -59,11 +59,15 @@ export interface OficialQuestion {
   /** Por que la alternativa correcta es la correcta. */
   explanation: string;
   /**
-   * Advertencia cuando la pauta del documento quedo desactualizada respecto de la norma
-   * vigente. La correccion sigue siendo la del documento (es la pauta que el usuario
-   * pidio cargar), pero se avisa en pantalla para no ensenar una cifra derogada.
+   * Presente cuando la pauta original del cuestionario quedo derogada y la respuesta se
+   * actualizo a la norma vigente. Explica que decia el documento y que rige hoy.
    */
   legalNote?: string;
+  /**
+   * Presente cuando las alternativas se reescribieron porque en el documento original
+   * eran dibujos (senales, senas con el brazo, escenas) que el PDF no incluye.
+   */
+  adaptada?: boolean;
   /**
    * El PDF original acompana la pregunta con una imagen (senal, foto o dibujo) que no
    * se pudo extraer. `imageDescription` describe en palabras lo que muestra la imagen
