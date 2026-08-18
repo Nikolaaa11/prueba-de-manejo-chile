@@ -65,8 +65,9 @@ export default function Home() {
       </section>
 
       {/* MODULOS */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <Card href="/test" emoji="📝" title="Test teorico" desc={`${QUESTIONS.length} preguntas con señales, examen cronometrado y repaso de errores.`} accent="cyan" />
+        <Card href="/conaset" emoji="🚦" title="CONASET" desc="Preguntas de los cuestionarios oficiales de CONASET y del libro Clase B, con la misma ruleta." accent="violet" />
         <Card href="/agendamiento" emoji="📍" title="Agendar hora" desc={`${MUNICIPALITIES.length} comunas ordenadas por posibilidad de cupo, con enlace directo.`} accent="violet" />
         <Card href="/calendario" emoji="📅" title="Calendario" desc="Cuando libera cada comuna + alertas .ics para tu telefono." accent="cyan" />
         <Card href="/monitor" emoji="🔔" title="Monitor" desc="Revisa disponibilidad de horas en las paginas municipales." accent="violet" />

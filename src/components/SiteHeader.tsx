@@ -7,6 +7,7 @@ const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/test", label: "Test teorico" },
   { href: "/desafio", label: "Desafio 280" },
+  { href: "/conaset", label: "CONASET" },
   { href: "/agendamiento", label: "Agendar hora" },
   { href: "/calendario", label: "Calendario" },
   { href: "/monitor", label: "Monitor" },

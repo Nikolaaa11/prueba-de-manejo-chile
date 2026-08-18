@@ -12,6 +12,7 @@ Plataforma web (Next.js) para **estudiar el examen teórico de licencia de condu
 | --- | --- |
 | **Test teórico** (`/test`) | 95 preguntas Clase B con explicaciones, referencia legal e **imágenes de señales** (SVG propios). Modos: *práctica* (feedback inmediato + filtro por tema), *examen* (20 al azar, **temporizador**), *preguntas frecuentes* (22 claves) y **repasa tus errores** (personalizado: registra tus aciertos/fallos por pregunta en el navegador y te muestra las que más fallas). Estadísticas guardadas localmente. |
 | **El Desafío** (`/desafio`) | Las **280 preguntas del Cuestionario General Clase B** con su **pauta oficial de respuestas**, transcritas del documento de estudio. Modo estudio con corrección inmediata (**verde/rojo** + explicación de por qué la correcta lo es), y luego una **ruleta** que sortea **32 preguntas** para el test real: anuncio con sonido, **40 minutos** de reloj y se aprueba con un **máximo de 2 malas**. Las preguntas de **alcohol, velocidad y retención infantil valen doble punto**. |
+| **CONASET** (`/conaset`) | **326 preguntas** con la misma mecánica del Desafío. **264 vienen textuales de los Cuestionarios Base de Examen Teórico oficiales de CONASET** (clases A1\*/A2\*/D/E y C Restringida), con su pauta oficial, filtradas a lo que aplica a un automovilista; las 62 restantes están redactadas desde el *Libro para la Conducción en Chile Clase B*. Cada pregunta indica su fuente. |
 | **Agendar hora** (`/agendamiento`) | Directorio de Direcciones de Tránsito municipales con dominios **verificados**, **ordenado por posibilidad de conseguir cupo**, con badge de demanda, horario de liberación de cupos y cuenta regresiva, filtros, enlaces directos confirmados (y búsqueda oficial de respaldo). |
 | **Calendario** (`/calendario`) | Cuándo libera cupos cada comuna (datos reales de fuentes oficiales): próximas liberaciones con cuenta regresiva, grilla mensual y **exportación a `.ics`** para poner recordatorios con alarma en tu teléfono (Google/Apple Calendar). También avisos del navegador. |
 | **Monitor de cupos** (`/monitor` + `/api/monitor`) | Revisa la disponibilidad aproximada leyendo las páginas municipales (solo comunas con página directa verificada), con patrón de adaptadores. Incluye cron de Vercel y notificaciones opcionales por webhook. |
@@ -89,7 +90,15 @@ Vive en [`src/data/oficial-questions.ts`](./src/data/oficial-questions.ts) (**ar
 
 Cada pregunta admite **una o varias** respuestas correctas (`correct` es un arreglo de letras), tal como el cuestionario original, que distingue entre *"Marque una respuesta"*, *"Marque dos respuestas"* y *"Marque tres respuestas"*. La pauta se verificó contra las **dos copias** de la tabla de respuestas que trae el documento: ambas coinciden en las 280.
 
-El campo `critical` (`"alcohol"`, `"velocidad"` o `"retencion"`) marca las preguntas de **doble puntaje**. Nueve preguntas quedan con `options: []` porque en el documento se responden sobre láminas de dibujos que el texto no incluye; la página las conserva pero las excluye del estudio y del sorteo.
+El campo `critical` (`"alcohol"`, `"velocidad"` o `"retencion"`) marca las preguntas de **doble puntaje**. Las marcadas con `adaptada` se respondían en el documento mirando una lámina de dibujos que el PDF no incluye: se reescribieron en texto conservando el tema y la respuesta oficial, de modo que **las 280 pueden salir sorteadas**. Las que traen `legalNote` tenían la pauta derogada y su respuesta fue actualizada a la norma vigente.
+
+### El banco de CONASET
+Vive en [`src/data/conaset-questions.ts`](./src/data/conaset-questions.ts) (**también generado**) y usa los mismos tipos.
+
+CONASET **no publica** el banco de la Clase B: ese examen se rinde en el sistema Nexteo con más de 1.000 preguntas reservadas. Sí publica, en `mejoresconductores.conaset.cl/assets/data/pdf/`, los *Cuestionario Base Examen Teórico* de otras clases y el libro de estudio de la Clase B. De ahí sale este banco.
+
+### El motor del desafío
+[`src/components/QuizDesafio.tsx`](./src/components/QuizDesafio.tsx) implementa el flujo completo (estudio con corrección inmediata, ruleta, anuncio con sonido, reloj y resultado) y se configura por props: banco, cuántas sortea la ruleta, duración, máximo de errores y clave de `localStorage`. Para agregar otra pestaña con preguntas basta con un archivo de datos y un envoltorio de ~30 líneas, como [`src/app/conaset/page.tsx`](./src/app/conaset/page.tsx).
 
 ### Mejorar la detección de cupos de un municipio
 En [`src/lib/monitor.ts`](./src/lib/monitor.ts), agrega una función al registro `ADAPTERS` con el `id` del municipio. Recibe el HTML de la página y devuelve `true`/`false`/`null`.

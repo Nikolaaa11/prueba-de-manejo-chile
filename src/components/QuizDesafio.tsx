@@ -690,9 +690,9 @@ function TarjetaPregunta({
 
       {q.adaptada && (
         <p className="mt-3 text-xs text-neutral-400">
-          En el cuestionario original esta pregunta se respondía mirando una lámina de
-          dibujos que el documento no incluye; las alternativas se reescribieron en texto
-          conservando el tema.
+          En el documento original esta pregunta se respondía mirando una lámina de
+          dibujos que el PDF no incluye. Se reescribió en texto conservando el tema y la
+          respuesta oficial.
         </p>
       )}
 

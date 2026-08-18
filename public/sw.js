@@ -7,6 +7,7 @@ const APP_SHELL = [
   "/",
   "/test",
   "/desafio",
+  "/conaset",
   "/agendamiento",
   "/calendario",
   "/monitor",
