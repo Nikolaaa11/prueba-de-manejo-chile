@@ -69,6 +69,11 @@ export interface OficialQuestion {
    */
   adaptada?: boolean;
   /**
+   * De donde sale la pregunta, para poder rastrearla. Ej: "Cuestionario CONASET clase
+   * C Restringida, pregunta 40" o "Libro CONASET Clase B, capitulo 4".
+   */
+  fuente?: string;
+  /**
    * El PDF original acompana la pregunta con una imagen (senal, foto o dibujo) que no
    * se pudo extraer. `imageDescription` describe en palabras lo que muestra la imagen
    * para que la pregunta siga siendo respondible.
