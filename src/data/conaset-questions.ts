@@ -1750,7 +1750,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 124,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un octágono de fondo rojo con orla y texto blancos; 2) un rombo amarillo con orla negra y una flecha que dibuja dos curvas sucesivas, la primera hacia la izquierda; 3) un rombo amarillo con tres flechas negras que giran en círculo.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Pare, Pavimento resbaladizo, Curva muy cerrada a la derecha." },
       { letter: "b", text: "Pare, Zona de curvas a la derecha, Proximidad rotonda." },
@@ -1761,11 +1761,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El octágono rojo es la única señal con esa forma y ordena detención total. El rombo amarillo advierte: las curvas encadenadas parten hacia la izquierda y las flechas en círculo anuncian una rotonda próxima.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 137",
-    adaptada: true,
+    images: ["pare", "curvas-sucesivas-izquierda", "rotonda"],
   },
   {
     n: 125,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un triángulo equilátero con la punta hacia abajo, fondo blanco y orla roja; 2) un rombo amarillo con una flecha negra que describe una sola curva hacia la derecha; 3) un círculo de fondo blanco con orla roja, con una flecha en forma de U cruzada por una línea diagonal roja.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Ceda el paso, Salida de Autopista, Prohibido transitar en sentido contrario." },
       { letter: "b", text: "Ceda el paso, Curva a la derecha, No virar en U." },
@@ -1776,11 +1776,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El triángulo invertido con orla roja obliga a dar prioridad; el rombo amarillo con una sola curva advierte ese trazado hacia la derecha, y el círculo con orla roja y diagonal prohíbe el giro en U.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 138",
-    adaptada: true,
+    images: ["ceda", "curva", "no-virar-u"],
   },
   {
     n: 126,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un círculo de fondo rojo con una franja blanca horizontal al centro; 2) un círculo de fondo blanco con orla roja y una letra E negra cruzada por una sola línea diagonal roja; 3) un rombo amarillo con el perfil de una elevación convexa sobre la calzada.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "No entrar, Prohibido Estacionar, Resalto." },
       { letter: "b", text: "No entrar, Prohibido Estacionar y detenerse, Pendiente fuerte." },
@@ -1791,11 +1791,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El círculo rojo con franja blanca impide el acceso a esa vía. La E con una sola diagonal prohíbe dejar el vehículo estacionado, y el rombo advierte una elevación construida en la calzada.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 139",
-    adaptada: true,
+    images: ["no-entrar", "no-estacionar", "resalto"],
   },
   {
     n: 127,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un círculo de fondo blanco con orla roja y una flecha negra recta que apunta hacia arriba; 2) un rombo amarillo donde la calzada se estrecha entre las dos barandas de una estructura que salva un cauce; 3) una señal pentagonal de fondo amarillo verdoso fluorescente con la silueta de dos niños caminando con sus bolsos.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Viraje a la derecha, Camino angosto, Niños jugando." },
       { letter: "b", text: "Dirección Obligada, Puente angosto, Zona de Escuela." },
@@ -1806,11 +1806,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La flecha dentro del círculo con orla roja obliga a seguir sólo en ese sentido. El estrechamiento entre barandas corresponde a una estructura sobre un cauce, y el pentágono fluorescente marca el entorno de un colegio.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 140",
-    adaptada: true,
+    images: ["direccion-obligada", "puente-angosto", "zona-escuela"],
   },
   {
     n: 128,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un círculo de fondo blanco con orla roja y una flecha negra que apunta hacia arriba inclinándose al costado derecho; 2) un círculo de fondo blanco con orla roja con la silueta de una bocina cruzada por una diagonal roja; 3) un círculo de fondo blanco con orla roja con una cifra negra en su interior, sin ninguna palabra bajo el número.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Mantenga su derecha, Silencio, Velocidad sugerida." },
       { letter: "b", text: "Pista Solo autos, No Molestar, Velocidad mínima." },
@@ -1821,11 +1821,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las tres son reglamentarias y de cumplimiento obligatorio: la flecha inclinada ordena circular por ese costado, la bocina tachada prohíbe usarla en el sector y la cifra sola fija un tope que no se puede superar.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 141",
-    adaptada: true,
+    images: ["mantenga-su-derecha", "silencio", "velocidad-max"],
   },
   {
     n: 129,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un rombo amarillo con la silueta de una locomotora, sin reja ni barrera dibujada; 2) un círculo de fondo blanco con orla roja que muestra dos vehículos lado a lado, con el de la izquierda destacado en rojo; 3) un círculo de fondo blanco con orla roja con dos flechas negras enfrentadas horizontalmente y una medida en metros.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Cruce ferroviario a nivel sin barreras, No Adelantar, Ancho máximo." },
       { letter: "b", text: "Cruce ferroviario a nivel con barreras, Prohibido circular vehículos, Ancho máximo." },
@@ -1836,11 +1836,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La locomotora sin barreras avisa que nada detiene el paso del tren y hay que mirar la vía. El vehículo destacado a la izquierda marca la maniobra prohibida, y las flechas con metros limitan la dimensión transversal.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 142",
-    adaptada: true,
+    images: ["cruce-ferroviario-sin-barreras", "no-adelantar", "ancho-maximo"],
   },
   {
     n: 130,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un rombo amarillo con un automóvil visto desde arriba y dos huellas curvas que se desvían bajo sus ruedas; 2) un rombo amarillo con una cruz negra formada por dos vías que se intersectan; 3) un círculo de fondo blanco con orla roja y una letra E negra cruzada por dos líneas rojas en aspa.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "Pavimento resbaladizo, Proximidad Cruce, Prohibido estacionar." },
       { letter: "b", text: "Proyección de gravilla, Proximidad Iglesia, Prohibido estacionar y detenerse." },
@@ -1851,11 +1851,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las huellas desviadas bajo el auto advierten pérdida de adherencia; la cruz anuncia una intersección próxima, y la E cruzada por dos líneas prohíbe tanto estacionar como detenerse, aunque sea un momento.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 143",
-    adaptada: true,
+    images: ["pavimento-resbaladizo", "proximidad-cruce", "prohibido-estacionar-y-detenerse"],
   },
   {
     n: 131,
-    question: "Indica qué significan, en ese orden, estas tres señales: 1) un círculo de fondo blanco con orla roja y una flecha negra que gira hacia la izquierda, cruzada por una diagonal roja; 2) un rombo amarillo de advertencia que lleva dibujado en su interior un triángulo con la punta hacia abajo y orla roja; 3) un rombo amarillo con el perfil de una depresión o hundimiento en la calzada.",
+    question: "A1* A2* D E Indica qué significan estas señales:",
     options: [
       { letter: "a", text: "No virar izquierda, Proximidad de señal “Ceda el Paso”, Badén." },
       { letter: "b", text: "No Entrar, Ceda el Paso, Proximidad Puente." },
@@ -1866,7 +1866,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El círculo con orla roja prohíbe ese giro. El rombo amarillo que reproduce el triángulo invertido anticipa que más adelante habrá que dar prioridad, y el hundimiento dibujado obliga a reducir antes de pasar.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clases A1*, A2*, D y E, pregunta 144",
-    adaptada: true,
+    images: ["no-virar-izquierda", "proximidad-ceda-el-paso", "baden"],
   },
   {
     n: 132,
@@ -1975,7 +1975,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 139,
-    question: "¿Qué significa una señal en forma de triángulo equilátero con la punta hacia abajo, de fondo blanco y orla roja?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Pase." },
       { letter: "b", text: "Ceda el paso." },
@@ -1986,11 +1986,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Ese triángulo invertido obliga a reducir y, si es necesario, a detenerse para dejar pasar a los vehículos de la vía preferente, incorporándose sólo cuando no se interfiera su marcha.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 1",
-    adaptada: true,
+    images: ["ceda"],
   },
   {
     n: 140,
-    question: "¿Qué significa una señal circular de fondo blanco con orla roja que lleva en su interior sólo una cifra negra, sin ninguna palabra ni leyenda bajo el número?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Velocidad máxima." },
       { letter: "b", text: "Velocidad mínima." },
@@ -2001,11 +2001,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Es una señal reglamentaria: la cifra sola fija el máximo que no se puede exceder en ese tramo. La que exige un piso mínimo lleva además una leyenda, y las aconsejadas van en señales de advertencia.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 2",
-    adaptada: true,
+    images: ["velocidad-max"],
   },
   {
     n: 141,
-    question: "¿Qué significa una señal de advertencia en forma de rombo, fondo amarillo y orla negra, que muestra la silueta de dos figuras pequeñas, una de ellas corriendo tras una pelota que rueda por el suelo?",
+    question: "¿Qué significa la señal que aparece en la imagen?",
     options: [
       { letter: "a", text: "Niños jugando." },
       { letter: "b", text: "Proximidad de paso de cebra." },
@@ -2016,11 +2016,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El rombo amarillo anuncia un peligro y las siluetas pequeñas corriendo tras una pelota advierten un sector donde pueden aparecer de improviso en la calzada; obliga a bajar la velocidad y extremar la atención.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 3",
-    adaptada: true,
+    images: ["ninos"],
   },
   {
     n: 142,
-    question: "¿Qué significa una señal de advertencia en forma de rombo, fondo amarillo y orla negra, con la silueta de una persona caminando sobre unas franjas paralelas pintadas en la calzada?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Niños jugando." },
       { letter: "b", text: "Proximidad de paso de cebra." },
@@ -2031,11 +2031,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El rombo anticipa un peligro cercano y la figura que camina sobre franjas transversales anuncia el cruce demarcado que viene más adelante; corresponde disminuir la velocidad y ceder el paso a quien cruce.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 4",
-    adaptada: true,
+    images: ["peatones"],
   },
   {
     n: 143,
-    question: "¿Qué significa una señal de advertencia en forma de rombo, fondo amarillo y orla negra, que muestra a dos figuras caminando tomadas de la mano, la más alta con un bolso de libros al hombro?",
+    question: "¿Qué significa la siguiente señal?",
     options: [
       { letter: "a", text: "Niños jugando." },
       { letter: "b", text: "Proximidad de paso de cebra." },
@@ -2046,11 +2046,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las figuras caminando con bolso de libros advierten que se circula frente a un establecimiento educacional, con gran presencia de escolares; exige velocidad muy baja y máxima precaución en los horarios de entrada y salida.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 5",
-    adaptada: true,
+    images: ["zona-escuela-rombo"],
   },
   {
     n: 144,
-    question: "¿Qué significa una señal de advertencia en forma de rombo, fondo amarillo y orla negra, con tres flechas curvas negras que giran en un mismo sentido alrededor de un punto central?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Proximidad de rotonda." },
       { letter: "b", text: "Viento fuerte." },
@@ -2061,11 +2061,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las tres flechas girando en círculo anticipan un enlace donde el tránsito circula en torno a una isla central; hay que reducir la velocidad y prepararse a ceder el paso a quien ya circula dentro.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 6",
-    adaptada: true,
+    images: ["rotonda"],
   },
   {
     n: 145,
-    question: "¿Qué significa una señal circular de fondo blanco con orla roja, que muestra una flecha negra que se dobla hacia la izquierda y aparece tachada por una franja diagonal roja?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "No virar a la izquierda." },
       { letter: "b", text: "No virar en U." },
@@ -2076,11 +2076,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La orla roja con la franja diagonal indica prohibición, y el símbolo tachado muestra la maniobra vedada: doblar hacia ese costado en la intersección donde está instalada la señal.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 7",
-    adaptada: true,
+    images: ["no-virar-izquierda"],
   },
   {
     n: 146,
-    question: "¿Qué significa una señal circular de fondo blanco con orla roja, que muestra una flecha negra que gira 180 grados sobre sí misma hasta quedar apuntando en sentido contrario, tachada por una franja diagonal roja?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "No virar a la izquierda." },
       { letter: "b", text: "No virar en U." },
@@ -2091,11 +2091,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La flecha que se devuelve sobre sí misma representa el cambio de sentido en el mismo punto y, al estar tachada por la franja roja, esa maniobra queda prohibida en ese lugar.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 8",
-    adaptada: true,
+    images: ["no-virar-u"],
   },
   {
     n: 147,
-    question: "¿Qué significa una señal de advertencia en forma de rombo, fondo amarillo y orla negra, que muestra de perfil una elevación que sobresale de la superficie de la calzada?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Resalto." },
       { letter: "b", text: "Pavimento en mal estado." },
@@ -2106,11 +2106,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El perfil elevado sobre la calzada anuncia un dispositivo instalado para obligar a bajar la velocidad; conviene frenar antes y pasarlo lento para no dañar el vehículo ni perder el control.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 9",
-    adaptada: true,
+    images: ["baden"],
   },
   {
     n: 148,
-    question: "¿Qué significa una señal reglamentaria circular, de fondo blanco con orla roja, cruzada por una única franja diagonal roja?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Prohibido estacionar." },
       { letter: "b", text: "Prohibido estacionar y detenerse." },
@@ -2121,11 +2121,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Con una sola diagonal, la señal impide dejar el vehículo detenido en ese tramo, aunque sí permite una detención momentánea, por ejemplo para que suba o baje un pasajero.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 10",
-    adaptada: true,
+    images: ["no-estacionar"],
   },
   {
     n: 149,
-    question: "¿Qué significa una señal reglamentaria circular, de fondo blanco con orla roja, cruzada por dos franjas rojas que forman un aspa?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Prohibido estacionar." },
       { letter: "b", text: "Prohibido estacionar y detenerse." },
@@ -2136,11 +2136,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Cuando las diagonales son dos y se cruzan, la restricción es total en ese tramo: no puedes dejar el vehículo ahí ni tampoco parar un instante para bajar o subir pasajeros.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 11",
-    adaptada: true,
+    images: ["prohibido-estacionar-y-detenerse"],
   },
   {
     n: 150,
-    question: "¿Qué significa una señal reglamentaria circular, de fondo blanco con orla roja, que muestra una flecha negra apuntando en un solo sentido y sin ninguna franja diagonal que la tache?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Dirección obligada." },
       { letter: "b", text: "Permitido virar a la derecha." },
@@ -2151,11 +2151,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Al no llevar la franja diagonal, la señal no prohíbe sino que ordena: marca el único sentido que se puede tomar desde ese punto, sin dejarlo a elección del conductor.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 12",
-    adaptada: true,
+    images: ["direccion-obligada"],
   },
   {
     n: 151,
-    question: "¿Qué significa una demarcación formada por franjas blancas anchas, paralelas entre sí y transversales a la calzada, pintadas de una acera a la otra?",
+    question: "¿Qué significa la demarcación encerrada en el recuadro?",
     options: [
       { letter: "a", text: "Paso de peatones." },
       { letter: "b", text: "Paso de ciclistas." },
@@ -2166,11 +2166,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Esas franjas anchas de vereda a vereda delimitan el sector destinado a que las personas atraviesen la calzada; quien conduce debe detenerse antes de ellas y cederles el paso.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 13",
-    adaptada: true,
+    images: ["demarcacion-paso-peatones"],
   },
   {
     n: 152,
-    question: "¿Qué significa una demarcación formada por dos hileras paralelas de cuadrados blancos que atraviesan la calzada, como prolongación de una vía segregada y separada del resto del tránsito?",
+    question: "¿Qué significa la demarcación encerrada en el recuadro?",
     options: [
       { letter: "a", text: "Paso de peatones." },
       { letter: "b", text: "Paso de ciclistas." },
@@ -2181,11 +2181,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Los recuadros en dos hileras marcan la continuidad de la vía para bicicletas al atravesar la calzada; el automovilista debe respetar ese cruce, no invadirlo ni quedar detenido sobre él.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 14",
-    adaptada: true,
+    images: ["demarcacion-paso-ciclistas"],
   },
   {
     n: 153,
-    question: "¿Qué significa una demarcación consistente en una franja blanca continua y ancha, pintada de lado a lado de la pista y ubicada antes del cruce peatonal de una intersección?",
+    question: "¿Qué significa la demarcación encerrada en el recuadro?",
     options: [
       { letter: "a", text: "Paso de peatones." },
       { letter: "b", text: "Paso de ciclistas." },
@@ -2196,11 +2196,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Esa franja transversal marca hasta dónde puede avanzar el vehículo al enfrentar una luz roja o un signo PARE, dejando libre el cruce que usan los peatones.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 15",
-    adaptada: true,
+    images: ["linea-detencion"],
   },
   {
     n: 154,
-    question: "En la calzada aparece una zona pintada con franjas diagonales blancas paralelas (achurado), delimitada por líneas continuas. Respecto de esa demarcación:",
+    question: "Respecto de la demarcación de la imagen:",
     options: [
       { letter: "a", text: "No se puede transitar sobre la zona achurada." },
       { letter: "b", text: "Solo los triciclos motorizados de carga pueden circular sobre la zona achurada." },
@@ -2211,11 +2211,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El achurado marca una superficie de la calzada excluida de la circulación, que separa flujos o protege un punto conflictivo; ningún vehículo debe transitar ni estacionar sobre ella.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 16",
-    adaptada: true,
+    images: ["demarcacion-achurado"],
   },
   {
     n: 155,
-    question: "¿Qué significa una demarcación formada por una cuadrícula de líneas amarillas cruzadas, pintada sobre toda la superficie de una intersección?",
+    question: "¿Qué significa la demarcación de la imagen?",
     options: [
       { letter: "a", text: "Cruce de ferrocarriles." },
       { letter: "b", text: "No bloquear cruce." },
@@ -2226,11 +2226,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La cuadrícula amarilla advierte que no debes ingresar a la intersección si no tienes espacio para salir de ella, para no quedar detenido obstruyendo el paso transversal.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 17",
-    adaptada: true,
+    images: ["demarcacion-no-bloquear-cruce"],
   },
   {
     n: 156,
-    question: "En la pista por la que circulas, el pavimento está demarcado con una única flecha blanca que se curva hacia la derecha. ¿Qué indica esa demarcación?",
+    question: "¿Qué significa la demarcaciónde la imagen?",
     options: [
       { letter: "a", text: "Solo se puede virar a la derecha." },
       { letter: "b", text: "Es posible continuar derecho o virar a la izquierda." },
@@ -2241,11 +2241,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las flechas pintadas en el pavimento señalan los únicos movimientos permitidos desde esa pista; si aparece solo una curvada hacia ese costado, no puedes seguir de frente ni tomar otra dirección.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 19",
-    adaptada: true,
+    images: ["flecha-pavimento-derecha"],
   },
   {
     n: 157,
-    question: "¿Qué significan dos líneas continuas paralelas pintadas al centro de la calzada?",
+    question: "¿Qué significan las dos líneas continuas de la imagen?",
     options: [
       { letter: "a", text: "Separan a los vehículos que circulan en sentidos opuestos." },
       { letter: "b", text: "Separan dos pistas que van en el mismo sentido de tránsito." },
@@ -2256,7 +2256,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La doble línea continua al centro divide los flujos que avanzan en direcciones contrarias y no puede ser cruzada, por lo que ahí no se permite adelantar invadiendo la pista contraria.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 20",
-    adaptada: true,
+    images: ["doble-linea-continua"],
   },
   {
     n: 158,
@@ -2764,7 +2764,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 194,
-    question: "En un semáforo, ¿qué indica una luz verde con forma de flecha que apunta hacia arriba?",
+    question: "¿Qué indica el semáforo de la imagen?",
     options: [
       { letter: "a", text: "Solo puedes virar a la izquierda." },
       { letter: "b", text: "Solo puedes seguir derecho." },
@@ -2775,11 +2775,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La flecha verde autoriza el paso únicamente en el sentido que apunta; si apunta hacia arriba solo habilita continuar de frente, y virar quedaría fuera de lo permitido.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 72",
-    adaptada: true,
+    images: ["semaforo-flecha-verde-arriba"],
   },
   {
     n: 195,
-    question: "En un semáforo, ¿qué indica una luz verde con forma de flecha que apunta hacia el costado derecho?",
+    question: "¿Qué indica el semáforo de la imagen?",
     options: [
       { letter: "a", text: "Solo puedes virar a la derecha." },
       { letter: "b", text: "Solo puedes seguir derecho." },
@@ -2790,11 +2790,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "La flecha verde habilita solo el movimiento que señala; apuntando hacia el costado derecho autoriza únicamente ese viraje, por lo que seguir de frente no está permitido.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 73",
-    adaptada: true,
+    images: ["semaforo-flecha-verde-derecha"],
   },
   {
     n: 196,
-    question: "¿Qué significa una señal luminosa con un aspa o cruz de color rojo instalada sobre una pista de circulación?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "No puedes utilizar esa pista." },
       { letter: "b", text: "Debes circular con precaución por esa pista." },
@@ -2805,7 +2805,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El aspa roja cierra esa pista al tránsito de todos los vehículos, generalmente por obras, un siniestro o un cambio de sentido, así que debes cambiarte a una pista habilitada.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 74",
-    adaptada: true,
+    images: ["senal-luminosa-aspa-roja"],
   },
   {
     n: 197,
@@ -3562,7 +3562,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 250,
-    question: "¿Qué significa una señal en forma de rombo, con fondo amarillo o amarillo verde fluorescente, y la silueta negra de una bicicleta?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Ciclovía." },
       { letter: "b", text: "Cruces de ciclistas." },
@@ -3573,11 +3573,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El rombo amarillo corresponde a las señales que advierten un peligro próximo: anuncia que más adelante hay ciclistas atravesando la calzada. Las señales de ciclovía y de estacionamiento de bicicletas son informativas, no de advertencia.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 134",
-    adaptada: true,
+    images: ["cruce-ciclistas"],
   },
   {
     n: 251,
-    question: "¿Qué significa una señal en forma de rombo, con fondo amarillo, que lleva dibujado en su interior un octágono rojo con letras blancas?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Proximidad a Señal PARE." },
       { letter: "b", text: "Señal PARE para ciclistas." },
@@ -3588,7 +3588,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las señales de advertencia en rombo amarillo anticipan lo que viene más adelante; al reproducir el octágono rojo avisan que se acerca una detención obligatoria y debes prepararte para detenerte.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 135",
-    adaptada: true,
+    images: ["proximidad-pare"],
   },
   {
     n: 252,
@@ -3662,7 +3662,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 257,
-    question: "En la pista por la que circulas hay pintada en el pavimento una flecha blanca curvada hacia la izquierda, sin ninguna flecha recta que la acompañe. ¿Qué indica esa demarcación?",
+    question: "¿Qué indica la demarcación de la imagen?",
     options: [
       { letter: "a", text: "Solo puedes virar a la izquierda." },
       { letter: "b", text: "Hay una curva a la izquierda." },
@@ -3673,11 +3673,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Las flechas pintadas en la calzada son obligatorias: quien toma esa pista debe seguir la única dirección indicada y no puede continuar de frente ni desviarse hacia otro lado.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 143",
-    adaptada: true,
+    images: ["flecha-pavimento-viraje-izquierda"],
   },
   {
     n: 258,
-    question: "¿Qué indica una demarcación formada por dos líneas paralelas segmentadas, pintadas con cuadrados blancos, que atraviesan la calzada de un costado a otro?",
+    question: "¿Qué indica la demarcación de la imagen?",
     options: [
       { letter: "a", text: "Paso de peatones." },
       { letter: "b", text: "Cruce de ciclistas." },
@@ -3688,11 +3688,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "Esa demarcación delimita el espacio por donde las bicicletas atraviesan la calzada. El paso peatonal se pinta con franjas anchas continuas y el “no bloquear cruce” con una cuadrícula amarilla.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 145",
-    adaptada: true,
+    images: ["demarcacion-cruce-ciclistas"],
   },
   {
     n: 259,
-    question: "¿Qué significa una señal cuadrada de fondo azul con una letra E blanca en el centro, sin ningún otro símbolo junto a ella?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Está permitido estacionar." },
       { letter: "b", text: "Estacionamiento para personas en situación de discapacidad." },
@@ -3703,7 +3703,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El fondo azul identifica a las señales informativas y la letra E avisa que en ese lugar se autoriza dejar el vehículo. Los usos reservados llevan además el símbolo que corresponde.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 146",
-    adaptada: true,
+    images: ["estacionamiento-permitido"],
   },
   {
     n: 260,
@@ -3721,7 +3721,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
   },
   {
     n: 261,
-    question: "Circulas por la pista derecha de una calzada cuyas pistas están separadas por una línea continua. ¿Puedes cambiarte a la pista izquierda?",
+    question: "Si en la imagen vas por la pista derecha, ¿puedes cambiarte a la pista izquierda?",
     options: [
       { letter: "a", text: "Sí." },
       { letter: "b", text: "No." },
@@ -3732,11 +3732,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "normas",
     explanation: "La línea continua no se puede pisar ni traspasar, ya que marca tramos de riesgo o sin visibilidad. El cambio de pista solo se permite donde la demarcación es segmentada.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 148",
-    adaptada: true,
+    images: ["linea-continua"],
   },
   {
     n: 262,
-    question: "¿Qué significa una señal en forma de rombo con fondo amarillo, cuyo símbolo son dos líneas negras que representan la calzada y donde la del costado derecho se inclina hacia el centro?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Angostamiento del lado derecho de la calle." },
       { letter: "b", text: "Agostamiento del lado izquierdo de la calle." },
@@ -3747,11 +3747,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El rombo amarillo advierte un peligro próximo y el símbolo reproduce la forma de la vía: la calzada pierde ancho por su costado derecho, así que debes moderar la velocidad y corregir tu posición.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 149",
-    adaptada: true,
+    images: ["angostamiento-derecha"],
   },
   {
     n: 263,
-    question: "¿Qué significa una señal en forma de rombo, con fondo amarillo o amarillo verde fluorescente, y la silueta negra de dos menores corriendo tras una pelota?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Niños jugando." },
       { letter: "b", text: "Zona de escuela." },
@@ -3762,11 +3762,11 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El símbolo avisa que en ese sector hay menores entretenidos junto a la calzada y pueden salir de improviso. La zona de escuela se representa con dos escolares caminando.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 150",
-    adaptada: true,
+    images: ["ninos"],
   },
   {
     n: 264,
-    question: "¿Qué significa una señal de forma octogonal, con fondo rojo y orla blanca?",
+    question: "¿Qué significa la señal de la imagen?",
     options: [
       { letter: "a", text: "Ceda el paso." },
       { letter: "b", text: "PARE." },
@@ -3777,7 +3777,7 @@ export const CONASET_QUESTIONS: OficialQuestion[] = [
     category: "senales",
     explanation: "El octágono rojo es la única señal con esa forma y obliga a detener totalmente el vehículo antes de la línea de detención, para reanudar la marcha solo cuando no exista riesgo.",
     fuente: "Cuestionario Base Examen Teórico de CONASET, clase C Restringida, pregunta 151",
-    adaptada: true,
+    images: ["pare"],
   },
   {
     n: 265,

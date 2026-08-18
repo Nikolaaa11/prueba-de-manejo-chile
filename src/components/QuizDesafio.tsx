@@ -20,6 +20,7 @@ import {
   type OficialCategory,
   type OficialQuestion,
 } from "@/data/oficial-types";
+import { Sign, isSignName } from "@/components/Signs";
 import * as sfx from "@/lib/sfx";
 
 /**
@@ -649,6 +650,8 @@ function TarjetaPregunta({
   onElegir: (letra: string) => void;
 }) {
   const multi = isMulti(q);
+  // Solo se pintan las claves que el catalogo sabe dibujar; el resto se ignora.
+  const senales = (q.images ?? []).filter(isSignName);
 
   return (
     <div className="card p-6">
@@ -665,7 +668,22 @@ function TarjetaPregunta({
 
       <h2 className="mt-4 text-lg font-semibold leading-snug text-ink">{q.question}</h2>
 
-      {q.imageDependent && q.imageDescription && (
+      {senales.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-end gap-4">
+          {senales.map((name, i) => (
+            <div key={`${name}-${i}`} className="text-center">
+              <div className="sign-plate">
+                <Sign name={name} size={104} />
+              </div>
+              {senales.length > 1 && (
+                <div className="mt-1 text-xs font-semibold text-neutral-500">{i + 1}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {senales.length === 0 && q.imageDependent && q.imageDescription && (
         <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
           <strong className="font-semibold">🖼️ Imagen descrita: </strong>
           {q.imageDescription}

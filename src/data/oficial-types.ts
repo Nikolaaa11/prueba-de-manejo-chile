@@ -74,6 +74,12 @@ export interface OficialQuestion {
    */
   fuente?: string;
   /**
+   * Senales que acompanan la pregunta, dibujadas como SVG (ver `components/Signs`).
+   * Van en el mismo orden en que el enunciado las numera, asi una pregunta puede
+   * mostrar varias. Son claves de `SignName`; las desconocidas simplemente no se pintan.
+   */
+  images?: string[];
+  /**
    * El PDF original acompana la pregunta con una imagen (senal, foto o dibujo) que no
    * se pudo extraer. `imageDescription` describe en palabras lo que muestra la imagen
    * para que la pregunta siga siendo respondible.

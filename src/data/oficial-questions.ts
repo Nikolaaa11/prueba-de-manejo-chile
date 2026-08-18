@@ -115,8 +115,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "mecanica",
     explanation: "El testigo triangular que destella corresponde a las luces intermitentes de advertencia de peligro o balizas, que se encienden en ambos costados a la vez. No es el aviso de neblineras, de luces altas ni de freno de mano.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen del testigo o luz de advertencia del panel de instrumentos. Por las alternativas y la respuesta correcta (b: intermitentes de advertencia de peligro) se trata del testigo de las balizas o luces intermitentes de emergencia (dos triángulos rojos / triángulo dentro de triángulo). Las alternativas sí son de texto y están transcritas.",
+    images: ["luz-intermitentes-emergencia"],
   },
   {
     n: 8,
@@ -1622,8 +1621,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "La señal de viraje a la derecha anuncia que el camión girará hacia ese lado, por lo que usted no debe intentar pasarlo por la derecha. Una señalización nunca es una invitación a adelantar.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen (fotografía o dibujo) del camión que circula delante suyo efectuando una señal. Las alternativas sí están en el texto. Por las alternativas y la respuesta correcta (c: el camión va a virar a la derecha) se trata de la señal de viraje a la derecha del camión (indicador luminoso o señal de brazo).",
+    images: ["brazo-viraje-derecha"],
   },
   {
     n: 112,
@@ -2985,8 +2983,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "Esta señal de advertencia anuncia una zona de escuela: posible presencia de escolares cruzando o caminando junto a la vía, por lo que debe reducir la velocidad y extremar la atención. No indica un cruce peatonal demarcado.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal de tránsito que acompaña al enunciado. Por las alternativas y la respuesta correcta (a: posible presencia de escolares) se trata de la señal de advertencia de zona de escuela / niños escolares. Nota: el enunciado quedó al final de la página p35 y la línea 'Marque una respuesta' junto con las alternativas a) a d) continúan en la página siguiente (p36), donde también iba la imagen.",
+    images: ["zona-escuela"],
   },
   {
     n: 206,
@@ -3536,8 +3533,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     category: "velocidad",
     critical: "velocidad",
     explanation: "La señal de velocidad máxima es reglamentaria, no una sugerencia: fija el tope legal de ese tramo y excederlo es infracción, sin excepción por días de poco tránsito. Tampoco obliga a ir siempre más lento que la cifra.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (c: que usted no debe exceder esta velocidad) se trata de una señal reglamentaria de velocidad máxima.",
+    images: ["velocidad-max"],
   },
   {
     n: 245,
@@ -3553,8 +3549,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     category: "velocidad",
     critical: "velocidad",
     explanation: "Es una señal reglamentaria: la cifra indica el máximo permitido y superarla constituye infracción. No es un consejo ni una velocidad recomendada que dependa del tránsito del momento.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (a: usted no debe exceder la velocidad indicada) se trata de una señal reglamentaria de velocidad máxima.",
+    images: ["velocidad-max"],
   },
   {
     n: 246,
@@ -3583,8 +3578,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "El símbolo del vehículo con huellas de derrape advierte que la calzada puede estar resbaladiza por lluvia, aceite o desgaste. Corresponde reducir la velocidad y evitar frenadas bruscas; no anuncia gravilla suelta ni curvas.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (c: pavimento resbaladizo) se trata de la señal de advertencia de pavimento resbaladizo.",
+    images: ["pavimento-resbaladizo"],
   },
   {
     n: 248,
@@ -3599,8 +3593,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "Es una señal reglamentaria que prohíbe adelantar mientras dure ese tramo, por lo que debe permanecer en su pista aunque el vehículo delantero vaya lento. No ordena mantenerse a la derecha ni otorga preferencia al tránsito contrario.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (a: no adelantar) se trata de la señal reglamentaria de prohibido adelantar.",
+    images: ["no-adelantar"],
   },
   {
     n: 249,
@@ -3631,8 +3624,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "La señal PARE obliga a detención completa antes de la línea de detención, haya o no vehículos o peatones. Detenerse solo cuando viene alguien, o pasar a baja velocidad, es infracción.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (d: detenerse siempre) se trata de la señal reglamentaria PARE.",
+    images: ["pare"],
   },
   {
     n: 251,
@@ -3647,8 +3639,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "Esta señal de advertencia anuncia que más adelante hay un semáforo, muchas veces poco visible por curvas o pendientes. Sirve para reducir la velocidad y quedar preparado para detenerse; no informa fallas ni sincronización.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (b: proximidad de semáforo) se trata de la señal de advertencia de proximidad de semáforo.",
+    images: ["proximidad-semaforo"],
   },
   {
     n: 252,
@@ -3705,8 +3696,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "Es una señal de advertencia: avisa que más adelante la vía pasa a tener dos sentidos de tránsito, con vehículos de frente. Exige extremar la precaución, sobre todo al adelantar; no anuncia angostamiento ni proximidad de doble calzada.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (d: dos sentidos de tránsito más adelante) se trata de la señal de advertencia de doble sentido de tránsito (fin de doble calzada).",
+    images: ["doble-sentido"],
   },
   {
     n: 256,
@@ -3721,8 +3711,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "La advertencia con la figura del peatón sobre la senda anuncia un cruce peatonal próximo, donde debe reducir la velocidad y estar listo para ceder el paso. Zona de escuela y niños jugando son señales distintas.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (b: cruce de peatones) se trata de la señal de advertencia de cruce de peatones.",
+    images: ["peatones"],
   },
   {
     n: 257,
@@ -3753,8 +3742,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "El rombo amarillo con la bicicleta es una advertencia: anuncia un tramo con presencia frecuente de ciclistas, para que baje la velocidad y respete la distancia lateral al adelantarlos. No prohíbe ni ordena nada a los ciclistas.",
-    imageDependent: true,
-    imageDescription: "Falta la imagen de la señal. Por las alternativas y la respuesta correcta (d: zona donde es muy probable la presencia de ciclistas en la vía) se trata de la señal de advertencia de ciclistas en la vía.",
+    images: ["ciclistas"],
   },
   {
     n: 259,
@@ -3815,8 +3803,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "En una línea central mixta manda la línea que el conductor tiene más cerca: quien va por la pista B enfrenta la línea continua y no puede traspasarla, mientras que desde la pista A sí se permite adelantar.",
-    imageDependent: true,
-    imageDescription: "Falta la figura de la demarcación de centro de calzada con dos pistas rotuladas A y B. Por las alternativas y la respuesta correcta (b) se trata de una línea central mixta (una línea segmentada del lado de la pista A y una línea continua del lado de la pista B), que impide traspasarla al conductor que va por la pista B.",
+    images: ["linea-eje-mixta"],
   },
   {
     n: 263,
@@ -3861,8 +3848,7 @@ export const OFICIAL_QUESTIONS: OficialQuestion[] = [
     marca: "Marque una respuesta",
     category: "senales",
     explanation: "El triángulo invertido CEDA EL PASO obliga a dar prioridad a los vehículos que circulan por la otra vía, reduciendo la marcha o deteniéndose si es necesario. No es una simple advertencia ni exige detención siempre, como el PARE.",
-    imageDependent: true,
-    imageDescription: "Falta la fotografía de la señal. Por las alternativas y la respuesta correcta (c: obligación de ceder el paso a los vehículos que se aproximen por la otra vía) se trata de la señal reglamentaria CEDA EL PASO (triángulo invertido).",
+    images: ["ceda"],
   },
   {
     n: 266,
