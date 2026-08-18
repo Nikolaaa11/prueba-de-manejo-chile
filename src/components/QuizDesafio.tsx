@@ -244,7 +244,6 @@ function Desafio() {
           onReiniciar={() => persistir({ ...datos, estudio: {} })}
           onVolver={() => setFase("inicio")}
           onRuleta={iniciarRuleta}
-          completo={completo}
         />
       )}
 
@@ -351,7 +350,7 @@ function Inicio({
         </button>
       </div>
 
-      <div className={`card p-6 ${completo ? "" : "opacity-90"}`}>
+      <div className="card p-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h2 className="text-lg font-semibold">Paso 2 · La ruleta y el test real</h2>
@@ -379,28 +378,17 @@ function Inicio({
           </li>
         </ul>
 
-        {completo ? (
-          <button type="button" onClick={onRuleta} className="btn-primary mt-5">
+        <div className="mt-5 space-y-2">
+          <button type="button" onClick={onRuleta} className="btn-primary">
             🎰 Girar la ruleta
           </button>
-        ) : (
-          <div className="mt-5 space-y-2">
-            <button type="button" disabled className="btn-primary cursor-not-allowed">
-              🔒 Responde las {total} preguntas para desbloquear
-            </button>
+          {!completo && (
             <p className="text-xs text-neutral-500">
-              Te faltan {total - respondidas}.{" "}
-              <button
-                type="button"
-                onClick={onRuleta}
-                className="text-brand underline underline-offset-2"
-              >
-                O ve directo al desafío
-              </button>
-              .
+              Puedes rendirlo cuando quieras. Llevas {respondidas} de {total}{" "}
+              estudiadas.
             </p>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {datos.desafiosTotales > 0 && (
@@ -443,14 +431,12 @@ function Estudio({
   onReiniciar,
   onVolver,
   onRuleta,
-  completo,
 }: {
   marcadas: Marcadas;
   onMarcar: (n: number, letras: string[]) => void;
   onReiniciar: () => void;
   onVolver: () => void;
   onRuleta: () => void;
-  completo: boolean;
 }) {
   const cfg = useQuiz();
   const [filtro, setFiltro] = useState<OficialCategory | "all" | "pendientes">("all");
@@ -535,11 +521,9 @@ function Estudio({
           <span className="chip">
             {respondidas ? Math.round((aciertos / respondidas) * 100) : 0}% de aciertos
           </span>
-          {completo && (
-            <button type="button" onClick={onRuleta} className="btn-primary !px-4 !py-1.5 !text-xs">
-              🎰 A la ruleta
-            </button>
-          )}
+          <button type="button" onClick={onRuleta} className="btn-primary !px-4 !py-1.5 !text-xs">
+            🎰 A la ruleta
+          </button>
         </div>
       </div>
 
